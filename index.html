@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>diShine Digital Maturity Scorecard</title>
+  <meta name="description" content="Interactive five-dimension digital maturity assessment with live radar chart, tailored recommendations, and printable digital health report." />
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: rgba(12, 24, 43, 0.86);
+      --panel-soft: rgba(17, 31, 54, 0.72);
+      --line: rgba(148, 163, 184, 0.18);
+      --text: #ecf3ff;
+      --muted: #99abc8;
+      --brand: #4fd1c5;
+      --brand-2: #7c8cff;
+      --accent: #ffd166;
+      --danger: #fb7185;
+      --good: #34d399;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --max: 1280px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(79, 209, 197, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(124, 140, 255, 0.18), transparent 24%),
+        linear-gradient(180deg, #09111e 0%, #050b14 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+    .app {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .hero,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius-xl);
+    }
+
+    .hero {
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(79, 209, 197, 0.12);
+      color: #b8fff5;
+      font-size: 0.84rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid rgba(79, 209, 197, 0.2);
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1.02;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      max-width: 62ch;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .metric {
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(124, 140, 255, 0.16), rgba(79, 209, 197, 0.12));
+      border: 1px solid rgba(124, 140, 255, 0.2);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      min-height: 100%;
+    }
+
+    .hero-card h2 { margin-bottom: 12px; }
+    .hero-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 4px;
+      font-size: 1.45rem;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-ghost {
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #04111f;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+    }
+
+    .panel {
+      padding: 26px;
+      margin-bottom: 24px;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .dim-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .dim-chip strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+    }
+
+    .dim-chip span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .questions {
+      display: grid;
+      gap: 16px;
+    }
+
+    .dimension-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .dimension-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .dimension-header h3 {
+      margin-bottom: 6px;
+      font-size: 1.08rem;
+    }
+
+    .dimension-header p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .score-pill {
+      min-width: 112px;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(79, 209, 197, 0.12);
+      color: #c6fff8;
+      border: 1px solid rgba(79, 209, 197, 0.18);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .question {
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .question:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .question-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .question-title {
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .question small {
+      color: var(--muted);
+      display: block;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .scale label {
+      display: block;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .scale input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .scale span {
+      display: block;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 10px;
+      min-height: 68px;
+      transition: all 0.18s ease;
+    }
+
+    .scale strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .scale em {
+      font-style: normal;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .scale input:checked + span {
+      background: linear-gradient(180deg, rgba(79, 209, 197, 0.18), rgba(124, 140, 255, 0.2));
+      border-color: rgba(124, 140, 255, 0.4);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 10px 24px rgba(5, 11, 20, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .summary-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 1.34rem;
+    }
+
+    .stage-banner {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(79, 209, 197, 0.18), rgba(124, 140, 255, 0.16));
+      border: 1px solid rgba(124, 140, 255, 0.22);
+    }
+
+    .stage-banner small {
+      color: #cfe0ff;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .stage-banner strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .stage-banner p {
+      color: var(--muted);
+      margin-bottom: 0;
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .canvas-wrap {
+      margin-top: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: radial-gradient(circle at top, rgba(124, 140, 255, 0.12), transparent 40%), rgba(255,255,255,0.03);
+      padding: 18px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .dimension-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .dimension-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 50px;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+
+    .bar {
+      height: 10px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.1);
+    }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    .report {
+      margin-top: 28px;
+      background: linear-gradient(180deg, rgba(6, 13, 24, 0.96), rgba(10, 19, 35, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
+    }
+
+    .company-line {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 0.96rem;
+    }
+
+    .report-meta {
+      text-align: right;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+
+    .report-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .report-card h3 {
+      margin-bottom: 14px;
+      font-size: 1.05rem;
+    }
+
+    .score-ring {
+      width: 138px;
+      height: 138px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--brand) 0deg, var(--brand-2) var(--score-angle, 180deg), rgba(255,255,255,0.08) 0deg);
+      position: relative;
+    }
+
+    .score-ring::after {
+      content: "";
+      position: absolute;
+      inset: 11px;
+      border-radius: inherit;
+      background: #08111f;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .score-ring b,
+    .score-ring span {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      display: block;
+    }
+
+    .score-ring b {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .score-ring span {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .insight {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .report-list,
+    .service-list,
+    .roadmap-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .service-list li,
+    .roadmap-list li,
+    .report-list li {
+      padding-left: 4px;
+    }
+
+    .priority-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .priority {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .priority span {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(79, 209, 197, 0.12);
+      color: #bffcf2;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .priority h4 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .priority p {
+      color: var(--muted);
+      margin-bottom: 0;
+      line-height: 1.58;
+      font-size: 0.92rem;
+    }
+
+    .footnote {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .hide-print { display: block; }
+    .show-print { display: none; }
+
+    @media (max-width: 1100px) {
+      .hero,
+      .grid,
+      .report-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+      }
+      .intro-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .priority-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app { padding: 16px 12px 60px; }
+      .hero, .panel, .report { padding: 20px; }
+      .hero-metrics,
+      .summary-grid,
+      .scale,
+      .intro-grid,
+      .report-grid { grid-template-columns: 1fr; }
+      .dimension-header,
+      .section-title,
+      .report-header,
+      .question-head {
+        display: block;
+      }
+      .score-pill,
+      .report-meta {
+        margin-top: 10px;
+        text-align: left;
+      }
+      .dimension-row {
+        grid-template-columns: 92px 1fr 42px;
+      }
+    }
+
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --panel-soft: #ffffff;
+        --text: #101828;
+        --muted: #475467;
+        --line: rgba(16, 24, 40, 0.12);
+        --shadow: none;
+      }
+      body {
+        background: #ffffff;
+        color: #101828;
+      }
+      .app {
+        max-width: 100%;
+        padding: 0;
+      }
+      .hide-print,
+      .hero,
+      .grid > .panel:first-child,
+      .sidebar > .panel:first-child,
+      .controls {
+        display: none !important;
+      }
+      .grid,
+      .sidebar,
+      .report,
+      .report-grid,
+      .priority-grid {
+        display: block;
+      }
+      .report {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        background: #ffffff;
+      }
+      .report-card,
+      .priority {
+        break-inside: avoid;
+        background: #ffffff;
+        border-color: rgba(16,24,40,0.12);
+      }
+      .report-header,
+      .report-grid {
+        margin-bottom: 14px;
+      }
+      .report-grid > *,
+      .priority-grid > * {
+        margin-bottom: 12px;
+      }
+      .show-print { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero hide-print">
+      <div>
+        <div class="eyebrow">Digital strategy diagnostic by diShine</div>
+        <h1>Digital Maturity Scorecard</h1>
+        <p>
+          Assess your organisation across <strong>Data</strong>, <strong>AI</strong>, <strong>Experience</strong>,
+          <strong>Governance</strong>, and <strong>Performance</strong>. As you answer, the scorecard builds a live radar view,
+          calculates your maturity profile, and generates a concise roadmap with next steps linked to practical agency services.
+        </p>
+        <div class="hero-metrics">
+          <div class="metric">
+            <strong>20 evidence-based prompts</strong>
+            <span>Focused on operational readiness, not abstract opinions.</span>
+          </div>
+          <div class="metric">
+            <strong>5-point maturity scale</strong>
+            <span>From fragmented foundations to optimised cross-functional execution.</span>
+          </div>
+          <div class="metric">
+            <strong>Live radar visual</strong>
+            <span>See imbalance and hidden bottlenecks emerge as you score each dimension.</span>
+          </div>
+          <div class="metric">
+            <strong>Printable one-page report</strong>
+            <span>Turn the assessment into a board-ready digital health snapshot.</span>
+          </div>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h2>How to use it</h2>
+        <ul>
+          <li>Enter your organisation or client name.</li>
+          <li>Score each statement from 1 to 5 based on current reality.</li>
+          <li>Review your strongest and weakest dimensions.</li>
+          <li>Print or save the Digital Health Report as PDF for workshops, pitches, or follow-up consulting.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <div class="grid">
+      <section>
+        <section class="panel hide-print">
+          <div class="section-title">
+            <div>
+              <h2>Assessment inputs</h2>
+              <p>Capture the current state honestly. The output is strongest when the scoring reflects operational reality.</p>
+            </div>
+            <div class="controls">
+              <button class="btn-ghost" id="resetBtn" type="button">Reset all</button>
+            </div>
+          </div>
+          <div class="intro-grid">
+            <div class="dim-chip"><strong>Data</strong><span>Collection, accessibility, quality, and decision usefulness.</span></div>
+            <div class="dim-chip"><strong>AI</strong><span>Use-case clarity, enablement, governance, and adoption.</span></div>
+            <div class="dim-chip"><strong>Experience</strong><span>Customer journey design, content coherence, and personalisation.</span></div>
+            <div class="dim-chip"><strong>Governance</strong><span>Ownership, standards, workflows, compliance, and accountability.</span></div>
+            <div class="dim-chip"><strong>Performance</strong><span>Measurement discipline, experimentation, optimisation, and ROI visibility.</span></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title hide-print">
+            <div>
+              <h2>Organisation profile</h2>
+              <p>These details appear inside the final Digital Health Report.</p>
+            </div>
+          </div>
+          <div class="questions">
+            <div class="dimension-card">
+              <div class="question-head">
+                <div class="question-title">Organisation or client name</div>
+              </div>
+              <input id="companyName" type="text" placeholder="Example: Acme Retail Group" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;" />
+            </div>
+            <div class="dimension-card">
+              <div class="question-head">
+                <div class="question-title">Primary transformation ambition</div>
+              </div>
+              <textarea id="primaryGoal" rows="3" placeholder="Example: Unify data, improve campaign performance, and introduce practical AI into marketing operations." style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;resize:vertical;"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel hide-print">
+          <div class="section-title">
+            <div>
+              <h2>Five-dimension maturity assessment</h2>
+              <p>Score each prompt on a five-level maturity scale. Level labels stay visible to make the scoring consistent.</p>
+            </div>
+          </div>
+          <div class="questions" id="questionContainer"></div>
+        </section>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="section-title">
+            <div>
+              <h2>Live maturity profile</h2>
+              <p>Updated instantly as answers change.</p>
+            </div>
+          </div>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <span>Completion</span>
+              <strong id="completionPct">0%</strong>
+            </div>
+            <div class="summary-card">
+              <span>Overall score</span>
+              <strong id="overallScore">0.0 / 5</strong>
+            </div>
+          </div>
+          <div class="stage-banner">
+            <small>Current maturity stage</small>
+            <strong id="overallStage">Baseline forming</strong>
+            <p id="overallNarrative">Complete the scorecard to reveal your operating profile and tailored roadmap.</p>
+          </div>
+          <div class="canvas-wrap">
+            <canvas id="radarChart" width="520" height="520" aria-label="Digital maturity radar chart"></canvas>
+          </div>
+          <div class="dimension-list" id="dimensionList"></div>
+        </section>
+
+        <section class="panel hide-print">
+          <div class="section-title">
+            <div>
+              <h2>Report actions</h2>
+              <p>Use the one-page report in workshops, discovery calls, and client handovers.</p>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="btn-primary" id="printBtn" type="button">Export Digital Health Report</button>
+          </div>
+          <p class="footnote">
+            The export uses print-optimised styling. Choose <strong>Save as PDF</strong> in your browser print dialog to create a shareable file.
+          </p>
+        </section>
+      </aside>
+    </div>
+
+    <section class="report" id="reportCard">
+      <div class="report-header">
+        <div>
+          <div class="brand-lockup">
+            <div class="brand-mark"></div>
+            <div>
+              <div>diShine Digital Health Report</div>
+              <div class="company-line" id="reportCompany">Prepared for: Organisation not yet specified</div>
+            </div>
+          </div>
+        </div>
+        <div class="report-meta">
+          <div><strong>Date:</strong> <span id="reportDate"></span></div>
+          <div><strong>Assessment model:</strong> 5-dimension digital maturity scorecard</div>
+          <div class="show-print"><strong>Export:</strong> One-page PDF-ready report</div>
+        </div>
+      </div>
+
+      <div class="report-grid">
+        <div class="report-card">
+          <h3>Overall maturity snapshot</h3>
+          <div class="score-ring" id="scoreRing">
+            <div>
+              <b id="ringScore">0.0</b>
+              <span>/ 5 maturity</span>
+            </div>
+          </div>
+          <p class="insight" id="reportSummary">
+            The assessment is ready to translate into a practical digital roadmap once inputs are completed.
+          </p>
+          <ul class="report-list" id="keyFindings"></ul>
+        </div>
+        <div class="report-card">
+          <h3>Strategic focus and recommended diShine support</h3>
+          <p class="insight" id="goalSummary">
+            Add your primary transformation ambition above to tailor the report narrative.
+          </p>
+          <ul class="service-list" id="serviceRecommendations"></ul>
+        </div>
+      </div>
+
+      <div class="report-card">
+        <h3>90-day improvement roadmap</h3>
+        <div class="priority-grid" id="roadmapGrid"></div>
+      </div>
+
+      <p class="footnote">
+        This scorecard is a directional decision-support tool designed to accelerate discovery and prioritisation. It is most effective when used alongside stakeholder interviews, analytics review, and operating-model analysis.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const maturityLevels = {
+      1: { label: 'Fragmented', text: 'Ad hoc, inconsistent, mostly reactive.' },
+      2: { label: 'Emerging', text: 'Basic practice exists but remains uneven.' },
+      3: { label: 'Structured', text: 'Repeatable approach with partial alignment.' },
+      4: { label: 'Integrated', text: 'Cross-functional, governed, and scalable.' },
+      5: { label: 'Optimised', text: 'Continuously improved and value-led.' }
+    };
+
+    const dimensions = [
+      {
+        key: 'data',
+        name: 'Data',
+        description: 'Collection, accessibility, quality, and decision usefulness.',
+        services: [
+          'Measurement architecture and data layer rationalisation',
+          'Dashboard and KPI framework redesign',
+          'Data governance and source-of-truth alignment'
+        ],
+        roadmap: {
+          quick: 'Audit tracking coverage, naming conventions, and reporting definitions to remove blind spots in decision-making.',
+          next: 'Create a unified KPI dictionary and management dashboard that aligns marketing, product, and leadership reporting.',
+          later: 'Introduce a governed data operating model with ownership, quality controls, and activation workflows.'
+        },
+        questions: [
+          ['data_q1', 'Our critical marketing, CRM, and web data can be accessed in one consistent view.', 'This tests whether teams operate from a shared evidence base rather than siloed exports.'],
+          ['data_q2', 'Decision-makers trust the quality and timeliness of the data they use.', 'Poor trust usually signals tagging issues, missing definitions, or inconsistent refresh cycles.'],
+          ['data_q3', 'We have clear KPI definitions that are used consistently across teams.', 'Common definitions are essential for performance accountability and executive confidence.'],
+          ['data_q4', 'Data is actively used to prioritise campaigns, channels, and customer opportunities.', 'Maturity rises when data changes decisions, not just reporting decks.']
+        ]
+      },
+      {
+        key: 'ai',
+        name: 'AI',
+        description: 'Use-case clarity, enablement, governance, and adoption.',
+        services: [
+          'AI use-case prioritisation and adoption roadmap',
+          'Prompt workflow design for marketing and operations',
+          'AI governance guardrails and team enablement'
+        ],
+        roadmap: {
+          quick: 'Identify the highest-value, lowest-risk AI use cases across content, analytics, and workflow automation.',
+          next: 'Pilot practical AI workflows with clear owners, approval rules, and measurable productivity goals.',
+          later: 'Scale an AI enablement model with governance, training, and integration into day-to-day processes.'
+        },
+        questions: [
+          ['ai_q1', 'We have identified priority AI use cases linked to business outcomes.', 'Strong maturity starts with outcome-driven use cases rather than experimentation without a thesis.'],
+          ['ai_q2', 'Teams have repeatable prompts, workflows, or tools that improve quality or speed.', 'This reflects operationalised AI rather than occasional one-off usage.'],
+          ['ai_q3', 'We have clear guardrails for quality, compliance, data privacy, and human review.', 'AI maturity requires governance to scale safely.'],
+          ['ai_q4', 'AI adoption is monitored for value creation, not just novelty or experimentation.', 'A mature practice connects AI activity to throughput, cost, and growth metrics.']
+        ]
+      },
+      {
+        key: 'experience',
+        name: 'Experience',
+        description: 'Customer journey design, content coherence, and personalisation.',
+        services: [
+          'Customer journey and content experience redesign',
+          'Conversion-focused UX and messaging optimisation',
+          'Personalisation strategy across channels and lifecycle stages'
+        ],
+        roadmap: {
+          quick: 'Map the highest-friction customer journeys and align messaging to key decision moments.',
+          next: 'Redesign priority pages, lifecycle touchpoints, and content flows around conversion and clarity.',
+          later: 'Layer in audience-based personalisation using behavioural signals and performance feedback loops.'
+        },
+        questions: [
+          ['experience_q1', 'Our digital journeys are intentionally designed around customer needs and decision stages.', 'Journey maturity means experience is architected, not assembled channel by channel.'],
+          ['experience_q2', 'Brand, messaging, and content are coherent across web, campaign, and lifecycle touchpoints.', 'Consistency improves trust, recall, and conversion performance.'],
+          ['experience_q3', 'We regularly use audience insight or behaviour data to improve user experience.', 'This separates static experience design from learning-driven experience management.'],
+          ['experience_q4', 'We personalise key touchpoints based on audience, intent, or lifecycle stage.', 'Personalisation maturity indicates stronger relevance and orchestration.']
+        ]
+      },
+      {
+        key: 'governance',
+        name: 'Governance',
+        description: 'Ownership, standards, workflows, compliance, and accountability.',
+        services: [
+          'Digital operating model and role clarity design',
+          'Governance playbooks for campaigns, content, and analytics',
+          'Compliance-aware workflow and approval structure'
+        ],
+        roadmap: {
+          quick: 'Clarify decision rights, content approvals, and measurement ownership across the digital estate.',
+          next: 'Document standards, templates, and governance routines for recurring digital work.',
+          later: 'Embed a scalable operating model with formal accountability, risk controls, and cross-functional rituals.'
+        },
+        questions: [
+          ['governance_q1', 'Roles and ownership for digital channels, content, data, and technology are clearly defined.', 'Ambiguous ownership slows progress and weakens execution quality.'],
+          ['governance_q2', 'We use documented standards or playbooks for recurring digital activities.', 'Documented practice supports quality at scale and reduces person-dependence.'],
+          ['governance_q3', 'Approvals, compliance, and quality assurance are efficient without creating delivery bottlenecks.', 'Good governance protects the organisation without paralysing momentum.'],
+          ['governance_q4', 'Leadership reviews digital priorities and performance through a structured governance cadence.', 'Executive rhythm is a core indicator of strategic maturity.']
+        ]
+      },
+      {
+        key: 'performance',
+        name: 'Performance',
+        description: 'Measurement discipline, experimentation, optimisation, and ROI visibility.',
+        services: [
+          'Performance marketing and experimentation framework',
+          'Attribution and ROI visibility improvement',
+          'Continuous optimisation and growth review model'
+        ],
+        roadmap: {
+          quick: 'Define the core metrics, review cadence, and decision thresholds that govern optimisation.',
+          next: 'Launch an experimentation backlog covering media, content, landing pages, and lifecycle interventions.',
+          later: 'Build a continuous improvement engine that links budget allocation to evidence, incrementality, and ROI.'
+        },
+        questions: [
+          ['performance_q1', 'We can see which channels, campaigns, or initiatives are creating measurable business impact.', 'Visibility into contribution is the foundation of smart investment decisions.'],
+          ['performance_q2', 'We run structured tests or experiments to improve outcomes over time.', 'Experimentation is a hallmark of mature digital performance management.'],
+          ['performance_q3', 'Performance reviews lead to clear decisions on budget, content, journey, or process changes.', 'Reporting alone is not maturity; action based on learning is.'],
+          ['performance_q4', 'We have confidence in the return on digital investments and where to optimise next.', 'Confidence grows when measurement, governance, and experimentation work together.']
+        ]
+      }
+    ];
+
+    const state = {
+      companyName: '',
+      primaryGoal: '',
+      answers: {}
+    };
+
+    const els = {
+      questionContainer: document.getElementById('questionContainer'),
+      companyName: document.getElementById('companyName'),
+      primaryGoal: document.getElementById('primaryGoal'),
+      completionPct: document.getElementById('completionPct'),
+      overallScore: document.getElementById('overallScore'),
+      overallStage: document.getElementById('overallStage'),
+      overallNarrative: document.getElementById('overallNarrative'),
+      dimensionList: document.getElementById('dimensionList'),
+      radarChart: document.getElementById('radarChart'),
+      reportCompany: document.getElementById('reportCompany'),
+      reportDate: document.getElementById('reportDate'),
+      ringScore: document.getElementById('ringScore'),
+      scoreRing: document.getElementById('scoreRing'),
+      reportSummary: document.getElementById('reportSummary'),
+      keyFindings: document.getElementById('keyFindings'),
+      goalSummary: document.getElementById('goalSummary'),
+      serviceRecommendations: document.getElementById('serviceRecommendations'),
+      roadmapGrid: document.getElementById('roadmapGrid'),
+      resetBtn: document.getElementById('resetBtn'),
+      printBtn: document.getElementById('printBtn')
+    };
+
+    function saveState() {
+      localStorage.setItem('dishine_digital_maturity_scorecard', JSON.stringify(state));
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem('dishine_digital_maturity_scorecard');
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          state.companyName = parsed.companyName || '';
+          state.primaryGoal = parsed.primaryGoal || '';
+          state.answers = parsed.answers || {};
+        }
+      } catch (err) {
+        console.warn('Could not load saved state', err);
+      }
+    }
+
+    function getDimensionAverage(dim) {
+      const values = dim.questions.map(([id]) => Number(state.answers[id] || 0)).filter(Boolean);
+      if (!values.length) return 0;
+      return values.reduce((sum, n) => sum + n, 0) / dim.questions.length;
+    }
+
+    function getCompletion() {
+      const total = dimensions.reduce((acc, dim) => acc + dim.questions.length, 0);
+      const answered = Object.values(state.answers).filter(Boolean).length;
+      return { answered, total, pct: Math.round((answered / total) * 100) || 0 };
+    }
+
+    function getOverallAverage() {
+      const averages = dimensions.map(getDimensionAverage).filter(Boolean);
+      if (!averages.length) return 0;
+      return averages.reduce((sum, n) => sum + n, 0) / dimensions.length;
+    }
+
+    function getStage(score) {
+      if (score >= 4.5) return ['Optimised leader', 'Digital capability is embedded as a growth engine with strong integration, governance, and continuous improvement.'];
+      if (score >= 3.6) return ['Integrated performer', 'Core capabilities are working together well, though selective scaling opportunities remain across lower-scoring dimensions.'];
+      if (score >= 2.6) return ['Structured builder', 'Solid foundations exist, but cross-functional consistency and value capture still depend on sharper alignment and execution discipline.'];
+      if (score >= 1.6) return ['Emerging operator', 'Important capabilities are present in pockets, yet the organisation is still vulnerable to silos, inconsistency, and underused opportunities.'];
+      return ['Baseline forming', 'Current maturity appears fragmented, with the biggest opportunity lying in clearer priorities, ownership, and operating discipline.'];
+    }
+
+    function getPriorityDimensions() {
+      return [...dimensions]
+        .map(dim => ({ ...dim, avg: getDimensionAverage(dim) }))
+        .sort((a, b) => a.avg - b.avg);
+    }
+
+    function renderQuestions() {
+      els.questionContainer.innerHTML = dimensions.map((dim) => {
+        const avg = getDimensionAverage(dim);
+        const avgText = avg ? `${avg.toFixed(1)} / 5` : 'Not yet scored';
+        return `
+          <article class="dimension-card">
+            <div class="dimension-header">
+              <div>
+                <h3>${dim.name}</h3>
+                <p>${dim.description}</p>
+              </div>
+              <div class="score-pill">${avgText}</div>
+            </div>
+            ${dim.questions.map(([id, title, hint]) => `
+              <div class="question">
+                <div class="question-head">
+                  <div class="question-title">${title}</div>
+                </div>
+                <small>${hint}</small>
+                <div class="scale" role="radiogroup" aria-label="${title}">
+                  ${[1,2,3,4,5].map(level => `
+                    <label>
+                      <input type="radio" name="${id}" value="${level}" ${Number(state.answers[id]) === level ? 'checked' : ''} />
+                      <span>
+                        <strong>${level}</strong>
+                        <em>${maturityLevels[level].label}<br />${maturityLevels[level].text}</em>
+                      </span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </article>
+        `;
+      }).join('');
+
+      els.questionContainer.querySelectorAll('input[type="radio"]').forEach((input) => {
+        input.addEventListener('change', (event) => {
+          state.answers[event.target.name] = Number(event.target.value);
+          saveState();
+          refresh();
+        });
+      });
+    }
+
+    function renderDimensionList() {
+      els.dimensionList.innerHTML = dimensions.map((dim) => {
+        const avg = getDimensionAverage(dim);
+        const pct = Math.round((avg / 5) * 100);
+        return `
+          <div class="dimension-row">
+            <strong>${dim.name}</strong>
+            <div class="bar"><i style="width:${pct}%;"></i></div>
+            <span>${avg ? avg.toFixed(1) : '0.0'}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function drawRadar() {
+      const canvas = els.radarChart;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = Math.min(w, h) * 0.33;
+      const levels = 5;
+      const angleStep = (Math.PI * 2) / dimensions.length;
+      const rotation = -Math.PI / 2;
+
+      ctx.save();
+      ctx.translate(0.5, 0.5);
+
+      for (let level = 1; level <= levels; level++) {
+        const r = (radius / levels) * level;
+        ctx.beginPath();
+        dimensions.forEach((_, i) => {
+          const angle = rotation + i * angleStep;
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.closePath();
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.18)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      dimensions.forEach((dim, i) => {
+        const angle = rotation + i * angleStep;
+        const x = cx + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.18)';
+        ctx.stroke();
+
+        const labelX = cx + Math.cos(angle) * (radius + 34);
+        const labelY = cy + Math.sin(angle) * (radius + 34);
+        ctx.fillStyle = '#dbeafe';
+        ctx.font = '600 16px Inter, sans-serif';
+        ctx.textAlign = labelX < cx - 6 ? 'right' : labelX > cx + 6 ? 'left' : 'center';
+        ctx.textBaseline = labelY < cy ? 'bottom' : 'top';
+        ctx.fillText(dim.name, labelX, labelY);
+      });
+
+      const scores = dimensions.map(getDimensionAverage);
+      ctx.beginPath();
+      scores.forEach((score, i) => {
+        const value = score || 0;
+        const r = (value / 5) * radius;
+        const angle = rotation + i * angleStep;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      const gradient = ctx.createLinearGradient(0, 0, w, h);
+      gradient.addColorStop(0, 'rgba(79, 209, 197, 0.45)');
+      gradient.addColorStop(1, 'rgba(124, 140, 255, 0.45)');
+      ctx.fillStyle = gradient;
+      ctx.strokeStyle = 'rgba(255,255,255,0.92)';
+      ctx.lineWidth = 2.4;
+      ctx.fill();
+      ctx.stroke();
+
+      scores.forEach((score, i) => {
+        const r = ((score || 0) / 5) * radius;
+        const angle = rotation + i * angleStep;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        ctx.beginPath();
+        ctx.arc(x, y, 5.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.strokeStyle = '#4fd1c5';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      });
+
+      ctx.restore();
+    }
+
+    function buildFindings(priorityDims, overallScore) {
+      const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
+      const weakest = priorityDims[0];
+      const findings = [];
+
+      if (strongest && strongest.avg) {
+        findings.push(`<li><strong>Current strength:</strong> ${strongest.name} is the most mature dimension at ${strongest.avg.toFixed(1)} / 5, suggesting the organisation already has a credible base to scale from.</li>`);
+      }
+      if (weakest && weakest.avg) {
+        findings.push(`<li><strong>Primary constraint:</strong> ${weakest.name} is the weakest dimension at ${weakest.avg.toFixed(1)} / 5 and is likely limiting the pace of broader transformation.</li>`);
+      }
+      if (overallScore >= 3.6) {
+        findings.push('<li><strong>Strategic implication:</strong> The focus should now shift from foundational fixes to compounding value through deeper integration, experimentation, and governance precision.</li>');
+      } else if (overallScore >= 2.6) {
+        findings.push('<li><strong>Strategic implication:</strong> The organisation is ready for structured improvement, but value will depend on aligning teams, metrics, and decision rights more tightly.</li>');
+      } else {
+        findings.push('<li><strong>Strategic implication:</strong> Immediate progress is most likely to come from clarifying priorities, ownership, and a small set of practical operating standards.</li>');
+      }
+      return findings.join('');
+    }
+
+    function buildServices(priorityDims) {
+      const chosen = priorityDims.slice(0, 2).flatMap(dim => dim.services).slice(0, 5);
+      return chosen.map(item => `<li>${item}</li>`).join('');
+    }
+
+    function buildRoadmap(priorityDims) {
+      const labels = [
+        ['Days 1–30', 'Stabilise the basics', 'quick'],
+        ['Days 31–60', 'Build the operating layer', 'next'],
+        ['Days 61–90', 'Scale what works', 'later']
+      ];
+      const weakest = priorityDims[0] || dimensions[0];
+      const second = priorityDims[1] || dimensions[1];
+      const third = priorityDims[2] || dimensions[2];
+      const picks = [weakest, second, third];
+
+      return labels.map((meta, i) => {
+        const dim = picks[i];
+        return `
+          <div class="priority">
+            <span>${meta[0]}</span>
+            <h4>${meta[1]} — ${dim.name}</h4>
+            <p>${dim.roadmap[meta[2]]}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function refresh() {
+      renderQuestions();
+      renderDimensionList();
+      drawRadar();
+
+      const completion = getCompletion();
+      const overall = getOverallAverage();
+      const [stage, narrative] = getStage(overall);
+      const priorityDims = getPriorityDimensions();
+      const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
+      const weakest = priorityDims[0];
+
+      els.completionPct.textContent = `${completion.pct}%`;
+      els.overallScore.textContent = `${overall.toFixed(1)} / 5`;
+      els.overallStage.textContent = stage;
+      els.overallNarrative.textContent = narrative;
+
+      const company = state.companyName.trim() || 'Organisation not yet specified';
+      els.reportCompany.textContent = `Prepared for: ${company}`;
+      els.reportDate.textContent = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      els.ringScore.textContent = overall.toFixed(1);
+      els.scoreRing.style.setProperty('--score-angle', `${(overall / 5) * 360}deg`);
+
+      const summary = completion.pct < 100
+        ? `The assessment is ${completion.pct}% complete. Finish the remaining questions to sharpen the recommendations and expose the clearest strategic bottlenecks.`
+        : `${company} currently sits in the <strong>${stage}</strong> category with an overall digital maturity score of <strong>${overall.toFixed(1)} / 5</strong>. The most immediate leverage comes from strengthening <strong>${weakest.name}</strong> while preserving momentum in <strong>${strongest.name}</strong>.`;
+      els.reportSummary.innerHTML = summary;
+
+      els.keyFindings.innerHTML = buildFindings(priorityDims, overall);
+      els.serviceRecommendations.innerHTML = buildServices(priorityDims);
+      els.roadmapGrid.innerHTML = buildRoadmap(priorityDims);
+
+      const goal = state.primaryGoal.trim();
+      if (goal) {
+        els.goalSummary.innerHTML = `Primary ambition captured for this assessment: <strong>${goal}</strong>. The recommended support areas below are weighted toward that objective while still addressing the lowest maturity dimensions.`;
+      } else {
+        els.goalSummary.textContent = 'Add your primary transformation ambition above to tailor the report narrative.';
+      }
+
+      saveState();
+    }
+
+    function loadInputs() {
+      els.companyName.value = state.companyName;
+      els.primaryGoal.value = state.primaryGoal;
+    }
+
+    function bindStaticEvents() {
+      els.companyName.addEventListener('input', (e) => {
+        state.companyName = e.target.value;
+        saveState();
+        refresh();
+      });
+
+      els.primaryGoal.addEventListener('input', (e) => {
+        state.primaryGoal = e.target.value;
+        saveState();
+        refresh();
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        if (!confirm('Reset all answers and clear saved progress?')) return;
+        state.companyName = '';
+        state.primaryGoal = '';
+        state.answers = {};
+        localStorage.removeItem('dishine_digital_maturity_scorecard');
+        loadInputs();
+        refresh();
+      });
+
+      els.printBtn.addEventListener('click', () => window.print());
+    }
+
+    loadState();
+    loadInputs();
+    bindStaticEvents();
+    refresh();
+  </script>
+</body>
+</html>

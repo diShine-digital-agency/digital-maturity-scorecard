@@ -1,0 +1,20 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local browser and generated verification artifacts
+*.log
+rendered.html
+rendered-demo.html
+*.pdf
+
+# Local environment files
+.env
+.env.*
+
