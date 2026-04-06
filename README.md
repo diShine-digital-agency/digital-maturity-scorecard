@@ -4,7 +4,7 @@
 
 **digital-maturity-scorecard** is a single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
 
-The tool combines a structured twenty-question scorecard, a live radar chart, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage, and generates a focused ninety-day roadmap tied to practical **diShine** service areas.
+The tool combines a structured twenty-question scorecard, a live radar chart, dynamic real-time insights, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage, and generates a focused ninety-day roadmap tied to practical **diShine** service areas.
 
 Built by [diShine](https://dishine.it)
 
@@ -16,8 +16,8 @@ Built by [diShine](https://dishine.it)
 | --- | --- |
 | Repository purpose | Interactive digital maturity assessment for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
-| Dependencies | None |
-| Output | Live maturity profile, radar chart, tailored recommendations, printable report |
+| Dependencies | None (html2pdf.js for PDF export) |
+| Output | Live maturity profile, radar chart, dynamic insights, tailored recommendations, printable report |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
 | Primary value | Turns a discovery conversation into a structured diagnostic and action plan |
 
@@ -32,6 +32,7 @@ This means the scorecard is not just a visual gadget or lead magnet. It function
 | Diagnostic clarity | Exposes where digital capability is uneven, not just where it is weak overall |
 | Executive communication | Converts assessment inputs into a concise one-page Digital Health Report |
 | Strategic direction | Produces a ninety-day roadmap rather than a score with no follow-through |
+| Dynamic insights | Real-time, dimension-specific insights that adapt to the nature of results |
 | Agency relevance | Pins recommendations to diShine-style services so the output supports real consulting conversations |
 | Ease of adoption | Runs anywhere as a static file with no build process, packages, or frameworks |
 
@@ -79,26 +80,29 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 
 | Feature | Description |
 | --- | --- |
-| Live radar chart | Updates instantly as users answer the assessment |
+| Live radar chart | Updates instantly as users answer the assessment with properly positioned dimension labels |
 | Five-dimension scoring | Calculates per-dimension averages and an overall maturity score |
 | Maturity stage logic | Interprets the average score into a narrative maturity stage |
+| Dynamic insights section | Real-time insights that adapt to the nature of results, showing core advantages, critical constraints, and strategic focus |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
 | Local persistence | Saves progress in browser storage so the user can resume later |
-| Print-ready export | Uses print CSS so the browser can save the report as PDF |
+| PDF export | Generates a branded, professional PDF report with all insights and recommendations |
+| Print-ready output | Optimised print CSS for browser-based PDF generation |
 | Responsive interface | Works across desktop and mobile screen sizes |
 
 ## What the tool does in practice
 
 In a real discovery or consulting context, the scorecard helps convert a broad digital conversation into a more structured assessment. As the user scores each prompt, the tool identifies where maturity is concentrated, where execution is blocked, and where the greatest leverage for improvement is likely to be found.
 
-The live radar chart makes imbalance immediately visible. The report layer then interprets the scores through a maturity-stage narrative, highlights the strongest and weakest dimensions, and produces a ninety-day roadmap that can support proposals, workshops, strategic reviews, or internal planning sessions.
+The live radar chart makes imbalance immediately visible. The dynamic insights section updates in real time with dimension-specific guidance, showing the current strength, primary constraint, strategic focus, and a practical 90-day roadmap. The report layer then interprets the scores through a maturity-stage narrative and produces a professional PDF export that can support proposals, workshops, strategic reviews, or internal planning sessions.
 
 | Practical output | Advisory use |
 | --- | --- |
 | Strongest dimension | Shows where the organisation already has momentum to build on |
 | Weakest dimension | Identifies the most likely operational bottleneck |
 | Overall maturity stage | Gives leadership a concise narrative summary |
+| Dynamic insights | Provides dimension-specific guidance tailored to the assessment results |
 | Recommended services | Connects diagnostic findings to concrete intervention areas |
 | Ninety-day roadmap | Helps convert diagnosis into action planning |
 
@@ -110,7 +114,7 @@ This project is intentionally minimal.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The full application, including layout, styling, scoring logic, chart rendering, and print styles |
+| `index.html` | The full application, including layout, styling, scoring logic, chart rendering, insights generation, and export functionality |
 | `README.md` | Repository overview, installation, usage, and customisation guidance |
 | `CHANGELOG.md` | Version history |
 | `LICENSE` | Open-source licence |
@@ -120,15 +124,17 @@ This project is intentionally minimal.
 
 Start by entering the organisation name and the primary transformation ambition. Then complete the twenty assessment prompts using the five-level maturity scale. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
-When the assessment is complete, review the live radar chart, the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To create a shareable output, select **Export Digital Health Report** and save the print view as PDF from the browser dialog.
+As you answer questions, the **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, and a 90-day roadmap tailored to your lowest-scoring dimensions.
+
+When the assessment is complete, review the live radar chart, the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To create a shareable output, select **Export Digital Health Report** and the tool will generate a branded PDF with all insights, grades, and recommendations.
 
 | Step | User action | Tool output |
 | --- | --- | --- |
-| 1 | Enter organisation name | Personalises the report header |
+| 1 | Enter organisation name | Personalises the report header and insights |
 | 2 | Enter transformation ambition | Tailors the narrative focus of the recommendations |
-| 3 | Score all twenty prompts | Updates dimension averages and overall maturity |
-| 4 | Review live summary | Identifies the main strategic constraint and strongest capability |
-| 5 | Export report | Creates a one-page printable PDF-ready advisory snapshot |
+| 3 | Score assessment prompts | Updates dimension averages, overall maturity, and dynamic insights in real time |
+| 4 | Review live insights | Identifies the main strategic constraint, strongest capability, and dimension-specific guidance |
+| 5 | Export report | Creates a branded PDF with complete assessment results, insights, and roadmap |
 
 ## Assessment dimensions
 
@@ -163,7 +169,7 @@ The generated **Digital Health Report** is intended to be short enough to use in
 | Report section | Purpose |
 | --- | --- |
 | Overall maturity snapshot | Summarises the current maturity level and strategic implication |
-| Key findings | Highlights the strongest and weakest capability areas |
+| Key findings | Highlights the strongest and weakest capability areas with dimension-specific guidance |
 | Strategic focus | Connects the stated transformation ambition to the output narrative |
 | Recommended support | Aligns findings with relevant diShine-style intervention areas |
 | Ninety-day roadmap | Provides an action-oriented path across the next three phases of improvement |
@@ -180,6 +186,7 @@ The tool is easy to adapt for different propositions, sectors, or agency offers.
 | Dimension descriptions | The `dimensions` array |
 | Service recommendations | The `services` lists per dimension |
 | Roadmap recommendations | The `roadmap` object per dimension |
+| Insight models | The `insightModels` object for dimension-specific guidance |
 | Brand colours and visual style | CSS variables in `:root` |
 | Report wording | The `getStage`, `buildFindings`, and `refresh` functions |
 
@@ -196,10 +203,10 @@ The repository is especially useful when diShine or another consultancy wants to
 | Use case | Outcome |
 | --- | --- |
 | Lead generation | Prospects engage with a useful tool instead of a generic brochure asset |
-| Discovery workshops | Teams align around a shared view of current maturity |
-| Sales enablement | Consultants move from high-level claims to visible operational gaps |
-| Internal transformation reviews | Leadership teams gain a concise diagnostic and action plan |
-| Post-audit follow-up | Recommendations can be anchored to specific maturity gaps |
+| Discovery workshops | Teams align around a shared view of current maturity with real-time dynamic insights |
+| Sales enablement | Consultants move from high-level claims to visible operational gaps with actionable guidance |
+| Internal transformation reviews | Leadership teams gain a concise diagnostic, dynamic insights, and action plan |
+| Post-audit follow-up | Recommendations can be anchored to specific maturity gaps with dimension-specific strategies |
 
 ## Browser support
 
@@ -211,7 +218,7 @@ The application is built with standard modern browser capabilities, including Ca
 
 At [diShine](https://dishine.it), we build practical digital systems, growth architectures, and advisory tools that help organisations move from fragmented execution to scalable performance. This repository reflects that same philosophy: make the diagnostic useful, make the output actionable, and make the experience simple enough to deploy anywhere.
 
-If you want to extend this scorecard into a fuller consulting product, a future iteration could add CRM capture, branded PDF generation, backend persistence, analytics, sector-specific models, or integration into wider transformation workflows.
+If you want to extend this scorecard into a fuller consulting product, a future iteration could add CRM capture, backend persistence, analytics, sector-specific models, or integration into wider transformation workflows.
 
 ## Licence
 
