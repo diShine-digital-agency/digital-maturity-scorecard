@@ -1102,7 +1102,7 @@
         <div class="hero-metrics">
           <div class="metric">
             <strong>30 evidence-based prompts</strong>
-            <span>Focused on operational readiness and real pain points — not abstract opinions.</span>
+            <span>Focused on operational readiness and real pain points &mdash; not abstract opinions.</span>
           </div>
           <div class="metric">
             <strong>5-point maturity scale</strong>
@@ -1510,6 +1510,15 @@
       insightGapAnalysis: document.getElementById('insightGapAnalysis')
     };
 
+    // Short display names for radar chart (prevents label clipping)
+    const radarLabels = {
+      data: 'Data &\nAnalytics',
+      ai: 'AI &\nAutomation',
+      experience: 'Customer\nExperience',
+      governance: 'Governance &\nOperations',
+      performance: 'Performance &\nOptimisation'
+    };
+
     function saveState() {
       localStorage.setItem('dishine_digital_maturity_scorecard', JSON.stringify(state));
     }
@@ -1637,15 +1646,6 @@
       const levels = 5;
       const angleStep = (Math.PI * 2) / dimensions.length;
       const rotation = -Math.PI / 2;
-
-      // Short display names for radar chart (prevents label clipping)
-      const radarLabels = {
-        data: 'Data &\nAnalytics',
-        ai: 'AI &\nAutomation',
-        experience: 'Customer\nExperience',
-        governance: 'Governance &\nOperations',
-        performance: 'Performance &\nOptimisation'
-      };
 
       ctx.save();
       ctx.translate(0.5, 0.5);
@@ -1930,7 +1930,7 @@
       } else {
         els.insightOverview.className = '';
         const dimScores = dimensions.map(d => ({ name: d.name, avg: getDimensionAverage(d) })).filter(d => d.avg > 0);
-        const scoreBreakdown = dimScores.map(d => `<strong>${d.name}:</strong> ${d.avg.toFixed(1)}`).join(' · ');
+        const scoreBreakdown = dimScores.map(d => `<strong>${d.name}:</strong> ${d.avg.toFixed(1)}`).join(' &middot; ');
         if (pct < 100) {
           els.insightOverview.innerHTML = `<strong>${company}</strong> is currently at <strong>${overall.toFixed(1)} / 5</strong> across the dimensions answered so far, placing it in the <strong>${stage}</strong> category. ${narrative}<br><br><strong>Scores so far:</strong> ${scoreBreakdown}. Complete the remaining questions for a fully calibrated profile.`;
         } else {
