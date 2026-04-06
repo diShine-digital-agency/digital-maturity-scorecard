@@ -1,8 +1,8 @@
 # digital-maturity-scorecard
 
-**A branded consulting-grade digital maturity assessment by [diShine Digital Agency](https://dishine.it).**
+**A digital maturity assessment by [diShine Digital Agency](https://dishine.it).**
 
-**digital-maturity-scorecard** is a production-ready, single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
+**digital-maturity-scorecard** is a single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
 
 The tool combines a structured twenty-question scorecard, a live radar chart, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage, and generates a focused ninety-day roadmap tied to practical **diShine** service areas.
 
