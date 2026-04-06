@@ -2232,6 +2232,10 @@
       const dimMap = {};
       scored.forEach(d => { dimMap[d.key] = d.avg; });
 
+      const sorted = avgs.slice().sort((a, b) => a - b);
+      const top2Avg = scored.length >= 4 ? (sorted[sorted.length - 1] + sorted[sorted.length - 2]) / 2 : 0;
+      const bot2Avg = scored.length >= 4 ? (sorted[0] + sorted[1]) / 2 : 0;
+
       return {
         allLow: scored.length >= 3 && avgs.every(v => v < 2.0),
         allMid: scored.length >= 3 && avgs.every(v => v >= 2.0 && v <= 3.5),
@@ -2240,8 +2244,8 @@
         polarized: (max - min) > 2.0,
         oneOutlierHigh: scored.some(d => d.avg > mean + 1.5),
         oneOutlierLow: scored.some(d => d.avg < mean - 1.5),
-        topHeavy: scored.length >= 4 && (avgs.slice().sort((a,b) => b-a).slice(0,2).reduce((s,v) => s+v, 0) / 2) > (avgs.slice().sort((a,b) => a-b).slice(0,2).reduce((s,v) => s+v, 0) / 2) + 1.5,
-        bottomHeavy: scored.length >= 4 && (avgs.slice().sort((a,b) => a-b).slice(0,2).reduce((s,v) => s+v, 0) / 2) > (avgs.slice().sort((a,b) => b-a).slice(0,2).reduce((s,v) => s+v, 0) / 2) + 1.5,
+        topHeavy: scored.length >= 4 && top2Avg > bot2Avg + 1.5,
+        bottomHeavy: scored.length >= 4 && bot2Avg > top2Avg + 1.5,
         dataAiGap: (dimMap.data || 0) < 2.5 && (dimMap.ai || 0) > (dimMap.data || 0) + 0.5,
         governanceBottleneck: dimMap.governance !== undefined && dimMap.governance === min && scored.filter(d => d.avg > dimMap.governance + 0.8).length >= 2,
         executionGap: dimMap.performance !== undefined && dimMap.performance === min && scored.filter(d => d.key !== 'performance' && d.avg > dimMap.performance + 0.5).length >= 2,
@@ -2287,6 +2291,7 @@
     }
 
     // Find the weakest 2 questions within a dimension
+    const MAX_QUESTION_TITLE_LENGTH = 40;
     function analyzeQuestionGaps(dim) {
       const scored = dim.questions
         .map(([id, title]) => ({ id, title, score: Number(state.answers[id] || 0) }))
@@ -2296,7 +2301,7 @@
         .sort((a, b) => a.score - b.score)
         .slice(0, 2)
         .map(q => ({
-          title: q.title.length > 40 ? q.title.substring(0, 40) + '…' : q.title,
+          title: q.title.length > MAX_QUESTION_TITLE_LENGTH ? q.title.substring(0, MAX_QUESTION_TITLE_LENGTH) + '…' : q.title,
           score: q.score,
           dimName: dim.name
         }));
@@ -2450,10 +2455,10 @@
         const weakest = priorityDims[0];
         const improved = weakest.avg + 1.0;
         const cappedImproved = Math.min(improved, 5.0);
-        const currentAverages = dimensions.map(d => getDimensionAverage(d)).filter(Boolean);
+        const scoredDims = dimensions.filter(d => getDimensionAverage(d) > 0);
+        const currentAverages = scoredDims.map(d => getDimensionAverage(d));
         const newAverages = currentAverages.map((avg, i) => {
-          const dim = dimensions.filter(d => getDimensionAverage(d) > 0)[i];
-          return dim && dim.key === weakest.key ? cappedImproved : avg;
+          return scoredDims[i].key === weakest.key ? cappedImproved : avg;
         });
         const newOverall = newAverages.reduce((s, v) => s + v, 0) / newAverages.length;
         const [newStage] = getStage(newOverall);
@@ -2466,8 +2471,7 @@
           const s2improved = second.avg + 1.0;
           const s2capped = Math.min(s2improved, 5.0);
           const s2Averages = currentAverages.map((avg, i) => {
-            const dim = dimensions.filter(d => getDimensionAverage(d) > 0)[i];
-            return dim && dim.key === second.key ? s2capped : avg;
+            return scoredDims[i].key === second.key ? s2capped : avg;
           });
           const s2Overall = s2Averages.reduce((s, v) => s + v, 0) / s2Averages.length;
           const [s2Stage] = getStage(s2Overall);
