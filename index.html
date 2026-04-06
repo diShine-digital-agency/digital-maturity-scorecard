@@ -847,41 +847,137 @@
         --muted: #475467;
         --line: rgba(16, 24, 40, 0.12);
         --shadow: none;
+        --brand: #0d7377;
+        --brand-2: #4fd1c5;
+        --accent: #ffd166;
       }
+      * { margin: 0; padding: 0; }
       body {
         background: #ffffff;
         color: #101828;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
       }
       .app {
         max-width: 100%;
-        padding: 0;
+        padding: 40px;
+        margin: 0;
       }
       .hide-print,
       .hero,
       .grid > .panel:first-child,
       .sidebar > .panel:first-child,
-      .controls {
+      .controls,
+      .dimension-list,
+      .canvas-wrap {
         display: none !important;
       }
       .grid,
       .sidebar,
       .report,
       .report-grid,
-      .priority-grid {
-        display: block;
+      .priority-grid,
+      .insights-section {
+        display: block !important;
       }
-      .report {
+      .report,
+      .insights-section {
         border: none;
         box-shadow: none;
         padding: 0;
-        margin: 0;
+        margin: 0 0 32px 0;
         background: #ffffff;
+        page-break-inside: avoid;
+      }
+      .insights-section {
+        margin-bottom: 40px;
+        border-top: 3px solid #0d7377;
+        padding-top: 24px;
+      }
+      .insights-header {
+        border-bottom: 2px solid #4fd1c5;
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+      }
+      .insights-badge {
+        background: #f0f9f8;
+        color: #0d7377;
+        border: 1px solid #4fd1c5;
+        font-size: 0.75rem;
+      }
+      .insights-header h2 {
+        color: #0d7377;
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+      }
+      .insights-header p {
+        color: #475467;
+        font-size: 0.9rem;
+      }
+      .insights-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .insight-card {
+        background: #f9fafb;
+        border: 1px solid rgba(16, 24, 40, 0.12);
+        border-radius: 6px;
+        padding: 14px;
+        break-inside: avoid;
+      }
+      .insight-card h3 {
+        color: #0d7377;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        display: block;
+        font-weight: 700;
+      }
+      .insight-card h3::before {
+        display: none;
+      }
+      .insight-card p,
+      .insight-card ul {
+        color: #101828;
+        font-size: 0.88rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .insight-card ul {
+        padding-left: 16px;
+      }
+      .insight-card ul li {
+        margin-bottom: 4px;
+      }
+      .insight-roadmap-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
       }
       .report-card,
       .priority {
         break-inside: avoid;
         background: #ffffff;
-        border-color: rgba(16,24,40,0.12);
+        border: 1px solid rgba(16, 24, 40, 0.12);
+        border-radius: 6px;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+      .report-card h3,
+      .priority h4 {
+        color: #0d7377;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .score-ring {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 12px;
+      }
+      .score-ring b {
+        font-size: 1.6rem;
       }
       .report-header,
       .report-grid {
@@ -891,9 +987,59 @@
       .priority-grid > * {
         margin-bottom: 12px;
       }
+      .report-header {
+        border-bottom: 2px solid #4fd1c5;
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+      }
+      .brand-lockup {
+        color: #0d7377;
+        font-weight: 800;
+        font-size: 1.1rem;
+      }
+      .brand-mark {
+        background: linear-gradient(135deg, #4fd1c5, #7c8cff);
+      }
+      .company-line {
+        color: #475467;
+        font-size: 0.9rem;
+      }
+      .report-meta {
+        text-align: right;
+        font-size: 0.85rem;
+        color: #475467;
+      }
+      .insight {
+        color: #101828;
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+      .report-list,
+      .service-list,
+      .roadmap-list {
+        color: #101828;
+        font-size: 0.88rem;
+      }
+      .report-list li strong,
+      .service-list li strong {
+        color: #0d7377;
+      }
+      .priority span {
+        background: #f0f9f8;
+        color: #0d7377;
+        border: 1px solid #4fd1c5;
+        font-size: 0.7rem;
+      }
+      .footnote {
+        color: #475467;
+        font-size: 0.8rem;
+        margin-top: 12px;
+        page-break-before: avoid;
+      }
       .show-print { display: block; }
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
   <main class="app">
@@ -1671,7 +1817,24 @@
         refresh();
       });
 
-      els.printBtn.addEventListener('click', () => window.print());
+      els.printBtn.addEventListener('click', () => exportToPDF());
+    }
+
+    function exportToPDF() {
+      const company = state.companyName.trim() || 'Digital Maturity Assessment';
+      const element = document.querySelector('.app');
+      const filename = `diShine-Digital-Health-Report-${company.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
+      
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+      
+      html2pdf().set(opt).from(element).save();
     }
 
     loadState();
