@@ -1,8 +1,16 @@
 # digital-maturity-scorecard
 
+**A branded consulting-grade digital maturity assessment by [diShine Digital Agency](https://dishine.it).**
+
 **digital-maturity-scorecard** is a production-ready, single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
 
 The tool combines a structured twenty-question scorecard, a live radar chart, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage, and generates a focused ninety-day roadmap tied to practical **diShine** service areas.
+
+Built by [diShine](https://dishine.it)
+
+---
+
+## At a glance
 
 | Attribute | Details |
 | --- | --- |
@@ -17,6 +25,8 @@ The tool combines a structured twenty-question scorecard, a live radar chart, an
 
 Many maturity assessments stop at scoring. This repository is intentionally built to go further. It translates raw answers into a practical advisory output that can be used in discovery calls, internal planning workshops, client diagnostics, and post-audit recommendations.
 
+This means the scorecard is not just a visual gadget or lead magnet. It functions as a compact strategic instrument. It helps agencies and transformation teams move from vague digital ambition to a more concrete understanding of capability gaps, priority constraints, and the next practical steps required to improve execution.
+
 | Value area | What the tool delivers |
 | --- | --- |
 | Diagnostic clarity | Exposes where digital capability is uneven, not just where it is weak overall |
@@ -24,6 +34,44 @@ Many maturity assessments stop at scoring. This repository is intentionally buil
 | Strategic direction | Produces a ninety-day roadmap rather than a score with no follow-through |
 | Agency relevance | Pins recommendations to diShine-style services so the output supports real consulting conversations |
 | Ease of adoption | Runs anywhere as a static file with no build process, packages, or frameworks |
+
+---
+
+## Who this is for
+
+The scorecard has been designed for organisations that need a pragmatic way to understand how mature their digital operating model really is. It is especially useful in early-stage advisory conversations, discovery projects, strategic audits, and internal transformation reviews.
+
+| Audience | Why it fits |
+| --- | --- |
+| CMOs and marketing leaders | Reveals gaps across channel performance, data quality, content experience, and operating discipline |
+| CDOs and transformation leads | Provides a compact diagnostic to support prioritisation and roadmap discussion |
+| Agencies and consultants | Helps structure discovery calls and position advisory services with more precision |
+| Leadership teams | Creates a shared language for current-state maturity and next-step planning |
+| Prospects in qualification | Offers immediate value before a wider engagement begins |
+
+## Quick start
+
+Because the project is dependency-free, adoption is immediate. You can open it locally, host it on any static platform, or embed it into a wider discovery workflow.
+
+### Option 1: Open directly
+
+Open `index.html` in any modern browser.
+
+### Option 2: Serve locally
+
+From the repository root, run:
+
+```bash
+python3 -m http.server 8080
+```
+
+Then open `http://localhost:8080` in your browser.
+
+### Option 3: Publish as a static asset
+
+Deploy the repository root to GitHub Pages, Netlify, Vercel static hosting, Cloudflare Pages, or any standard web server. Since the application is self-contained, there is no build step and no package installation.
+
+---
 
 ## Core features
 
@@ -40,6 +88,22 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Print-ready export | Uses print CSS so the browser can save the report as PDF |
 | Responsive interface | Works across desktop and mobile screen sizes |
 
+## What the tool does in practice
+
+In a real discovery or consulting context, the scorecard helps convert a broad digital conversation into a more structured assessment. As the user scores each prompt, the tool identifies where maturity is concentrated, where execution is blocked, and where the greatest leverage for improvement is likely to be found.
+
+The live radar chart makes imbalance immediately visible. The report layer then interprets the scores through a maturity-stage narrative, highlights the strongest and weakest dimensions, and produces a ninety-day roadmap that can support proposals, workshops, strategic reviews, or internal planning sessions.
+
+| Practical output | Advisory use |
+| --- | --- |
+| Strongest dimension | Shows where the organisation already has momentum to build on |
+| Weakest dimension | Identifies the most likely operational bottleneck |
+| Overall maturity stage | Gives leadership a concise narrative summary |
+| Recommended services | Connects diagnostic findings to concrete intervention areas |
+| Ninety-day roadmap | Helps convert diagnosis into action planning |
+
+---
+
 ## Repository structure
 
 This project is intentionally minimal.
@@ -51,24 +115,6 @@ This project is intentionally minimal.
 | `CHANGELOG.md` | Version history |
 | `LICENSE` | Open-source licence |
 | `.gitignore` | Excludes local editor and generated verification artifacts |
-
-## How to run locally
-
-Because the project is dependency-free, local usage is straightforward. You can either open the file directly in a browser or serve the folder with a tiny local web server.
-
-### Option 1: Open directly
-
-Open `index.html` in any modern browser.
-
-### Option 2: Serve locally
-
-From the repository root, run:
-
-```bash
-python3 -m http.server 8080
-```
-
-Then open `http://localhost:8080` in your browser.
 
 ## How to use the scorecard
 
@@ -84,6 +130,18 @@ When the assessment is complete, review the live radar chart, the overall maturi
 | 4 | Review live summary | Identifies the main strategic constraint and strongest capability |
 | 5 | Export report | Creates a one-page printable PDF-ready advisory snapshot |
 
+## Assessment dimensions
+
+The framework is organised around five operational dimensions that together shape digital maturity. These dimensions were chosen to reflect how modern organisations actually execute digital strategy: through data quality, AI readiness, customer experience, governance discipline, and measurable performance improvement.
+
+| Dimension | What it assesses |
+| --- | --- |
+| Data | Collection, accessibility, quality, consistency, and usefulness in decision-making |
+| AI | Use-case clarity, workflow adoption, governance, and measurable value creation |
+| Experience | Customer journey design, messaging coherence, relevance, and personalisation |
+| Governance | Ownership, standards, workflows, approvals, compliance, and decision cadence |
+| Performance | Measurement, experimentation, optimisation, and ROI visibility |
+
 ## Scoring model
 
 Each dimension contains four prompts scored from **1** to **5**.
@@ -97,6 +155,20 @@ Each dimension contains four prompts scored from **1** to **5**.
 | 5 | Optimised |
 
 The dimension score is the average of its four prompts. The overall maturity score is the average of the five dimension scores. The maturity stage narrative is then selected from score bands that reflect increasing operational coherence and optimisation.
+
+## Report output
+
+The generated **Digital Health Report** is intended to be short enough to use in meetings and clear enough to support executive discussion. Rather than overwhelming the reader with raw scoring detail, it distils the results into a maturity snapshot, key findings, recommended service areas, and a practical ninety-day roadmap.
+
+| Report section | Purpose |
+| --- | --- |
+| Overall maturity snapshot | Summarises the current maturity level and strategic implication |
+| Key findings | Highlights the strongest and weakest capability areas |
+| Strategic focus | Connects the stated transformation ambition to the output narrative |
+| Recommended support | Aligns findings with relevant diShine-style intervention areas |
+| Ninety-day roadmap | Provides an action-oriented path across the next three phases of improvement |
+
+---
 
 ## Customisation guidance
 
@@ -133,6 +205,14 @@ The repository is especially useful when diShine or another consultancy wants to
 
 The application is built with standard modern browser capabilities, including Canvas for the radar chart and `localStorage` for persistence. Current versions of Chrome, Edge, Firefox, and Safari should work well.
 
+---
+
+## About diShine
+
+At [diShine](https://dishine.it), we build practical digital systems, growth architectures, and advisory tools that help organisations move from fragmented execution to scalable performance. This repository reflects that same philosophy: make the diagnostic useful, make the output actionable, and make the experience simple enough to deploy anywhere.
+
+If you want to extend this scorecard into a fuller consulting product, a future iteration could add CRM capture, branded PDF generation, backend persistence, analytics, sector-specific models, or integration into wider transformation workflows.
+
 ## Licence
 
 This repository is released under the **MIT License**. See the `LICENSE` file for full terms.
@@ -140,3 +220,7 @@ This repository is released under the **MIT License**. See the `LICENSE` file fo
 ## Maintainer notes
 
 This project is intentionally framework-free so that it remains easy to audit, fork, and customise for client engagements. If you want a future version with CRM capture, downloadable branded PDFs, multi-user analytics, or backend persistence, that can be added as a later iteration.
+
+## Contact
+
+For digital strategy, maturity diagnostics, analytics architecture, AI enablement, or custom advisory tooling, visit [diShine](https://dishine.it).
