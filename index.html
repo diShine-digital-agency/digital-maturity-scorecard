@@ -797,6 +797,53 @@
     .hide-print { display: block; }
     .show-print { display: none; }
 
+    /* ── PDF export light-theme overrides ────────────────────────── */
+    .pdf-export-mode {
+      --text: #101828;
+      --muted: #475467;
+      --brand: #0d7377;
+      --brand-2: #4fd1c5;
+      --line: rgba(16, 24, 40, 0.12);
+      --shadow: none;
+      --accent: #b87400;
+      background: #ffffff;
+      font-family: var(--font);
+    }
+    .pdf-export-mode .report,
+    .pdf-export-mode .insights-section {
+      background: #ffffff !important;
+      border-color: rgba(16, 24, 40, 0.1) !important;
+      box-shadow: none !important;
+    }
+    .pdf-export-mode .report-card,
+    .pdf-export-mode .insight-card,
+    .pdf-export-mode .priority {
+      background: #f9fafb !important;
+      border-color: rgba(16, 24, 40, 0.1) !important;
+    }
+    .pdf-export-mode .stage-banner {
+      background: #f0faf9 !important;
+      border-color: rgba(13, 115, 119, 0.3) !important;
+    }
+    .pdf-export-mode .score-ring {
+      background: conic-gradient(#0d7377 0deg, #4fd1c5 var(--score-angle, 180deg), rgba(0,0,0,0.08) 0deg) !important;
+    }
+    .pdf-export-mode .score-ring::after {
+      background: #f0faf9 !important;
+    }
+    .pdf-export-mode .priority span,
+    .pdf-export-mode .insights-badge,
+    .pdf-export-mode .score-pill {
+      background: #e6f7f6 !important;
+      border-color: #4fd1c5 !important;
+    }
+    .pdf-export-mode .bar {
+      background: rgba(0, 0, 0, 0.08) !important;
+    }
+    .pdf-export-mode .insights-header {
+      border-color: rgba(16, 24, 40, 0.12) !important;
+    }
+
     @media (max-width: 1100px) {
       .hero,
       .grid,
