@@ -4,7 +4,7 @@
 
 **digital-maturity-scorecard** is a single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
 
-The tool combines a structured twenty-question scorecard, a live radar chart, dynamic real-time insights, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage, and generates a focused ninety-day roadmap.
+The tool combines a structured thirty-question scorecard, a live radar chart, dynamic real-time insights with per-dimension gap analysis, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage across eight granular levels, and generates a focused ninety-day roadmap.
 
 Built by [diShine](https://dishine.it)
 
@@ -17,7 +17,7 @@ Built by [diShine](https://dishine.it)
 | Repository purpose | Interactive digital maturity assessment for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
 | Dependencies | None (html2pdf.js for PDF export) |
-| Output | Live maturity profile, radar chart, dynamic insights, tailored recommendations, printable report |
+| Output | Live maturity profile, radar chart, dynamic insights, per-dimension gap analysis, tailored recommendations, printable report |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
 | Primary value | Turns a discovery conversation into a structured diagnostic and action plan |
 
@@ -80,10 +80,11 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 
 | Feature | Description |
 | --- | --- |
-| Live radar chart | Updates instantly as users answer the assessment with properly positioned dimension labels |
-| Six-dimension scoring | Calculates per-dimension averages and an overall maturity score |
-| Maturity stage logic | Interprets the average score into a narrative maturity stage |
-| Dynamic insights section | Real-time insights that adapt to the nature of results, showing core advantages, critical constraints, and strategic focus |
+| Live radar chart | Updates instantly as users answer the assessment with properly positioned multi-line dimension labels |
+| Five-dimension scoring | Calculates per-dimension averages and an overall maturity score |
+| Eight-level maturity scale | Interprets the average score into one of eight granular maturity stages for precise diagnostic output |
+| Dynamic insights section | Real-time insights with 3-tier (low/mid/high) dimension-specific guidance, showing core advantages, critical constraints, gap analysis, and strategic focus |
+| Per-dimension gap analysis | Visual status indicators (Critical gap/Developing/Strong) for each dimension with colour-coded scoring |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
 | Local persistence | Saves progress in browser storage so the user can resume later |
@@ -102,7 +103,7 @@ The live radar chart makes imbalance immediately visible. The dynamic insights s
 | Strongest dimension | Shows where the organisation already has momentum to build on |
 | Weakest dimension | Identifies the most likely operational bottleneck |
 | Overall maturity stage | Gives leadership a concise narrative summary |
-| Dynamic insights | Provides dimension-specific guidance tailored to the assessment results |
+| Dynamic insights | Provides 3-tier dimension-specific guidance tailored to the assessment results, with per-dimension gap analysis |
 | Recommended services | Connects diagnostic findings to concrete intervention areas |
 | Ninety-day roadmap | Helps convert diagnosis into action planning |
 
@@ -122,7 +123,7 @@ This project is intentionally minimal.
 
 ## How to use the scorecard
 
-Start by entering the organisation name and the primary transformation ambition. Then complete the twenty assessment prompts using the five-level maturity scale. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
+Start by entering the organisation name and the primary transformation ambition. Then complete the thirty assessment prompts using the five-level maturity scale. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
 As you answer questions, the **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, and a 90-day roadmap tailored to your lowest-scoring dimensions.
 
@@ -150,7 +151,7 @@ The framework is organised around five operational dimensions that together shap
 
 ## Scoring model
 
-Each dimension contains four prompts scored from **1** to **5**.
+Each dimension contains six prompts scored from **1** to **5**.
 
 | Score | Meaning |
 | --- | --- |
@@ -160,7 +161,20 @@ Each dimension contains four prompts scored from **1** to **5**.
 | 4 | Integrated |
 | 5 | Optimised |
 
-The dimension score is the average of its four prompts. The overall maturity score is the average of the five dimension scores. The maturity stage narrative is then selected from score bands that reflect increasing operational coherence and optimisation.
+The dimension score is the average of its six prompts. The overall maturity score is the average of the dimension scores for dimensions with answers. The maturity stage narrative is then selected from eight score bands that reflect increasing operational coherence and optimisation.
+
+### Maturity stages
+
+| Score range | Stage | Description |
+| --- | --- | --- |
+| 4.7–5.0 | Transformational leader | Digital capability is a core growth engine |
+| 4.2–4.6 | Optimised performer | Strong cross-functional integration with mature governance |
+| 3.7–4.1 | Scaling integrator | Core capabilities well-established and starting to compound |
+| 3.2–3.6 | Structured executor | Repeatable processes with growing consistency |
+| 2.7–3.1 | Developing practitioner | Foundations forming with pockets of good practice |
+| 2.2–2.6 | Emerging operator | Basic capabilities exist but remain inconsistent |
+| 1.5–2.1 | Ad hoc responder | Digital activity is largely reactive and siloed |
+| 0–1.4 | Foundational gap | Earliest stage with critical gaps across most dimensions |
 
 ## Report output
 
@@ -169,7 +183,8 @@ The generated **Digital Health Report** is intended to be short enough to use in
 | Report section | Purpose |
 | --- | --- |
 | Overall maturity snapshot | Summarises the current maturity level and strategic implication |
-| Key findings | Highlights the strongest and weakest capability areas with dimension-specific guidance |
+| Key findings | Highlights the strongest and weakest capability areas with 3-tier (low/mid/high) dimension-specific guidance |
+| Gap analysis | Per-dimension visual status indicators showing Critical gap, Developing, or Strong |
 | Strategic focus | Connects the stated transformation ambition to the output narrative |
 | Recommended support | Aligns findings with relevant diShine-style intervention areas |
 | Ninety-day roadmap | Provides an action-oriented path across the next three phases of improvement |
@@ -182,13 +197,13 @@ The tool is easy to adapt for different propositions, sectors, or agency offers.
 
 | Customisation need | Where to edit |
 | --- | --- |
-| Questions and prompts | The `dimensions` array |
+| Questions and prompts | The `dimensions` array (6 questions per dimension) |
 | Dimension descriptions | The `dimensions` array |
 | Service recommendations | The `services` lists per dimension |
 | Roadmap recommendations | The `roadmap` object per dimension |
-| Insight models | The `insightModels` object for dimension-specific guidance |
+| Insight models | The `insightModels` object for 3-tier (low/mid/high) dimension-specific guidance |
 | Brand colours and visual style | CSS variables in `:root` |
-| Report wording | The `getStage`, `buildFindings`, and `refresh` functions |
+| Report wording | The `getStage` (8 levels), `buildFindings`, and `refresh` functions |
 
 ## Deployment
 

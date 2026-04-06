@@ -4,58 +4,83 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
-## [1.0.1] - 2026-04-06
+## [1.1.0] - 2026-04-06
 
 ### Added
 
-**Dynamic Insights Section**: A new dedicated insights panel that displays in real time as users complete the assessment. This section includes:
-- Overall maturity snapshot with strategic narrative
-- Core advantage and critical constraint analysis
-- Strategic focus recommendations based on overall score and dimension variance
-- 90-day roadmap with phase-specific actions tailored to the three lowest-scoring dimensions
+**Expanded Assessment Model**: Increased from 20 generic prompts to **30 specific, pain-point oriented questions** across all five dimensions. Each question now:
+- Targets a specific operational capability rather than abstract maturity language
+- Includes a detailed "why this matters" explanation that educates while assessing
+- Probes real symptoms of digital immaturity (e.g., data silos, tool sprawl, vanity metrics, ungoverned AI)
+- Uses direct, honest language that resonates with practitioners, not just executives
 
-**Enhanced PDF Export**: Implemented robust PDF generation using html2pdf.js library with:
-- Professional branded PDF output with complete assessment results
-- Includes all insights, grades, findings, and roadmap recommendations
-- Automatic filename generation with organisation name and date
-- Proper error handling and UI state preservation during export
+**Per-Dimension Gap Analysis**: New visual gap analysis card in the Dynamic Insights section showing:
+- Each dimension with its score, colour-coded status indicator (red/amber/green)
+- Status labels: Critical gap, Developing, Strong
+- Instant visual overview of where the organisation stands across all five areas
 
-**Improved Insight Model**: Expanded the insight generation logic with:
-- Dimension-specific guidance models for Data, AI, Experience, Governance, and Performance
-- Dynamic strategic focus recommendations based on overall score bands (Market leadership, Scaling efficiency, Professionalisation, Remediation)
-- Variance detection to flag when high-maturity areas are being throttled by foundational gaps
-- Context-aware findings that adapt to the nature of results
+**8-Level Maturity Stage Scale**: Expanded from 5 coarse stages to **8 granular maturity levels** with more precise score bands:
+- 4.7–5.0: Transformational leader
+- 4.2–4.6: Optimised performer
+- 3.7–4.1: Scaling integrator
+- 3.2–3.6: Structured executor
+- 2.7–3.1: Developing practitioner
+- 2.2–2.6: Emerging operator
+- 1.5–2.1: Ad hoc responder
+- 0–1.4: Foundational gap
+
+**3-Tier Insight Models**: Each dimension now has three insight tiers (low/mid/high) instead of two, providing:
+- More nuanced, context-aware guidance that matches the actual score
+- Specific immediate actions for each maturity tier
+- Clear "next frontier" direction for high-performing dimensions
+- Mid-tier guidance that addresses the common "stuck in the middle" pattern
+
+**Missing Insights Section HTML**: Added the complete HTML markup for the Dynamic Assessment Insights section that was previously referenced in JavaScript but missing from the page structure.
 
 ### Fixed
 
-**Radar Chart Labels**: Corrected label positioning and alignment for all six dimensions:
-- Increased label radius for better spacing and readability
-- Implemented dynamic text alignment based on angle (left/right/center, top/bottom/middle)
-- Improved label visibility across all screen sizes
-- Fixed text baseline and alignment calculations for consistent rendering
+**Completion Percentage Bug**: Fixed critical calculation error that could cause completion to exceed 100%:
+- Changed from counting all `state.answers` keys to only counting valid current question IDs
+- Prevents stale localStorage entries from inflating the completion count
+- Ensures percentage is always 0-100%
 
-**Print/Export State Bug**: Resolved critical issue where clicking export would clear grades and make the tool unusable:
-- Added proper state preservation in the exportToPDF function
-- Implemented try-catch error handling with user feedback
-- Added automatic UI refresh after export to ensure state consistency
-- Button now shows loading state during PDF generation
+**Overall Score Calculation**: Fixed the overall average calculation to divide by the count of dimensions with answers (not always 5):
+- Previously, if only 2 dimensions were answered, the score was still divided by 5
+- Now accurately reflects the average of answered dimensions only
 
-**Print CSS**: Enhanced print media queries to:
-- Include the new Dynamic Insights section in printed output
-- Properly hide non-essential UI elements (Reset button, View Insights button, radar canvas)
-- Ensure all insights, grades, and roadmap content is visible in print
-- Maintain professional formatting across page breaks
+**Radar Chart Labels Clipped**: Resolved label truncation issue where dimension names were cut off:
+- Reduced radar radius from 0.33 to 0.30 to create more label space
+- Increased label radius from radius+45 to radius+50
+- Implemented multi-line label rendering with line wrapping
+- Reduced font size from 15px to 13px for better fit
+- Uses abbreviated 2-line labels (e.g., "Customer\nExperience" instead of "Customer Experience (CX)")
 
 ### Improved
 
-- Updated README.md with comprehensive documentation of new features
-- Refined insight generation to provide more actionable, professional-grade output
-- Enhanced user experience with better visual feedback during PDF export
-- Improved code comments and structure for easier future customisation
+**Service Recommendations**: Changed from random selection to deterministic, targeted recommendations:
+- Selects the top 2 services from each of the two weakest dimensions
+- Adds one service from the third weakest for breadth
+- Ensures consistent output on every page refresh
+
+**Assessment Questions Quality**: Every question now follows a diagnostic pattern:
+- States a specific, measurable capability assertion
+- Provides a detailed explanation of why the capability matters
+- Highlights the business impact of gaps in this area
+- Uses language that surfaces real operational pain points
+
+**Insight Depth**: Insights now provide genuinely actionable guidance:
+- Immediate actions with specific steps, not just descriptions of the problem
+- Business impact context (e.g., "wastes 20-40% of analyst time")
+- Concrete next steps appropriate to the maturity tier
+- Bold formatting for key action items within insight text
+
+**Dimension List Sidebar**: Increased dimension name column width from 110px to 140px to prevent name truncation in the sidebar bar charts.
+
+**Hero Metrics**: Updated prompt count from "20 evidence-based prompts" to "30 evidence-based prompts" to reflect the expanded assessment.
 
 ### Notes
 
-This release significantly enhances the advisory value of the tool by providing real-time dynamic insights that adapt to the assessment results. The PDF export now generates a complete, branded report suitable for board-level presentations, workshops, and client handovers. All fixes have been thoroughly tested to ensure UI stability and data integrity.
+This release represents a substantial overhaul of the assessment quality, scoring precision, and insight depth. The tool now functions as a genuine diagnostic instrument that surfaces specific pain points and provides actionable recommendations — not just a score with generic commentary.
 
 ---
 
