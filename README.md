@@ -81,7 +81,7 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Feature | Description |
 | --- | --- |
 | Live radar chart | Updates instantly as users answer the assessment with properly positioned dimension labels |
-| Five-dimension scoring | Calculates per-dimension averages and an overall maturity score |
+| Six-dimension scoring | Calculates per-dimension averages and an overall maturity score |
 | Maturity stage logic | Interprets the average score into a narrative maturity stage |
 | Dynamic insights section | Real-time insights that adapt to the nature of results, showing core advantages, critical constraints, and strategic focus |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
@@ -198,7 +198,7 @@ For GitHub Pages, the simplest approach is to host the repository root so that `
 
 ## Recommended use cases
 
-The repository is especially useful when diShine or another consultancy wants to turn early-stage conversations into structured strategic diagnostics.
+The repository is especially useful to turn early-stage conversations into structured strategic diagnostics.
 
 | Use case | Outcome |
 | --- | --- |
