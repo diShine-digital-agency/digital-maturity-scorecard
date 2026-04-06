@@ -794,6 +794,278 @@
       }
     }
 
+    /* ── AI Advisor section ──────────────────────────────────────── */
+    .ai-advisor-section {
+      margin-top: 32px;
+      background: linear-gradient(180deg, rgba(8, 12, 28, 0.96), rgba(12, 16, 34, 0.96));
+      border: 1px solid rgba(124, 140, 255, 0.28);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .ai-advisor-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(124, 140, 255, 0.18);
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(124, 140, 255, 0.14);
+      color: #c4cbff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(124, 140, 255, 0.24);
+      white-space: nowrap;
+    }
+
+    .ai-advisor-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .ai-advisor-header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .ai-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .ai-card {
+      background: rgba(124, 140, 255, 0.04);
+      border: 1px solid rgba(124, 140, 255, 0.16);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .ai-card h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--brand-2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ai-card h3::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      flex-shrink: 0;
+    }
+
+    .ai-card p,
+    .ai-card ul {
+      color: var(--text);
+      font-size: 0.94rem;
+      line-height: 1.68;
+      margin: 0;
+    }
+
+    .ai-card ul {
+      padding-left: 18px;
+    }
+
+    .ai-card ul li {
+      margin-bottom: 8px;
+    }
+
+    .ai-card ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .ai-card .ai-cross-insight {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(124, 140, 255, 0.06);
+      border-left: 3px solid var(--brand-2);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .ai-card .ai-cross-insight:last-child {
+      margin-bottom: 0;
+    }
+
+    .ai-card .ai-cross-insight h4 {
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+      color: var(--brand-2);
+    }
+
+    .ai-card .ai-cross-insight p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .ai-card .ai-severity-high { border-left-color: var(--danger); }
+    .ai-card .ai-severity-high h4 { color: var(--danger); }
+    .ai-card .ai-severity-medium { border-left-color: var(--accent); }
+    .ai-card .ai-severity-medium h4 { color: var(--accent); }
+    .ai-card .ai-severity-low { border-left-color: var(--good); }
+    .ai-card .ai-severity-low h4 { color: var(--good); }
+
+    .ai-card-full {
+      grid-column: 1 / -1;
+    }
+
+    .ai-whatif-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+
+    .ai-whatif-table th,
+    .ai-whatif-table td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .ai-whatif-table th {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .ai-whatif-table td {
+      color: var(--text);
+    }
+
+    .ai-priority-matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .ai-priority-quadrant {
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .ai-priority-quadrant h4 {
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .ai-priority-quadrant p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .dim-micro-feedback {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(124, 140, 255, 0.07);
+      border: 1px solid rgba(124, 140, 255, 0.15);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dim-micro-feedback strong {
+      color: var(--brand-2);
+    }
+
+    @media (max-width: 760px) {
+      .ai-card-grid {
+        grid-template-columns: 1fr;
+      }
+      .ai-advisor-section {
+        padding: 20px;
+      }
+      .ai-priority-matrix {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      .ai-advisor-section {
+        display: block !important;
+        background: #ffffff;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0 0 32px 0;
+        page-break-inside: avoid;
+        border-top: 3px solid #5b68c4;
+        padding-top: 24px;
+      }
+      .ai-advisor-header {
+        border-bottom: 2px solid #7c8cff;
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+      }
+      .ai-badge {
+        background: #eef0ff;
+        color: #5b68c4;
+        border: 1px solid #7c8cff;
+        font-size: 0.75rem;
+      }
+      .ai-advisor-header h2 {
+        color: #5b68c4;
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+      }
+      .ai-card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .ai-card {
+        background: #f9fafb;
+        border: 1px solid rgba(16, 24, 40, 0.12);
+        border-radius: 6px;
+        padding: 14px;
+        break-inside: avoid;
+      }
+      .ai-card h3 {
+        color: #5b68c4;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        display: block;
+        font-weight: 700;
+      }
+      .ai-card h3::before { display: none; }
+      .ai-card p, .ai-card ul {
+        color: #101828;
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+      .dim-micro-feedback { display: none !important; }
+    }
+
     .hide-print { display: block; }
     .show-print { display: none; }
 
@@ -841,6 +1113,22 @@
       background: rgba(0, 0, 0, 0.08) !important;
     }
     .pdf-export-mode .insights-header {
+      border-color: rgba(16, 24, 40, 0.12) !important;
+    }
+    .pdf-export-mode .ai-advisor-section {
+      background: #ffffff !important;
+      border-color: rgba(16, 24, 40, 0.1) !important;
+      box-shadow: none !important;
+    }
+    .pdf-export-mode .ai-card {
+      background: #f9fafb !important;
+      border-color: rgba(16, 24, 40, 0.1) !important;
+    }
+    .pdf-export-mode .ai-badge {
+      background: #eef0ff !important;
+      border-color: #7c8cff !important;
+    }
+    .pdf-export-mode .ai-advisor-header {
       border-color: rgba(16, 24, 40, 0.12) !important;
     }
 
@@ -1331,6 +1619,56 @@
         </div>
       </div>
     </section>
+
+    <!-- ── AI-Powered Strategic Analysis Section ─────────────────────── -->
+    <section class="ai-advisor-section" id="aiAdvisorSection">
+      <div class="ai-advisor-header">
+        <div class="ai-badge">🤖 AI Analysis</div>
+        <div>
+          <h2>AI-Powered Strategic Analysis</h2>
+          <p>Powered by on-device intelligence — no data leaves your browser</p>
+        </div>
+      </div>
+
+      <div class="ai-card-grid">
+        <div class="ai-card">
+          <h3>Pattern Diagnosis</h3>
+          <div id="aiPatternDiagnosis">
+            <p class="insight-placeholder">Pattern analysis will appear once you begin answering questions.</p>
+          </div>
+        </div>
+        <div class="ai-card">
+          <h3>Cross-Dimensional Intelligence</h3>
+          <div id="aiCrossDimensional">
+            <p class="insight-placeholder">Cross-dimensional insights require at least two scored dimensions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-card-grid">
+        <div class="ai-card">
+          <h3>Question-Level Gap Analysis</h3>
+          <div id="aiQuestionGaps">
+            <p class="insight-placeholder">Specific capability gaps will be identified once you score individual questions.</p>
+          </div>
+        </div>
+        <div class="ai-card">
+          <h3>Strategic Priority Matrix</h3>
+          <div id="aiPriorityMatrix">
+            <p class="insight-placeholder">The impact-effort matrix will populate based on your assessment results.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-card-grid">
+        <div class="ai-card ai-card-full">
+          <h3>What-If Scenarios</h3>
+          <div id="aiWhatIf">
+            <p class="insight-placeholder">Scenario modelling will show the impact of improving your weakest dimension.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -1507,7 +1845,12 @@
       insightFindings: document.getElementById('insightFindings'),
       insightServices: document.getElementById('insightServices'),
       insightRoadmap: document.getElementById('insightRoadmap'),
-      insightGapAnalysis: document.getElementById('insightGapAnalysis')
+      insightGapAnalysis: document.getElementById('insightGapAnalysis'),
+      aiPatternDiagnosis: document.getElementById('aiPatternDiagnosis'),
+      aiCrossDimensional: document.getElementById('aiCrossDimensional'),
+      aiQuestionGaps: document.getElementById('aiQuestionGaps'),
+      aiPriorityMatrix: document.getElementById('aiPriorityMatrix'),
+      aiWhatIf: document.getElementById('aiWhatIf')
     };
 
     // Short display names for radar chart (prevents label clipping)
@@ -1578,6 +1921,22 @@
       els.questionContainer.innerHTML = dimensions.map((dim) => {
         const avg = getDimensionAverage(dim);
         const avgText = avg ? `${avg.toFixed(1)} / 5` : 'Not yet scored';
+        const answeredCount = dim.questions.filter(([id]) => Number(state.answers[id] || 0) > 0).length;
+        // Per-dimension micro-feedback
+        let microFeedback = '';
+        if (answeredCount > 0 && avg > 0) {
+          const tier = getInsightTier(avg);
+          const tierLabel = getTierLabel(tier);
+          const tierColor = getTierColor(tier);
+          const microTexts = {
+            critical: 'Foundational capabilities are missing — this is the most urgent area.',
+            low: 'Significant gaps exist that limit effectiveness.',
+            mid: 'Developing but inconsistent — structure and standards will accelerate progress.',
+            advancing: 'Solid foundations in place — focus on optimisation and scaling.',
+            high: 'Mature and differentiated — maintain and innovate.'
+          };
+          microFeedback = `<div class="dim-micro-feedback"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${tierColor};flex-shrink:0;"></span><strong>${avg.toFixed(1)}/5 — ${tierLabel}:</strong> ${microTexts[tier]}</div>`;
+        }
         return `
           <article class="dimension-card">
             <div class="dimension-header">
@@ -1606,6 +1965,7 @@
                 </div>
               </div>
             `).join('')}
+            ${microFeedback}
           </article>
         `;
       }).join('');
@@ -1740,36 +2100,58 @@
 
     const insightModels = {
       data: {
+        critical: "Data capability is essentially non-existent. There is no unified view of customers, no reliable tracking, and decisions are made entirely on gut instinct or outdated spreadsheets. This isn't a gap — it's a missing foundation. <strong>Immediate action:</strong> conduct an emergency data inventory, identify the single most critical data source, and assign a named owner before any other initiative.",
         low: "Your organisation is operating with significant data blind spots. Fragmented sources, inconsistent definitions, and a lack of trust in data accuracy mean decisions are being made on incomplete or unreliable information. This isn't just an IT problem — it's a strategic one. Without unified data, personalisation fails, attribution is guesswork, and AI initiatives stall before they start. <strong>Immediate action:</strong> audit all data sources, assign ownership, and implement basic data quality rules before investing in any analytics tooling.",
         mid: "Your data foundations exist but aren't yet delivering strategic value. Data is likely accessible in some areas but siloed in others, with inconsistent quality and limited predictive capability. The risk at this stage is complacency — basic reporting can create a false sense of data maturity. <strong>Focus area:</strong> unify your core data sources into a single customer view, establish governance standards, and begin training teams to use data proactively rather than reactively.",
+        advancing: "Data practices are systematised and scaling. Unified data sources, consistent quality standards, and cross-functional access are enabling faster decisions. The focus now shifts to automation and optimisation. <strong>Focus area:</strong> automate data quality monitoring, expand predictive modelling coverage, and implement real-time data activation to move from retrospective analysis to proactive intelligence.",
         high: "Your data capabilities are mature and creating genuine competitive advantage. Unified data, trusted quality, and predictive analytics are enabling faster, better decisions across the organisation. <strong>Next frontier:</strong> explore real-time data activation, advanced attribution modelling, and AI-powered insights to move from informed decision-making to autonomous optimisation."
       },
       ai: {
+        critical: "AI and automation are completely absent from operations. There are no use cases identified, no tools adopted, and no awareness of practical AI applications. The organisation is falling behind competitors who are already automating routine tasks. <strong>Immediate action:</strong> run a half-day workshop to identify 3 repetitive, time-consuming tasks that could be automated with off-the-shelf tools — start with the simplest one.",
         low: "AI and automation are either absent or stuck in pilot mode. Without clear use cases, governance, or measurable outcomes, AI risks being a line item with no return. The most common failure pattern: organisations buy AI tools before defining what problems they need to solve. <strong>Immediate action:</strong> identify 2-3 high-impact, repetitive tasks that could be automated today, and build from tangible wins rather than ambitious but vague AI strategies.",
         mid: "Your organisation has made progress with AI and automation but hasn't yet achieved systematic, scaled adoption. Tools may be in use in pockets, but without enterprise governance, training, or integration into core workflows, the benefits remain localised. <strong>Focus area:</strong> formalise your AI governance framework, invest in practical team enablement, and connect AI outputs to measurable business KPIs.",
+        advancing: "AI and automation are systematised and delivering consistent value across multiple teams. Governance frameworks are in place, and teams actively incorporate AI into workflows. <strong>Focus area:</strong> scale successful AI applications across the organisation, introduce advanced orchestration between AI systems, and begin developing custom models tailored to your specific business context.",
         high: "AI and automation are embedded in your operations and delivering measurable value. Your teams actively use AI tools, governance is in place, and you're moving beyond efficiency gains to strategic differentiation. <strong>Next frontier:</strong> custom model development, cross-functional AI orchestration, and advanced use cases like dynamic pricing, predictive customer intelligence, and autonomous campaign management."
       },
       experience: {
+        critical: "Customer experience is completely unmanaged. There are no mapped journeys, no feedback mechanisms, and no understanding of where or why customers are dropping off. Every customer interaction is inconsistent and accidental. <strong>Immediate action:</strong> shadow 5 real customer interactions this week, document every friction point, and fix the single worst pain point within 14 days.",
         low: "Customer experience is being designed around internal structures rather than customer needs. Journey fragmentation, channel inconsistency, and a lack of feedback loops mean you're losing customers at friction points you can't see. <strong>Immediate action:</strong> map your top 3 customer journeys with real data (not assumptions), identify the biggest drop-off points, and fix the most painful friction within 30 days.",
         mid: "Customer experience foundations are in place, but personalisation is shallow and optimisation is sporadic. You likely have some journey awareness but haven't systematised feedback collection, testing, or cross-channel consistency. <strong>Focus area:</strong> implement structured VoC (Voice of Customer) programmes, launch systematic A/B testing, and ensure the experience is consistent regardless of which channel the customer uses.",
+        advancing: "Customer experience is well-managed with consistent journeys, active feedback loops, and data-informed optimisation. Personalisation is moving beyond basic segmentation toward behavioural targeting. <strong>Focus area:</strong> implement real-time journey orchestration, deploy predictive personalisation engines, and build experience differentiation that competitors cannot easily replicate.",
         high: "Customer experience is a genuine differentiator, with well-mapped journeys, behavioural personalisation, and continuous optimisation driven by real data. <strong>Next frontier:</strong> anticipatory experiences powered by predictive analytics, advanced personalisation engines that adapt in real-time, and proactive service that resolves issues before customers notice them."
       },
       governance: {
+        critical: "Governance is effectively absent. No one owns digital initiatives, there are no documented processes, compliance is ad hoc, and accountability is undefined. The organisation operates on improvisation and individual heroics. <strong>Immediate action:</strong> appoint a single accountable owner for digital, create a basic RACI for the top 3 initiatives, and schedule a weekly 30-minute governance standup.",
         low: "Ambiguous ownership, inconsistent processes, and outdated policies are actively slowing digital execution. Without clear accountability, initiatives stall in approval bottlenecks, compliance gaps create risk, and teams waste energy navigating internal confusion instead of delivering results. <strong>Immediate action:</strong> assign a named owner for every active digital initiative, audit your tool stack and vendor contracts, and establish a minimum viable governance framework.",
         mid: "Governance structures exist but aren't yet enabling speed. Roles may be defined but decision rights unclear, policies may exist but aren't consistently followed, and operational processes work but require too many manual steps. <strong>Focus area:</strong> streamline approval workflows, automate recurring operational tasks, and invest in change management to ensure new processes are actually adopted.",
+        advancing: "Governance is systematised with clear ownership, documented workflows, and consistent compliance practices. The focus shifts from establishing control to enabling agility within guardrails. <strong>Focus area:</strong> introduce decentralised decision-making frameworks, automate compliance monitoring, and build adaptive governance that scales with the organisation's digital ambitions.",
         high: "Your governance model is robust, well-adopted, and enables rather than restricts agility. Clear ownership, efficient workflows, and mature compliance practices provide a stable foundation for ambitious digital initiatives. <strong>Next frontier:</strong> decentralised decision-making within guardrails, advanced risk analytics, and continuous governance optimisation based on operational data."
       },
       performance: {
+        critical: "Performance measurement is essentially non-existent. There are no defined KPIs, no analytics tracking worth trusting, and no testing discipline. Marketing and digital spend is completely unaccountable. <strong>Immediate action:</strong> install basic analytics tracking correctly, define 3 KPIs that connect to revenue, and commit to a weekly metrics review starting immediately.",
         low: "Performance measurement is either absent, inconsistent, or focused on vanity metrics that don't connect to business outcomes. Without reliable KPIs, structured testing, or clear attribution, marketing budget is being allocated by gut feel and digital investments lack accountability. <strong>Immediate action:</strong> define 5-7 core KPIs tied to revenue, fix your analytics tracking, and establish a monthly performance review cadence.",
         mid: "Performance tracking exists but isn't yet systematic or strategic. You likely have some metrics in place but testing is sporadic, attribution is basic, and optimisation happens reactively rather than proactively. <strong>Focus area:</strong> implement a structured testing programme (2+ tests per month), develop multi-channel attribution, and create automated performance alerts that trigger action.",
+        advancing: "Performance measurement is systematised with reliable KPIs, regular testing cadence, and data-driven budget allocation. The optimisation muscle is developing. <strong>Focus area:</strong> advance to incrementality testing, build predictive performance models, and create automated optimisation workflows that respond to performance signals without manual intervention.",
         high: "Performance and optimisation are deeply embedded in your culture, with rigorous testing, advanced attribution, and data-driven budget allocation. Teams understand their contribution to business KPIs and optimise continuously. <strong>Next frontier:</strong> incrementality testing, marketing mix modelling, and predictive performance analytics that forecast outcomes and recommend actions automatically."
       }
     };
 
     function getInsightTier(score) {
-      if (score >= 3.5) return 'high';
+      if (score >= 4.0) return 'high';
+      if (score >= 3.2) return 'advancing';
       if (score >= 2.2) return 'mid';
-      return 'low';
+      if (score >= 1.5) return 'low';
+      return 'critical';
+    }
+
+    function getTierLabel(tier) {
+      const labels = { critical: 'Critical gap', low: 'Weak', mid: 'Developing', advancing: 'Advancing', high: 'Strong' };
+      return labels[tier] || tier;
+    }
+
+    function getTierColor(tier) {
+      const colors = { critical: 'var(--danger)', low: '#fb923c', mid: 'var(--accent)', advancing: 'var(--brand)', high: 'var(--good)' };
+      return colors[tier] || 'var(--muted)';
     }
 
     function buildFindings(priorityDims, overallScore) {
@@ -1839,6 +2221,290 @@
       }).join('');
     }
 
+    // Detect scoring patterns across all dimensions
+    function analyzePatterns(priorityDims, overall) {
+      const scored = priorityDims.filter(d => d.avg > 0);
+      if (scored.length === 0) return {};
+      const avgs = scored.map(d => d.avg);
+      const max = Math.max(...avgs);
+      const min = Math.min(...avgs);
+      const mean = avgs.reduce((s, v) => s + v, 0) / avgs.length;
+      const dimMap = {};
+      scored.forEach(d => { dimMap[d.key] = d.avg; });
+
+      const sorted = avgs.slice().sort((a, b) => a - b);
+      const top2Avg = scored.length >= 4 ? (sorted[sorted.length - 1] + sorted[sorted.length - 2]) / 2 : 0;
+      const bot2Avg = scored.length >= 4 ? (sorted[0] + sorted[1]) / 2 : 0;
+
+      return {
+        allLow: scored.length >= 3 && avgs.every(v => v < 2.0),
+        allMid: scored.length >= 3 && avgs.every(v => v >= 2.0 && v <= 3.5),
+        allHigh: scored.length >= 3 && avgs.every(v => v > 3.5),
+        uniform: (max - min) < 0.8,
+        polarized: (max - min) > 2.0,
+        oneOutlierHigh: scored.some(d => d.avg > mean + 1.5),
+        oneOutlierLow: scored.some(d => d.avg < mean - 1.5),
+        topHeavy: scored.length >= 4 && top2Avg > bot2Avg + 1.5,
+        bottomHeavy: scored.length >= 4 && bot2Avg > top2Avg + 1.5,
+        dataAiGap: (dimMap.data || 0) < 2.5 && (dimMap.ai || 0) > (dimMap.data || 0) + 0.5,
+        governanceBottleneck: dimMap.governance !== undefined && dimMap.governance === min && scored.filter(d => d.avg > dimMap.governance + 0.8).length >= 2,
+        executionGap: dimMap.performance !== undefined && dimMap.performance === min && scored.filter(d => d.key !== 'performance' && d.avg > dimMap.performance + 0.5).length >= 2,
+        experienceDisconnect: (dimMap.experience || 0) >= 3.0 && (dimMap.data || 0) < 2.0
+      };
+    }
+
+    // Identify cross-dimensional relationships and generate targeted insights
+    function generateCrossDimensionalInsights(priorityDims, patterns) {
+      const insights = [];
+      const dimMap = {};
+      priorityDims.forEach(d => { dimMap[d.key] = d.avg; });
+
+      if ((dimMap.data || 0) < 2.5 && (dimMap.ai || 0) >= 2.5) {
+        insights.push({ title: 'Data Foundation Limits AI Potential', text: 'AI capabilities are outpacing the data infrastructure needed to support them. AI models are only as good as the data they consume — without reliable, unified data, AI outputs will be inconsistent and untrustworthy. Prioritise data quality and integration before scaling AI further.', severity: 'high' });
+      }
+      if ((dimMap.governance || 0) < 2.5 && ((dimMap.data || 0) >= 3 || (dimMap.ai || 0) >= 3)) {
+        insights.push({ title: 'Governance Gap Creates Scaling Risk', text: 'Advanced capabilities in data or AI exist without adequate governance to manage them safely. This creates compliance risk, inconsistent practices, and potential data misuse. Establishing governance guardrails is urgent before these capabilities scale further.', severity: 'high' });
+      }
+      if ((dimMap.performance || 0) < 2.5 && (dimMap.experience || 0) >= 3) {
+        insights.push({ title: 'Strong Experiences, Weak Proof', text: 'Customer experience capabilities appear strong, but without robust performance measurement, there is no evidence of their impact. Investment in CX will be hard to defend or optimise without connecting it to measurable business outcomes.', severity: 'medium' });
+      }
+      if ((dimMap.data || 0) >= 3.5 && (dimMap.performance || 0) < 2.5) {
+        insights.push({ title: 'Data Rich, Insight Poor', text: 'Mature data infrastructure exists but performance measurement hasn\'t kept pace. The data is being collected but not systematically used to optimise outcomes. Connecting data capabilities to a structured testing and measurement programme would unlock significant value.', severity: 'medium' });
+      }
+      if ((dimMap.ai || 0) >= 3 && (dimMap.governance || 0) < 2.5) {
+        insights.push({ title: 'AI Adoption Outpacing Governance', text: 'AI tools are being adopted faster than the policies and oversight mechanisms needed to manage them. This creates risk around data privacy, bias, and accountability. Formalising AI governance is a priority before expanding AI use further.', severity: 'high' });
+      }
+      if (patterns.uniform && patterns.allLow) {
+        insights.push({ title: 'Systemic Underinvestment Across All Dimensions', text: 'Every dimension shows consistently low maturity, indicating a systemic lack of digital investment rather than isolated gaps. A broad foundational programme is needed, starting with data basics and governance fundamentals before addressing higher-level capabilities.', severity: 'high' });
+      }
+      if (patterns.uniform && patterns.allMid) {
+        insights.push({ title: 'Plateau Risk — Stuck in the Middle', text: 'All dimensions are developing at roughly the same moderate level. While this shows balanced investment, it also signals a risk of plateauing — where everything is "good enough" but nothing becomes a genuine differentiator. Select one or two dimensions for accelerated investment to break through.', severity: 'medium' });
+      }
+      if (patterns.polarized) {
+        insights.push({ title: 'Critical Maturity Imbalance', text: 'There is a significant gap between the strongest and weakest dimensions. This imbalance creates a ceiling effect where advanced capabilities in one area cannot deliver full value due to foundational gaps in another. Closing the gap between extremes should be the top strategic priority.', severity: 'high' });
+      }
+      if (patterns.experienceDisconnect) {
+        insights.push({ title: 'Experience Without Evidence', text: 'Customer experience scores suggest strong journey design, but critically low data maturity means these experiences aren\'t informed by real customer behaviour. Great UX without data-driven personalisation is expensive guesswork.', severity: 'medium' });
+      }
+
+      return insights;
+    }
+
+    // Find the weakest 2 questions within a dimension
+    const TRUNCATED_TITLE_LENGTH = 40;
+    function analyzeQuestionGaps(dim) {
+      const scored = dim.questions
+        .map(([id, title]) => ({ id, title, score: Number(state.answers[id] || 0) }))
+        .filter(q => q.score > 0);
+      if (scored.length === 0) return [];
+      return scored
+        .sort((a, b) => a.score - b.score)
+        .slice(0, 2)
+        .map(q => ({
+          title: q.title.length > TRUNCATED_TITLE_LENGTH ? q.title.substring(0, TRUNCATED_TITLE_LENGTH) + '…' : q.title,
+          score: q.score,
+          dimName: dim.name
+        }));
+    }
+
+    // Build a fully dynamic, multi-paragraph narrative based on patterns
+    function generateDynamicNarrative(overall, patterns, priorityDims, company) {
+      if (overall === 0) return '<p class="insight-placeholder">Complete the assessment to generate a personalised strategic narrative.</p>';
+      const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
+      const weakest = priorityDims[0];
+      let paragraphs = [];
+
+      // Opening based on pattern
+      if (patterns.allLow) {
+        paragraphs.push(`<strong>${company}</strong> is at the earliest stage of digital maturity, with all assessed dimensions scoring below 2.0. This indicates a systemic gap in digital foundations rather than isolated weaknesses. The immediate priority is stabilisation — establishing basic data practices, clear ownership, and measurable KPIs before pursuing advanced capabilities.`);
+      } else if (patterns.allHigh) {
+        paragraphs.push(`<strong>${company}</strong> demonstrates advanced digital maturity across all dimensions — a rare achievement. With consistently strong scores, the organisation has moved beyond foundational concerns. The focus now is on continuous optimisation, innovation leadership, and maintaining competitive distance.`);
+      } else if (patterns.polarized) {
+        paragraphs.push(`<strong>${company}</strong> shows a significant maturity imbalance. While <strong>${strongest.name}</strong> (${strongest.avg.toFixed(1)}/5) demonstrates genuine strength, <strong>${weakest.name}</strong> (${weakest.avg.toFixed(1)}/5) represents a critical constraint. This polarisation creates a ceiling effect — the strongest capabilities cannot deliver full value until the weakest are addressed.`);
+      } else if (patterns.uniform && patterns.allMid) {
+        paragraphs.push(`<strong>${company}</strong> has achieved moderate, balanced progress across dimensions. While this consistency shows disciplined investment, it also signals a plateau risk. Everything is developing, but nothing yet stands out as a genuine differentiator. Breaking through requires selecting one or two dimensions for accelerated focus.`);
+      } else if (patterns.oneOutlierLow) {
+        paragraphs.push(`<strong>${company}</strong> has a clear bottleneck in <strong>${weakest.name}</strong> (${weakest.avg.toFixed(1)}/5), which is significantly below the other dimensions. This single dimension is likely constraining the value of stronger capabilities elsewhere. Targeted investment here would have the highest systemic impact.`);
+      } else {
+        paragraphs.push(`<strong>${company}</strong> scores <strong>${overall.toFixed(1)} / 5</strong> overall, with a maturity profile that shows both strengths and areas for improvement. <strong>${strongest.name}</strong> leads at ${strongest.avg.toFixed(1)}/5, while <strong>${weakest.name}</strong> at ${weakest.avg.toFixed(1)}/5 represents the most immediate opportunity.`);
+      }
+
+      // Cross-dimensional relationships
+      if (patterns.dataAiGap) {
+        paragraphs.push(`A notable gap exists between AI ambition and data readiness. Advancing AI without a solid data foundation creates fragile, unreliable outcomes. Strengthening data quality and integration should precede further AI investment.`);
+      }
+      if (patterns.governanceBottleneck) {
+        paragraphs.push(`Governance is acting as a bottleneck — weaker than other capabilities and limiting the organisation's ability to scale digital initiatives safely and consistently. Establishing clear ownership and streamlined processes will unlock value across all other dimensions.`);
+      }
+      if (patterns.executionGap) {
+        paragraphs.push(`Performance measurement is the weakest link, meaning the organisation cannot prove the value of its other digital investments. Without robust KPIs and testing discipline, budget decisions remain subjective and optimisation opportunities are missed.`);
+      }
+
+      return paragraphs.map(p => `<p>${p}</p>`).join('');
+    }
+
+    // Populate the AI Advisor section with analysis results
+    function updateAIAdvisor(completion, overall, priorityDims, patterns, company) {
+      const pct = completion.pct;
+      const scored = priorityDims.filter(d => d.avg > 0);
+
+      // Pattern Diagnosis
+      if (pct === 0) {
+        els.aiPatternDiagnosis.innerHTML = '<p class="insight-placeholder">Pattern analysis will appear once you begin answering questions.</p>';
+      } else {
+        const detected = [];
+        if (patterns.allLow) detected.push({ icon: '🔴', label: 'All Low', desc: 'All scored dimensions are below 2.0 — foundational investment needed across the board.' });
+        if (patterns.allMid) detected.push({ icon: '🟡', label: 'All Moderate', desc: 'All dimensions are in the 2.0–3.5 range — risk of plateauing without targeted acceleration.' });
+        if (patterns.allHigh) detected.push({ icon: '🟢', label: 'All Strong', desc: 'All dimensions exceed 3.5 — focus on optimisation, innovation, and maintaining lead.' });
+        if (patterns.uniform) detected.push({ icon: '📊', label: 'Uniform Scores', desc: 'Scores are within 0.8 of each other — balanced but may lack a standout strength.' });
+        if (patterns.polarized) detected.push({ icon: '⚡', label: 'Polarized', desc: 'Gap of 2.0+ between strongest and weakest — ceiling effect likely.' });
+        if (patterns.dataAiGap) detected.push({ icon: '🔗', label: 'Data-AI Gap', desc: 'Data maturity is too low to support current AI ambitions.' });
+        if (patterns.governanceBottleneck) detected.push({ icon: '🏛️', label: 'Governance Bottleneck', desc: 'Governance is weakest and constraining other dimensions.' });
+        if (patterns.executionGap) detected.push({ icon: '📉', label: 'Execution Gap', desc: 'Performance measurement is weakest — can\'t prove value of investments.' });
+        if (patterns.experienceDisconnect) detected.push({ icon: '🎭', label: 'Experience Disconnect', desc: 'Good CX design but no data foundation to personalise or prove it.' });
+        if (patterns.oneOutlierHigh) detected.push({ icon: '🌟', label: 'Standout Strength', desc: 'One dimension is significantly above the mean.' });
+        if (patterns.oneOutlierLow) detected.push({ icon: '⬇️', label: 'Outlier Weakness', desc: 'One dimension is significantly below the mean.' });
+
+        if (detected.length === 0) {
+          detected.push({ icon: '📋', label: 'Mixed Profile', desc: 'No single dominant pattern — a combination of strengths and gaps across dimensions.' });
+        }
+        els.aiPatternDiagnosis.innerHTML = detected.map(p =>
+          `<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(148,163,184,0.08);">
+            <span style="font-size:1.2rem;flex-shrink:0;">${p.icon}</span>
+            <div><strong style="color:var(--brand-2);">${p.label}</strong><br><span style="color:var(--muted);font-size:0.88rem;">${p.desc}</span></div>
+          </div>`
+        ).join('');
+      }
+
+      // Cross-Dimensional Intelligence
+      if (pct === 0 || scored.length < 2) {
+        els.aiCrossDimensional.innerHTML = '<p class="insight-placeholder">Cross-dimensional insights require at least two scored dimensions.</p>';
+      } else {
+        const crossInsights = generateCrossDimensionalInsights(priorityDims, patterns);
+        if (crossInsights.length === 0) {
+          els.aiCrossDimensional.innerHTML = '<p style="color:var(--muted);font-size:0.92rem;">No critical cross-dimensional dependencies detected at current scoring levels. Continue refining scores for deeper analysis.</p>';
+        } else {
+          els.aiCrossDimensional.innerHTML = crossInsights.map(i =>
+            `<div class="ai-cross-insight ai-severity-${i.severity}">
+              <h4>${i.title}</h4>
+              <p>${i.text}</p>
+            </div>`
+          ).join('');
+        }
+      }
+
+      // Question-Level Gap Analysis
+      if (pct === 0) {
+        els.aiQuestionGaps.innerHTML = '<p class="insight-placeholder">Specific capability gaps will be identified once you score individual questions.</p>';
+      } else {
+        const allGaps = scored.flatMap(d => analyzeQuestionGaps(d));
+        if (allGaps.length === 0) {
+          els.aiQuestionGaps.innerHTML = '<p class="insight-placeholder">Score more questions to reveal specific capability gaps.</p>';
+        } else {
+          const grouped = {};
+          allGaps.forEach(g => {
+            if (!grouped[g.dimName]) grouped[g.dimName] = [];
+            grouped[g.dimName].push(g);
+          });
+          els.aiQuestionGaps.innerHTML = Object.entries(grouped).map(([dim, gaps]) =>
+            `<div style="margin-bottom:12px;">
+              <strong style="color:var(--brand-2);font-size:0.88rem;text-transform:uppercase;letter-spacing:0.04em;">${dim}</strong>
+              ${gaps.map(g => `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(148,163,184,0.06);">
+                <span style="font-size:0.88rem;color:var(--text);">${g.title}</span>
+                <span style="font-size:0.82rem;padding:2px 8px;border-radius:999px;background:rgba(251,113,133,0.12);color:var(--danger);font-weight:600;">${g.score}/5</span>
+              </div>`).join('')}
+            </div>`
+          ).join('');
+        }
+      }
+
+      // Strategic Priority Matrix
+      if (pct === 0 || scored.length < 2) {
+        els.aiPriorityMatrix.innerHTML = '<p class="insight-placeholder">The impact-effort matrix will populate based on your assessment results.</p>';
+      } else {
+        const sorted = [...scored].sort((a, b) => a.avg - b.avg);
+        const highImpactQuickWin = sorted.filter(d => d.avg >= 1.5 && d.avg < 3.0);
+        const highImpactStrategic = sorted.filter(d => d.avg < 1.5);
+        const optimise = sorted.filter(d => d.avg >= 3.0 && d.avg < 4.0);
+        const maintain = sorted.filter(d => d.avg >= 4.0);
+
+        els.aiPriorityMatrix.innerHTML = `<div class="ai-priority-matrix">
+          <div class="ai-priority-quadrant" style="border-left:3px solid var(--good);">
+            <h4 style="color:var(--good);">🎯 Quick Wins (High Impact, Lower Effort)</h4>
+            <p>${highImpactQuickWin.length > 0 ? highImpactQuickWin.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + ' — Moderate gaps where targeted actions can deliver fast improvement.' : 'No dimensions in this quadrant.'}</p>
+          </div>
+          <div class="ai-priority-quadrant" style="border-left:3px solid var(--danger);">
+            <h4 style="color:var(--danger);">🔥 Strategic Priorities (High Impact, Higher Effort)</h4>
+            <p>${highImpactStrategic.length > 0 ? highImpactStrategic.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + ' — Critical gaps requiring sustained investment and organisational commitment.' : 'No dimensions in this quadrant.'}</p>
+          </div>
+          <div class="ai-priority-quadrant" style="border-left:3px solid var(--brand);">
+            <h4 style="color:var(--brand);">📈 Optimise (Moderate Impact, Moderate Effort)</h4>
+            <p>${optimise.length > 0 ? optimise.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + ' — Solid foundations to build on with structured optimisation.' : 'No dimensions in this quadrant.'}</p>
+          </div>
+          <div class="ai-priority-quadrant" style="border-left:3px solid var(--brand-2);">
+            <h4 style="color:var(--brand-2);">✅ Maintain (Lower Impact, Lower Effort)</h4>
+            <p>${maintain.length > 0 ? maintain.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + ' — Mature capabilities to protect and incrementally improve.' : 'No dimensions in this quadrant.'}</p>
+          </div>
+        </div>`;
+      }
+
+      // What-If Scenarios
+      if (pct === 0 || scored.length < 2) {
+        els.aiWhatIf.innerHTML = '<p class="insight-placeholder">Scenario modelling will show the impact of improving your weakest dimension.</p>';
+      } else {
+        const weakest = priorityDims[0];
+        const improved = weakest.avg + 1.0;
+        const cappedImproved = Math.min(improved, 5.0);
+        const scoredDims = dimensions.filter(d => getDimensionAverage(d) > 0);
+        const currentAverages = scoredDims.map(d => getDimensionAverage(d));
+        const newAverages = currentAverages.map((avg, i) => {
+          return scoredDims[i].key === weakest.key ? cappedImproved : avg;
+        });
+        const newOverall = newAverages.reduce((s, v) => s + v, 0) / newAverages.length;
+        const [newStage] = getStage(newOverall);
+        const [currentStage] = getStage(overall);
+        const stageChanged = newStage !== currentStage;
+
+        const second = priorityDims.length > 1 ? priorityDims[1] : null;
+        let secondRow = '';
+        if (second && second.key !== weakest.key) {
+          const s2improved = second.avg + 1.0;
+          const s2capped = Math.min(s2improved, 5.0);
+          const s2Averages = currentAverages.map((avg, i) => {
+            return scoredDims[i].key === second.key ? s2capped : avg;
+          });
+          const s2Overall = s2Averages.reduce((s, v) => s + v, 0) / s2Averages.length;
+          const [s2Stage] = getStage(s2Overall);
+          secondRow = `<tr>
+            <td><strong>${second.name}</strong> ${second.avg.toFixed(1)} → ${s2capped.toFixed(1)}</td>
+            <td>${overall.toFixed(1)} → <strong>${s2Overall.toFixed(1)}</strong></td>
+            <td>${s2Stage}${s2Stage !== currentStage ? ' <span style="color:var(--good);">↑</span>' : ''}</td>
+          </tr>`;
+        }
+
+        els.aiWhatIf.innerHTML = `
+          <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">What happens if you improve a dimension by 1.0 points?</p>
+          <table class="ai-whatif-table">
+            <thead><tr><th>Scenario</th><th>Overall Score</th><th>Maturity Stage</th></tr></thead>
+            <tbody>
+              <tr style="background:rgba(124,140,255,0.06);">
+                <td>📍 <strong>Current state</strong></td>
+                <td><strong>${overall.toFixed(1)}</strong></td>
+                <td>${currentStage}</td>
+              </tr>
+              <tr>
+                <td><strong>${weakest.name}</strong> ${weakest.avg.toFixed(1)} → ${cappedImproved.toFixed(1)}</td>
+                <td>${overall.toFixed(1)} → <strong>${newOverall.toFixed(1)}</strong></td>
+                <td>${newStage}${stageChanged ? ' <span style="color:var(--good);">↑</span>' : ''}</td>
+              </tr>
+              ${secondRow}
+            </tbody>
+          </table>
+          ${stageChanged ? `<p style="color:var(--good);font-size:0.88rem;margin-top:8px;">💡 Improving <strong>${weakest.name}</strong> by 1 point would advance the organisation to <strong>${newStage}</strong>.</p>` : `<p style="color:var(--muted);font-size:0.88rem;margin-top:8px;">Improving <strong>${weakest.name}</strong> by 1 point raises the overall score but does not yet trigger a stage change.</p>`}
+        `;
+      }
+    }
+
     function refresh() {
       renderQuestions();
       renderDimensionList();
@@ -1864,7 +2530,18 @@
 
       const summary = completion.pct < 100
         ? `The assessment is ${completion.pct}% complete. Finish the remaining questions to sharpen the recommendations and expose the clearest strategic bottlenecks.`
-        : `${company} currently sits in the <strong>${stage}</strong> category with an overall digital maturity score of <strong>${overall.toFixed(1)} / 5</strong>. The most immediate leverage comes from strengthening <strong>${weakest.name}</strong> while preserving momentum in <strong>${strongest.name}</strong>.`;
+        : (() => {
+            const base = `${company} currently sits in the <strong>${stage}</strong> category with an overall digital maturity score of <strong>${overall.toFixed(1)} / 5</strong>. `;
+            if (strongest.avg < 2.0) {
+              return base + `Every dimension requires foundational investment. Begin with <strong>${weakest.name}</strong> as the highest-impact starting point.`;
+            } else if (strongest.avg < 2.5) {
+              return base + `No dimension has reached a sustainable level yet. <strong>${weakest.name}</strong> is the most critical gap, but broad foundational improvements are needed.`;
+            } else if (strongest.avg <= 3.5) {
+              return base + `Early momentum in <strong>${strongest.name}</strong> provides a foundation to build on. Strengthening <strong>${weakest.name}</strong> will remove the primary bottleneck limiting overall maturity.`;
+            } else {
+              return base + `Strong capabilities in <strong>${strongest.name}</strong> provide a platform for growth. The most immediate leverage comes from strengthening <strong>${weakest.name}</strong>.`;
+            }
+          })();
       els.reportSummary.innerHTML = summary;
 
       els.keyFindings.innerHTML = buildFindings(priorityDims, overall);
@@ -1879,7 +2556,11 @@
       }
 
       // ── Update the dedicated insights section ──────────────────────
-      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company);
+      const patterns = analyzePatterns(priorityDims, overall);
+      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns);
+
+      // ── Update the AI Advisor section ──────────────────────────────
+      updateAIAdvisor(completion, overall, priorityDims, patterns, company);
 
       saveState();
     }
@@ -1907,7 +2588,7 @@
       }).join('');
     }
 
-    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company) {
+    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns) {
       const answered = completion.answered;
       const total    = completion.total;
       const pct      = completion.pct;
@@ -1923,7 +2604,7 @@
         els.insightsSubtitle.textContent = `Assessment complete for ${company}. All insights are fully personalised to your results.`;
       }
 
-      // Overview
+      // Overview — now uses dynamic narrative
       if (pct === 0) {
         els.insightOverview.className = 'insight-placeholder';
         els.insightOverview.innerHTML = 'Your overall maturity profile will appear here once you begin scoring the five dimensions.';
@@ -1931,10 +2612,11 @@
         els.insightOverview.className = '';
         const dimScores = dimensions.map(d => ({ name: d.name, avg: getDimensionAverage(d) })).filter(d => d.avg > 0);
         const scoreBreakdown = dimScores.map(d => `<strong>${d.name}:</strong> ${d.avg.toFixed(1)}`).join(' &middot; ');
+        const dynamicNarrative = generateDynamicNarrative(overall, patterns, priorityDims, company);
         if (pct < 100) {
-          els.insightOverview.innerHTML = `<strong>${company}</strong> is currently at <strong>${overall.toFixed(1)} / 5</strong> across the dimensions answered so far, placing it in the <strong>${stage}</strong> category. ${narrative}<br><br><strong>Scores so far:</strong> ${scoreBreakdown}. Complete the remaining questions for a fully calibrated profile.`;
+          els.insightOverview.innerHTML = `${dynamicNarrative}<br><strong>Scores so far:</strong> ${scoreBreakdown}. Complete the remaining questions for a fully calibrated profile.`;
         } else {
-          els.insightOverview.innerHTML = `<strong>${company}</strong> scores <strong>${overall.toFixed(1)} / 5</strong> overall, placing it in the <strong>${stage}</strong> maturity category. ${narrative}<br><br><strong>Dimension breakdown:</strong> ${scoreBreakdown}. The strongest dimension is <strong>${strongest ? strongest.name : '—'}</strong> (${strongest ? strongest.avg.toFixed(1) : '—'}/5), while <strong>${weakest ? weakest.name : '—'}</strong> (${weakest ? weakest.avg.toFixed(1) : '—'}/5) represents the primary constraint.`;
+          els.insightOverview.innerHTML = `${dynamicNarrative}<br><strong>Dimension breakdown:</strong> ${scoreBreakdown}.`;
         }
       }
 
@@ -1952,7 +2634,7 @@
         els.insightServices.innerHTML = buildServices(priorityDims);
       }
 
-      // Per-dimension gap analysis
+      // Per-dimension gap analysis — now uses 5-tier labels
       if (els.insightGapAnalysis) {
         if (pct === 0) {
           els.insightGapAnalysis.innerHTML = '<p class="insight-placeholder">Per-dimension gap analysis will appear once you start answering.</p>';
@@ -1961,9 +2643,8 @@
             .filter(d => d.avg > 0)
             .map(d => {
               const tier = getInsightTier(d.avg);
-              const model = insightModels[d.key];
-              const statusColor = tier === 'high' ? 'var(--good)' : tier === 'mid' ? 'var(--accent)' : 'var(--danger)';
-              const statusLabel = tier === 'high' ? 'Strong' : tier === 'mid' ? 'Developing' : 'Critical gap';
+              const statusColor = getTierColor(tier);
+              const statusLabel = getTierLabel(tier);
               return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(148,163,184,0.1);">
                 <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${statusColor};flex-shrink:0;"></span>
                 <strong style="min-width:130px;">${d.name}</strong>

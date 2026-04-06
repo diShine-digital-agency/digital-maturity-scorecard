@@ -4,7 +4,7 @@
 
 **digital-maturity-scorecard** is a single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
 
-The tool combines a structured thirty-question scorecard, a live radar chart, dynamic real-time insights with per-dimension gap analysis, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, updates the overall maturity stage across eight granular levels, and generates a focused ninety-day roadmap.
+The tool combines a structured thirty-question scorecard, a live radar chart, an intelligent analytical engine with pattern detection and cross-dimensional intelligence, a five-tier insight model, AI-powered strategic analysis, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, detects score patterns, analyses cross-dimensional relationships, and generates genuinely unique insights and recommendations tailored to the specific assessment profile.
 
 Built by [diShine](https://dishine.it)
 
@@ -14,25 +14,29 @@ Built by [diShine](https://dishine.it)
 
 | Attribute | Details |
 | --- | --- |
-| Repository purpose | Interactive digital maturity assessment for agencies, consultants, and transformation teams |
+| Repository purpose | Interactive digital maturity assessment with AI-powered analytical engine for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
 | Dependencies | None (html2pdf.js for PDF export) |
-| Output | Live maturity profile, radar chart, dynamic insights, per-dimension gap analysis, tailored recommendations, printable report |
+| Output | Live maturity profile, radar chart, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, printable report |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
-| Primary value | Turns a discovery conversation into a structured diagnostic and action plan |
+| AI model | On-device intelligent engine — no API, no installation, no data leaves the browser |
+| Primary value | Turns a discovery conversation into a structured diagnostic with genuinely unique, contextual insights |
 
 ## Why this tool creates real value
 
 Many maturity assessments stop at scoring. This repository is intentionally built to go further. It translates raw answers into a practical advisory output that can be used in discovery calls, internal planning workshops, client diagnostics, and post-audit recommendations.
 
-This means the scorecard is not just a visual gadget or lead magnet. It functions as a compact strategic instrument. It helps agencies and transformation teams move from vague digital ambition to a more concrete understanding of capability gaps, priority constraints, and the next practical steps required to improve execution.
+The intelligent analytical engine detects patterns across all five dimensions, identifies cross-dimensional constraints (e.g., how data gaps limit AI potential, or how governance bottlenecks block scaling), and generates genuinely unique narratives for every possible score profile. This means no two assessments produce the same generic output — the insights are always specific to the organisation's actual profile.
 
 | Value area | What the tool delivers |
 | --- | --- |
 | Diagnostic clarity | Exposes where digital capability is uneven, not just where it is weak overall |
+| Pattern intelligence | Detects 13 distinct score patterns and explains what they mean strategically |
+| Cross-dimensional analysis | Identifies how dimensions interact — data limits AI, governance limits scaling, performance limits proof |
+| AI-powered analysis | On-device intelligent engine provides unique, contextual insights with zero external dependencies |
 | Executive communication | Converts assessment inputs into a concise one-page Digital Health Report |
-| Strategic direction | Produces a ninety-day roadmap rather than a score with no follow-through |
-| Dynamic insights | Real-time, dimension-specific insights that adapt to the nature of results |
+| Strategic direction | Produces a ninety-day roadmap with what-if scenario modelling |
+| Question-level precision | Surfaces specific capability gaps within dimensions, not just dimension-level averages |
 | Agency relevance | Pins recommendations to diShine-style services so the output supports real consulting conversations |
 | Ease of adoption | Runs anywhere as a static file with no build process, packages, or frameworks |
 
@@ -83,8 +87,15 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Live radar chart | Updates instantly as users answer the assessment with properly positioned multi-line dimension labels |
 | Five-dimension scoring | Calculates per-dimension averages and an overall maturity score |
 | Eight-level maturity scale | Interprets the average score into one of eight granular maturity stages for precise diagnostic output |
-| Dynamic insights section | Real-time insights with 3-tier (low/mid/high) dimension-specific guidance, showing core advantages, critical constraints, gap analysis, and strategic focus |
-| Per-dimension gap analysis | Visual status indicators (Critical gap/Developing/Strong) for each dimension with colour-coded scoring |
+| Five-tier insight model | Each dimension has five insight tiers (critical/low/mid/advancing/high) with unique, actionable guidance |
+| Pattern detection engine | Detects 13 distinct score patterns including uniform, polarized, outlier, and cross-dimensional relationships |
+| Cross-dimensional intelligence | Analyses how dimensions interact and constrain each other with severity-rated insights |
+| AI-powered strategic analysis | On-device analytical engine providing pattern diagnosis, cross-dimensional intelligence, question-level gaps, priority matrix, and what-if scenarios — no API, no installation |
+| Per-dimension micro-feedback | Real-time contextual status bar in each dimension card showing tier-appropriate feedback as users answer |
+| Question-level gap analysis | Surfaces the specific weakest capabilities within each dimension, not just dimension averages |
+| Dynamic narrative generation | Multi-variable engine producing genuinely unique analysis text for every score profile |
+| What-if scenario modelling | Shows the impact of improving the weakest dimension by 1 point on overall score and maturity stage |
+| Per-dimension gap analysis | Visual status indicators (Critical gap/Weak/Developing/Advancing/Strong) for each dimension with colour-coded scoring |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
 | Local persistence | Saves progress in browser storage so the user can resume later |
@@ -96,14 +107,20 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 
 In a real discovery or consulting context, the scorecard helps convert a broad digital conversation into a more structured assessment. As the user scores each prompt, the tool identifies where maturity is concentrated, where execution is blocked, and where the greatest leverage for improvement is likely to be found.
 
-The live radar chart makes imbalance immediately visible. The dynamic insights section updates in real time with dimension-specific guidance, showing the current strength, primary constraint, strategic focus, and a practical 90-day roadmap. The report layer then interprets the scores through a maturity-stage narrative and produces a professional PDF export that can support proposals, workshops, strategic reviews, or internal planning sessions.
+The live radar chart makes imbalance immediately visible. The intelligent analytical engine detects score patterns (e.g., uniform low scores vs polarized scores vs single bottlenecks), analyses cross-dimensional relationships (e.g., how data gaps constrain AI potential), and generates genuinely unique narratives for every score profile. The AI-powered strategic analysis section provides pattern diagnosis, cross-dimensional intelligence, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with zero external dependencies.
+
+The report layer then interprets the scores through a maturity-stage narrative and produces a professional PDF export that can support proposals, workshops, strategic reviews, or internal planning sessions.
 
 | Practical output | Advisory use |
 | --- | --- |
-| Strongest dimension | Shows where the organisation already has momentum to build on |
+| Pattern diagnosis | Shows whether the organisation has uniform gaps, polarized strengths, bottleneck dimensions, or specific constraint patterns |
+| Cross-dimensional intelligence | Identifies how dimensions interact — data limits AI, governance blocks scaling, performance limits proof of value |
+| Question-level gap analysis | Surfaces the specific capabilities that are weakest within each dimension |
+| Strongest dimension | Shows where the organisation already has capability to build on |
 | Weakest dimension | Identifies the most likely operational bottleneck |
 | Overall maturity stage | Gives leadership a concise narrative summary |
-| Dynamic insights | Provides 3-tier dimension-specific guidance tailored to the assessment results, with per-dimension gap analysis |
+| What-if scenarios | Models the impact of improving the weakest dimension by 1 point |
+| Dynamic insights | Provides five-tier dimension-specific guidance tailored to the assessment results, with per-dimension gap analysis |
 | Recommended services | Connects diagnostic findings to concrete intervention areas |
 | Ninety-day roadmap | Helps convert diagnosis into action planning |
 
@@ -115,7 +132,8 @@ This project is intentionally minimal.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The full application, including layout, styling, scoring logic, chart rendering, insights generation, and export functionality |
+| `index.html` | The full application, including layout, styling, scoring logic, analytical engine, pattern detection, AI-powered analysis, chart rendering, insights generation, and export functionality |
+| `docs/SCORING_MODEL.md` | Complete documentation of the scoring model, analytical engine, pattern detection, cross-dimensional intelligence, and all insight generation mechanisms |
 | `README.md` | Repository overview, installation, usage, and customisation guidance |
 | `CHANGELOG.md` | Version history |
 | `LICENSE` | Open-source licence |
@@ -125,7 +143,9 @@ This project is intentionally minimal.
 
 Start by entering the organisation name and the primary transformation ambition. Then complete the thirty assessment prompts using the five-level maturity scale. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
-As you answer questions, the **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, and a 90-day roadmap tailored to your lowest-scoring dimensions.
+As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status and contextual insight. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, and a 90-day roadmap tailored to your lowest-scoring dimensions.
+
+The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis, cross-dimensional intelligence, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
 
 When the assessment is complete, review the live radar chart, the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To create a shareable output, select **Export Digital Health Report** and the tool will generate a branded PDF with all insights, grades, and recommendations.
 
@@ -151,7 +171,7 @@ The framework is organised around five operational dimensions that together shap
 
 ## Scoring model
 
-Each dimension contains six prompts scored from **1** to **5**.
+Each dimension contains six prompts scored from **1** to **5**. For the complete technical documentation of the scoring model, analytical engine, pattern detection, and insight generation, see [`docs/SCORING_MODEL.md`](docs/SCORING_MODEL.md).
 
 | Score | Meaning |
 | --- | --- |
@@ -182,9 +202,13 @@ The generated **Digital Health Report** is intended to be short enough to use in
 
 | Report section | Purpose |
 | --- | --- |
-| Overall maturity snapshot | Summarises the current maturity level and strategic implication |
-| Key findings | Highlights the strongest and weakest capability areas with 3-tier (low/mid/high) dimension-specific guidance |
-| Gap analysis | Per-dimension visual status indicators showing Critical gap, Developing, or Strong |
+| Overall maturity snapshot | Summarises the current maturity level with context-aware language (never says "preserve momentum" when scores are low) |
+| Key findings | Highlights the strongest and weakest capability areas with 5-tier (critical/low/mid/advancing/high) dimension-specific guidance |
+| Gap analysis | Per-dimension visual status indicators showing Critical gap, Weak, Developing, Advancing, or Strong |
+| Pattern diagnosis | Identifies score patterns (uniform, polarized, outlier, etc.) and their strategic meaning |
+| Cross-dimensional intelligence | Shows how dimensions interact and constrain each other |
+| Question-level gaps | Surfaces specific capability weaknesses within each dimension |
+| What-if scenarios | Models the impact of improving the weakest dimension |
 | Strategic focus | Connects the stated transformation ambition to the output narrative |
 | Recommended support | Aligns findings with relevant diShine-style intervention areas |
 | Ninety-day roadmap | Provides an action-oriented path across the next three phases of improvement |
@@ -201,9 +225,11 @@ The tool is easy to adapt for different propositions, sectors, or agency offers.
 | Dimension descriptions | The `dimensions` array |
 | Service recommendations | The `services` lists per dimension |
 | Roadmap recommendations | The `roadmap` object per dimension |
-| Insight models | The `insightModels` object for 3-tier (low/mid/high) dimension-specific guidance |
+| Insight models | The `insightModels` object for 5-tier (critical/low/mid/advancing/high) dimension-specific guidance |
+| Cross-dimensional rules | The `generateCrossDimensionalInsights` function |
+| Pattern detection | The `analyzePatterns` function |
 | Brand colours and visual style | CSS variables in `:root` |
-| Report wording | The `getStage` (8 levels), `buildFindings`, and `refresh` functions |
+| Report wording | The `getStage` (8 levels), `buildFindings`, `generateDynamicNarrative`, and `refresh` functions |
 
 ## Deployment
 
