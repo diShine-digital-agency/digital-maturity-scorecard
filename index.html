@@ -1184,41 +1184,7 @@
       </aside>
     </div>
 
-    <!-- ── Dynamic Insights Section ─────────────────────────────── -->
-    <section class="insights-section" id="insightsSection">
-      <div class="insights-header">
-        <div>
-          <div class="insights-badge">&#9679; Live insights</div>
-          <h2>Dynamic Assessment Insights</h2>
-          <p id="insightsSubtitle">Complete the scorecard above — insights update in real time as you answer.</p>
-        </div>
-      </div>
 
-      <div class="insights-full">
-        <div class="insight-card">
-          <h3>Maturity overview</h3>
-          <p id="insightOverview" class="insight-placeholder">Your overall maturity profile will appear here once you begin scoring the five dimensions.</p>
-        </div>
-      </div>
-
-      <div class="insights-grid">
-        <div class="insight-card">
-          <h3>Key findings</h3>
-          <ul id="insightFindings"><li class="insight-placeholder">Findings will populate as you answer the assessment questions.</li></ul>
-        </div>
-        <div class="insight-card">
-          <h3>Strategic focus areas</h3>
-          <ul id="insightServices"><li class="insight-placeholder">Recommended focus areas will appear based on your lowest-scoring dimensions.</li></ul>
-        </div>
-      </div>
-
-      <div class="insight-card">
-        <h3>90-day improvement roadmap</h3>
-        <div id="insightRoadmap" class="insight-roadmap-grid">
-          <p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>
-        </div>
-      </div>
-    </section>
 
     <section class="report" id="reportCard">
       <div class="report-header">
@@ -1284,107 +1250,112 @@
     const dimensions = [
       {
         key: 'data',
-        name: 'Data',
-        description: 'Collection, accessibility, quality, and decision usefulness.',
+        name: 'Data & Analytics',
+        description: 'The systematic collection, integration, analysis, and application of data to drive strategic decisions and optimise performance.',
         services: [
-          'Measurement architecture and data layer rationalisation',
-          'Dashboard and KPI framework redesign',
-          'Data governance and source-of-truth alignment'
+          'Data Strategy & Architecture Development',
+          'Advanced Analytics & Business Intelligence Implementation',
+          'Data Governance & Quality Frameworks',
+          'Customer Data Platform (CDP) Integration & Activation'
         ],
         roadmap: {
-          quick: 'Audit tracking coverage, naming conventions, and reporting definitions to remove blind spots in decision-making.',
-          next: 'Create a unified KPI dictionary and management dashboard that aligns marketing, product, and leadership reporting.',
-          later: 'Introduce a governed data operating model with ownership, quality controls, and activation workflows.'
+          quick: 'Conduct a comprehensive data audit to identify key sources, gaps, and integration opportunities for a unified view.',
+          next: 'Develop a foundational data governance framework, including data ownership, quality standards, and access protocols.',
+          later: 'Implement an advanced analytics platform to enable predictive modeling and real-time performance dashboards.'
         },
         questions: [
-          ['data_q1', 'Our critical marketing, CRM, and web data can be accessed in one consistent view.', 'This tests whether teams operate from a shared evidence base rather than siloed exports.'],
-          ['data_q2', 'Decision-makers trust the quality and timeliness of the data they use.', 'Poor trust usually signals tagging issues, missing definitions, or inconsistent refresh cycles.'],
-          ['data_q3', 'We have clear KPI definitions that are used consistently across teams.', 'Common definitions are essential for performance accountability and executive confidence.'],
-          ['data_q4', 'Data is actively used to prioritise campaigns, channels, and customer opportunities.', 'Maturity rises when data changes decisions, not just reporting decks.']
+          ['data_q1', 'Our organisation has a clearly defined data strategy that aligns with business objectives.', 'A robust data strategy ensures data initiatives support overarching business goals.'],
+          ['data_q2', 'We consistently integrate data from various sources (e.g., CRM, web, marketing) into a unified view.', 'Unified data provides a holistic understanding of customer journeys and operational performance.'],
+          ['data_q3', 'Decision-makers across the organisation trust the accuracy, completeness, and timeliness of our data.', 'Data trust is fundamental for confident, data-driven decision-making.'],
+          ['data_q4', 'We actively use advanced analytics (e.g., predictive models, AI-driven insights) to inform strategic and operational decisions.', 'Leveraging advanced analytics moves beyond descriptive reporting to proactive, foresightful action.']
         ]
       },
       {
         key: 'ai',
-        name: 'AI',
-        description: 'Use-case clarity, enablement, governance, and adoption.',
+        name: 'AI & Automation',
+        description: 'The strategic integration and management of artificial intelligence and automation technologies to enhance operational efficiency, decision-making, and customer engagement.',
         services: [
-          'AI use-case prioritisation and adoption roadmap',
-          'Prompt workflow design for marketing and operations',
-          'AI governance guardrails and team enablement'
+          'AI Strategy & Use Case Development',
+          'Intelligent Automation (RPA, BPM) Implementation',
+          'Machine Learning Model Development & Deployment',
+          'AI Ethics, Governance & Risk Management'
         ],
         roadmap: {
-          quick: 'Identify the highest-value, lowest-risk AI use cases across content, analytics, and workflow automation.',
-          next: 'Pilot practical AI workflows with clear owners, approval rules, and measurable productivity goals.',
-          later: 'Scale an AI enablement model with governance, training, and integration into day-to-day processes.'
+          quick: 'Identify and pilot 1-2 high-impact, low-risk AI/automation use cases to demonstrate tangible business value and build internal capability.',
+          next: 'Develop an enterprise-wide AI strategy, including a clear roadmap for technology adoption, skill development, and ethical guidelines.',
+          later: 'Scale AI and automation initiatives across core business functions, integrating advanced ML models for predictive insights and hyper-personalisation.'
         },
         questions: [
-          ['ai_q1', 'We have identified priority AI use cases linked to business outcomes.', 'Strong maturity starts with outcome-driven use cases rather than experimentation without a thesis.'],
-          ['ai_q2', 'Teams have repeatable prompts, workflows, or tools that improve quality or speed.', 'This reflects operationalised AI rather than occasional one-off usage.'],
-          ['ai_q3', 'We have clear guardrails for quality, compliance, data privacy, and human review.', 'AI maturity requires governance to scale safely.'],
-          ['ai_q4', 'AI adoption is monitored for value creation, not just novelty or experimentation.', 'A mature practice connects AI activity to throughput, cost, and growth metrics.']
+          ['ai_q1', 'Our organisation has a clear strategy for leveraging AI and automation to achieve specific business outcomes.', 'A defined strategy ensures AI investments are purposeful and aligned with organisational goals.'],
+          ['ai_q2', 'We have successfully implemented AI or automation solutions that deliver measurable improvements in efficiency or effectiveness.', 'Successful implementation demonstrates the ability to translate AI concepts into practical, value-generating applications.'],
+          ['ai_q3', 'We have established ethical guidelines, governance frameworks, and risk management processes for AI and automation initiatives.', 'Responsible AI adoption requires robust governance to ensure fairness, transparency, and accountability.'],
+          ['ai_q4', 'Our employees are actively trained and empowered to utilise AI and automation tools in their daily workflows.', 'Effective enablement and adoption are crucial for maximising the benefits of AI and automation across the workforce.']
         ]
       },
       {
         key: 'experience',
-        name: 'Experience',
-        description: 'Customer journey design, content coherence, and personalisation.',
+        name: 'Customer Experience (CX)',
+        description: 'The holistic design, delivery, and optimisation of customer interactions across all touchpoints to create seamless, satisfying, and valuable journeys.',
         services: [
-          'Customer journey and content experience redesign',
-          'Conversion-focused UX and messaging optimisation',
-          'Personalisation strategy across channels and lifecycle stages'
+          'Customer Journey Mapping & Optimisation',
+          'User Experience (UX) Research & Design',
+          'Personalisation Strategy & Implementation',
+          'Omnichannel Content Strategy & Development'
         ],
         roadmap: {
-          quick: 'Map the highest-friction customer journeys and align messaging to key decision moments.',
-          next: 'Redesign priority pages, lifecycle touchpoints, and content flows around conversion and clarity.',
-          later: 'Layer in audience-based personalisation using behavioural signals and performance feedback loops.'
+          quick: 'Conduct comprehensive customer journey mapping to identify pain points, moments of truth, and opportunities for improvement across key touchpoints.',
+          next: 'Implement a continuous UX research program to gather user feedback and iteratively optimise digital interfaces and interactions.',
+          later: 'Develop and deploy a data-driven personalisation engine to deliver tailored content and experiences across all customer segments and channels.'
         },
         questions: [
-          ['experience_q1', 'Our digital journeys are intentionally designed around customer needs and decision stages.', 'Journey maturity means experience is architected, not assembled channel by channel.'],
-          ['experience_q2', 'Brand, messaging, and content are coherent across web, campaign, and lifecycle touchpoints.', 'Consistency improves trust, recall, and conversion performance.'],
-          ['experience_q3', 'We regularly use audience insight or behaviour data to improve user experience.', 'This separates static experience design from learning-driven experience management.'],
-          ['experience_q4', 'We personalise key touchpoints based on audience, intent, or lifecycle stage.', 'Personalisation maturity indicates stronger relevance and orchestration.']
+          ['experience_q1', 'Our customer journeys are intentionally designed and continuously optimised based on deep customer insights and feedback.', 'Proactive design and continuous improvement are hallmarks of mature CX, moving beyond reactive fixes.'],
+          ['experience_q2', 'We deliver consistent, branded, and personalised experiences across all digital and physical touchpoints.', 'Omnichannel consistency and personalisation are critical for building strong customer relationships and brand loyalty.'],
+          ['experience_q3', 'We actively use data (e.g., behavioural, transactional, sentiment) to understand customer needs and predict future behaviour.', 'Leveraging diverse data sources enables proactive and predictive CX strategies, anticipating customer needs before they arise.'],
+          ['experience_q4', 'Our organisation has a clear strategy and dedicated resources for driving continuous improvement in customer experience.', 'A strategic commitment to CX, backed by resources, ensures sustained focus and measurable improvements over time.']
         ]
       },
       {
         key: 'governance',
-        name: 'Governance',
-        description: 'Ownership, standards, workflows, compliance, and accountability.',
+        name: 'Governance & Operations',
+        description: 'The establishment of clear structures, policies, and processes to ensure effective, compliant, and efficient management of digital initiatives and assets.',
         services: [
-          'Digital operating model and role clarity design',
-          'Governance playbooks for campaigns, content, and analytics',
-          'Compliance-aware workflow and approval structure'
+          'Digital Operating Model Design & Implementation',
+          'Policy & Compliance Framework Development',
+          'Workflow Automation & Process Optimisation',
+          'Risk Management & Cybersecurity Strategy'
         ],
         roadmap: {
-          quick: 'Clarify decision rights, content approvals, and measurement ownership across the digital estate.',
-          next: 'Document standards, templates, and governance routines for recurring digital work.',
-          later: 'Embed a scalable operating model with formal accountability, risk controls, and cross-functional rituals.'
+          quick: 'Establish a cross-functional digital governance committee with clear roles, responsibilities, and decision-making authority for key digital initiatives.',
+          next: 'Develop and implement standardised operating procedures (SOPs) and playbooks for critical digital processes, ensuring consistency and efficiency.',
+          later: 'Integrate advanced risk management and cybersecurity protocols into all digital operations, ensuring data protection and business continuity.'
         },
         questions: [
-          ['governance_q1', 'Roles and ownership for digital channels, content, data, and technology are clearly defined.', 'Ambiguous ownership slows progress and weakens execution quality.'],
-          ['governance_q2', 'We use documented standards or playbooks for recurring digital activities.', 'Documented practice supports quality at scale and reduces person-dependence.'],
-          ['governance_q3', 'Approvals, compliance, and quality assurance are efficient without creating delivery bottlenecks.', 'Good governance protects the organisation without paralysing momentum.'],
-          ['governance_q4', 'Leadership reviews digital priorities and performance through a structured governance cadence.', 'Executive rhythm is a core indicator of strategic maturity.']
+          ['governance_q1', 'Our organisation has a well-defined digital operating model with clear roles, responsibilities, and accountability for digital initiatives.', 'Clear ownership and accountability are essential for effective digital execution and avoiding silos.'],
+          ['governance_q2', 'We have established policies and procedures to ensure compliance with relevant regulations (e.g., GDPR, CCPA) and industry standards.', 'Regulatory compliance and adherence to best practices are critical for maintaining trust and avoiding legal repercussions.'],
+          ['governance_q3', 'Our digital workflows and processes are optimised for efficiency, collaboration, and continuous improvement.', 'Streamlined operations reduce friction, improve productivity, and enable faster time-to-market for digital products and services.'],
+          ['governance_q4', 'We have robust risk management and cybersecurity measures in place to protect digital assets and ensure business continuity.', 'Proactive risk management and strong cybersecurity are fundamental for safeguarding intellectual property and customer data.']
         ]
       },
       {
         key: 'performance',
-        name: 'Performance',
-        description: 'Measurement discipline, experimentation, optimisation, and ROI visibility.',
+        name: 'Performance & Optimisation',
+        description: 'The continuous measurement, analysis, and refinement of digital activities to maximise efficiency, effectiveness, and return on investment (ROI).',
         services: [
-          'Performance marketing and experimentation framework',
-          'Attribution and ROI visibility improvement',
-          'Continuous optimisation and growth review model'
+          'Performance Marketing Strategy & Execution',
+          'Conversion Rate Optimisation (CRO) & A/B Testing',
+          'Marketing Attribution Modeling & ROI Measurement',
+          'Growth Hacking & Experimentation Frameworks'
         ],
         roadmap: {
-          quick: 'Define the core metrics, review cadence, and decision thresholds that govern optimisation.',
-          next: 'Launch an experimentation backlog covering media, content, landing pages, and lifecycle interventions.',
-          later: 'Build a continuous improvement engine that links budget allocation to evidence, incrementality, and ROI.'
+          quick: 'Implement a robust analytics setup to track key performance indicators (KPIs) and establish a baseline for all digital channels and campaigns.',
+          next: 'Develop and execute a structured A/B testing program to continuously optimise conversion funnels, user journeys, and campaign performance.',
+          later: 'Build an advanced attribution model to accurately measure the ROI of all marketing efforts and inform future budget allocation and strategic investments.'
         },
         questions: [
-          ['performance_q1', 'We can see which channels, campaigns, or initiatives are creating measurable business impact.', 'Visibility into contribution is the foundation of smart investment decisions.'],
-          ['performance_q2', 'We run structured tests or experiments to improve outcomes over time.', 'Experimentation is a hallmark of mature digital performance management.'],
-          ['performance_q3', 'Performance reviews lead to clear decisions on budget, content, journey, or process changes.', 'Reporting alone is not maturity; action based on learning is.'],
-          ['performance_q4', 'We have confidence in the return on digital investments and where to optimise next.', 'Confidence grows when measurement, governance, and experimentation work together.']
+          ['performance_q1', 'We have clear, measurable KPIs for all digital activities, and we regularly track and report on our performance against these goals.', 'Defined KPIs and consistent tracking are essential for understanding the impact of digital efforts and identifying areas for improvement.'],
+          ['performance_q2', 'We regularly conduct structured experiments (e.g., A/B tests, multivariate tests) to optimise our digital channels and campaigns.', 'Continuous experimentation is a hallmark of mature performance, driving incremental gains and identifying best practices.'],
+          ['performance_q3', 'We have a clear understanding of the ROI for our digital investments, and this insight informs our budget allocation and strategic decisions.', 'Linking digital spend to measurable returns is crucial for justifying investments and optimising resource allocation.'],
+          ['performance_q4', 'Our teams are empowered to act on performance insights, leading to rapid iteration and continuous improvement across all digital touchpoints.', 'An agile, data-driven culture that encourages rapid iteration is key to sustained digital performance and competitive advantage.']
         ]
       }
     ];
@@ -1592,7 +1563,13 @@
         if (Math.abs(sin) < 0.1) ctx.textBaseline = 'middle';
         else ctx.textBaseline = sin > 0 ? 'top' : 'bottom';
         
-        ctx.fillText(dim.name, labelX, labelY);
+        // Adjust for Performance label which is longer
+        let adjustedLabelX = labelX;
+        if (dim.name === 'Performance' && cos > 0.5) {
+          adjustedLabelX -= 15; // Shift left for right-side labels
+        }
+        
+        ctx.fillText(dim.name, adjustedLabelX, labelY);
       });
 
       const scores = dimensions.map(getDimensionAverage);
@@ -1634,24 +1611,24 @@
 
     const insightModels = {
       data: {
-        low: "Data silos and trust issues are creating 'blind-spot' decision making. Focus on a single source of truth before scaling media spend.",
-        high: "Data maturity is a competitive advantage. Focus on predictive modelling and real-time activation to compound this lead."
+        low: "Your organisation is likely grappling with fragmented data sources, inconsistent definitions, and a lack of trust in data accuracy. This creates significant 'blind spots' in decision-making and hinders effective digital initiatives. Prioritise establishing a unified data foundation and clear governance to unlock data's strategic value.",
+        high: "Your data capabilities are a significant competitive advantage, enabling informed decision-making and advanced analytics. The next frontier involves leveraging predictive modeling, real-time data activation, and advanced machine learning to drive hyper-personalisation and proactive strategies."
       },
       ai: {
-        low: "AI is currently a novelty or 'shadow' activity. Establish governance and outcome-linked use cases to move from hype to ROI.",
-        high: "AI is becoming an operational engine. Focus on custom model fine-tuning and cross-functional workflow automation."
+        low: "AI and automation initiatives appear to be nascent or siloed, often treated as experimental projects rather than integrated strategic tools. Without clear use cases, governance, and a focus on measurable outcomes, AI risks remaining a novelty. Focus on identifying high-impact applications and building foundational capabilities.",
+        high: "Your organisation is effectively operationalising AI and automation, driving efficiency and enhancing decision-making. To further compound this advantage, explore custom model fine-tuning, advanced AI-driven analytics, and seamless cross-functional workflow automation to unlock new levels of performance."
       },
       experience: {
-        low: "Journeys are likely fragmented and channel-first. Shift to an audience-centric architecture to improve conversion and retention.",
-        high: "Experience is strong but selective. Use deep behavioural data to drive 1:1 personalisation and lifecycle orchestration."
+        low: "Customer journeys are likely fragmented, inconsistent, and designed around internal silos rather than customer needs. This leads to poor user experiences, high friction, and missed conversion opportunities. A strategic shift towards customer-centric design and journey orchestration is critical.",
+        high: "Your customer experience is a key differentiator, consistently delivering engaging and personalised interactions. The focus should now be on leveraging deep behavioural insights, advanced personalisation engines, and emerging technologies to create truly anticipatory and delightful customer journeys at scale."
       },
       governance: {
-        low: "Ambiguous ownership is slowing delivery. Define clear decision rights and playbooks to unlock team velocity.",
-        high: "Governance is a facilitator, not a bottleneck. Use this stability to pilot higher-risk, higher-reward digital innovations."
+        low: "Ambiguous roles, inconsistent processes, and a lack of clear accountability are likely hindering your digital progress. This can lead to inefficiencies, compliance risks, and slow decision-making. Establishing robust governance frameworks and clear operational playbooks is essential to unlock agility and control.",
+        high: "Your governance and operational frameworks are robust, enabling efficient execution and effective risk management. This stability provides a strong foundation to explore more ambitious digital innovations, foster a culture of continuous improvement, and empower decentralised decision-making within clear boundaries."
       },
       performance: {
-        low: "Measurement is likely focused on 'vanity' metrics. Align KPIs to business value and launch a formal experimentation backlog.",
-        high: "Performance culture is strong. Shift focus to incrementality testing and long-term customer lifetime value (LTV) models."
+        low: "Your organisation may be struggling with unclear KPIs, a lack of structured experimentation, and difficulty in demonstrating ROI for digital investments. This can lead to inefficient spending and missed optimisation opportunities. Prioritise establishing a data-driven performance culture with clear metrics and continuous testing.",
+        high: "Your performance and optimisation capabilities are highly mature, driving measurable business impact and continuous improvement. The focus should now be on advanced attribution modeling, predictive performance analytics, and integrating growth hacking methodologies to identify and scale new levers of value creation."
       }
     };
 
@@ -1671,26 +1648,32 @@
 
       // Dynamic Strategic Implication based on Score + Imbalance
       const variance = strongest.avg - weakest.avg;
-      if (variance > 2) {
-        findings.push('<li><strong>Risk Warning:</strong> High maturity variance detected. Your strong areas are being throttled by foundational gaps in other dimensions.</li>');
-      }
-
-      if (overallScore >= 4.0) {
-        findings.push('<li><strong>Strategic Focus:</strong> Market leadership. Shift from operational excellence to disruptive innovation and predictive capability.</li>');
+      if (variance > 1.5 && strongest.avg > 3.5 && weakest.avg < 2.5) {
+        findings.push(`<li><strong>Strategic Implication:</strong> **High Maturity Variance Detected.** Your significant strengths in **${strongest.name}** are likely being undermined by critical foundational gaps in **${weakest.name}**. Addressing these imbalances is crucial for sustainable growth.</li>`);
+      } else if (overallScore >= 4.0) {
+        findings.push(`<li><strong>Strategic Focus:</strong> **Market Leadership & Innovation.** Leverage your advanced maturity to drive disruptive innovation, explore new business models, and solidify your position as an industry leader.</li>`);
       } else if (overallScore >= 3.0) {
-        findings.push('<li><strong>Strategic Focus:</strong> Scaling efficiency. Use your structured foundations to automate workflows and unify the customer experience.</li>');
+        findings.push(`<li><strong>Strategic Focus:</strong> **Optimisation & Scalability.** Build upon your solid foundations by optimising cross-functional workflows, enhancing automation, and scaling successful initiatives across the organisation.</li>`);
       } else if (overallScore >= 2.0) {
-        findings.push('<li><strong>Strategic Focus:</strong> Professionalisation. Move away from ad-hoc reactive work toward documented standards and reliable data.</li>');
+        findings.push(`<li><strong>Strategic Focus:</strong> **Foundational Development & Professionalisation.** Systematise ad-hoc processes, establish clear standards, and invest in core capabilities to build a more robust and reliable digital operating model.</li>`);
       } else {
-        findings.push('<li><strong>Strategic Focus:</strong> Remediation. Prioritise data trust and role clarity to create a stable base for any future digital investment.</li>');
+        findings.push(`<li><strong>Strategic Focus:</strong> **Remediation & Stabilisation.** Prioritise addressing fundamental weaknesses in areas like data quality, basic governance, and core operational clarity to create a stable base for any future digital investment.</li>`);
       }
       
       return findings.join('');
     }
 
     function buildServices(priorityDims) {
-      const chosen = priorityDims.slice(0, 2).flatMap(dim => dim.services).slice(0, 5);
-      return chosen.map(item => `<li>${item}</li>`).join('');
+      // Select services from the two weakest dimensions, ensuring variety and relevance
+      const chosenServices = priorityDims.slice(0, 2).flatMap(dim => dim.services);
+      // Randomly pick up to 3 unique services from the chosen list
+      const uniqueServices = [...new Set(chosenServices)];
+      const selected = [];
+      while (selected.length < 3 && uniqueServices.length > 0) {
+        const randomIndex = Math.floor(Math.random() * uniqueServices.length);
+        selected.push(uniqueServices.splice(randomIndex, 1)[0]);
+      }
+      return selected.map(item => `<li>${item}</li>`).join("");
     }
 
     function buildRoadmap(priorityDims) {
@@ -1866,46 +1849,10 @@
       els.printBtn.addEventListener('click', () => exportToPDF());
     }
 
-    async function exportToPDF() {
-      const btn = els.printBtn;
-      const originalText = btn.textContent;
-      
-      try {
-        btn.disabled = true;
-        btn.textContent = 'Generating PDF...';
-        
-        const company = state.companyName.trim() || 'Digital-Maturity-Assessment';
-        const element = document.querySelector('.app');
-        const filename = `diShine-Digital-Health-Report-${company.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
-        
-        const opt = {
-          margin: [10, 10, 10, 10],
-          filename: filename,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { 
-            scale: 2, 
-            useCORS: true, 
-            logging: false,
-            allowTaint: true,
-            backgroundColor: '#08111f' // Match app background for non-print export
-          },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
-        
-        // Use a clone to avoid disrupting the live DOM state
-        const worker = html2pdf().set(opt).from(element);
-        await worker.save();
-        
-      } catch (err) {
-        console.error('PDF Export failed:', err);
-        alert('PDF Export failed. Please try the browser print dialog instead (Ctrl+P).');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = originalText;
-        // Force a refresh to ensure UI state is correct
-        refresh();
-      }
+    function exportToPDF() {
+      // Use native browser print dialog for reliable PDF export
+      // This works across all browsers and doesn't require external libraries
+      window.print();
     }
 
     loadState();
