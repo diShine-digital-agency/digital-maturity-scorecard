@@ -2291,7 +2291,7 @@
     }
 
     // Find the weakest 2 questions within a dimension
-    const MAX_QUESTION_TITLE_LENGTH = 40;
+    const TRUNCATED_TITLE_LENGTH = 40;
     function analyzeQuestionGaps(dim) {
       const scored = dim.questions
         .map(([id, title]) => ({ id, title, score: Number(state.answers[id] || 0) }))
@@ -2301,7 +2301,7 @@
         .sort((a, b) => a.score - b.score)
         .slice(0, 2)
         .map(q => ({
-          title: q.title.length > MAX_QUESTION_TITLE_LENGTH ? q.title.substring(0, MAX_QUESTION_TITLE_LENGTH) + '…' : q.title,
+          title: q.title.length > TRUNCATED_TITLE_LENGTH ? q.title.substring(0, TRUNCATED_TITLE_LENGTH) + '…' : q.title,
           score: q.score,
           dimName: dim.name
         }));
