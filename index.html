@@ -643,6 +643,157 @@
       line-height: 1.55;
     }
 
+    /* ── Insights section ─────────────────────────────────────────── */
+    .insights-section {
+      margin-top: 32px;
+      background: linear-gradient(180deg, rgba(6, 13, 24, 0.96), rgba(10, 19, 35, 0.96));
+      border: 1px solid rgba(79, 209, 197, 0.28);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .insights-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .insights-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(79, 209, 197, 0.14);
+      color: #b8fff5;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(79, 209, 197, 0.24);
+      white-space: nowrap;
+    }
+
+    .insights-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .insights-header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .insight-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .insight-card h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .insight-card h3::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand);
+      flex-shrink: 0;
+    }
+
+    .insight-card p,
+    .insight-card ul {
+      color: var(--text);
+      font-size: 0.94rem;
+      line-height: 1.68;
+      margin: 0;
+    }
+
+    .insight-card ul {
+      padding-left: 18px;
+    }
+
+    .insight-card ul li {
+      margin-bottom: 8px;
+    }
+
+    .insight-card ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .insight-card ul li strong {
+      color: var(--accent);
+    }
+
+    .insight-placeholder {
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.93rem;
+    }
+
+    .insights-full {
+      margin-bottom: 20px;
+    }
+
+    .insights-full .insight-card {
+      border-color: rgba(79, 209, 197, 0.18);
+    }
+
+    .insights-full .insight-card p {
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .insights-full .insight-card p strong {
+      color: var(--brand);
+    }
+
+    .insight-roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 1100px) {
+      .insight-roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+      .insights-section {
+        padding: 20px;
+      }
+      .insight-roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .hide-print { display: block; }
     .show-print { display: none; }
 
@@ -878,6 +1029,7 @@
           </div>
           <div class="controls">
             <button class="btn-primary" id="printBtn" type="button">Export Digital Health Report</button>
+            <button class="btn-secondary" type="button" onclick="document.getElementById('insightsSection').scrollIntoView({behavior:'smooth'})">View Insights &#8595;</button>
           </div>
           <p class="footnote">
             The export uses print-optimised styling. Choose <strong>Save as PDF</strong> in your browser print dialog to create a shareable file.
@@ -885,6 +1037,42 @@
         </section>
       </aside>
     </div>
+
+    <!-- ── Dynamic Insights Section ─────────────────────────────── -->
+    <section class="insights-section" id="insightsSection">
+      <div class="insights-header">
+        <div>
+          <div class="insights-badge">&#9679; Live insights</div>
+          <h2>Dynamic Assessment Insights</h2>
+          <p id="insightsSubtitle">Complete the scorecard above — insights update in real time as you answer.</p>
+        </div>
+      </div>
+
+      <div class="insights-full">
+        <div class="insight-card">
+          <h3>Maturity overview</h3>
+          <p id="insightOverview" class="insight-placeholder">Your overall maturity profile will appear here once you begin scoring the five dimensions.</p>
+        </div>
+      </div>
+
+      <div class="insights-grid">
+        <div class="insight-card">
+          <h3>Key findings</h3>
+          <ul id="insightFindings"><li class="insight-placeholder">Findings will populate as you answer the assessment questions.</li></ul>
+        </div>
+        <div class="insight-card">
+          <h3>Strategic focus areas</h3>
+          <ul id="insightServices"><li class="insight-placeholder">Recommended focus areas will appear based on your lowest-scoring dimensions.</li></ul>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <h3>90-day improvement roadmap</h3>
+        <div id="insightRoadmap" class="insight-roadmap-grid">
+          <p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>
+        </div>
+      </div>
+    </section>
 
     <section class="report" id="reportCard">
       <div class="report-header">
@@ -1081,7 +1269,12 @@
       serviceRecommendations: document.getElementById('serviceRecommendations'),
       roadmapGrid: document.getElementById('roadmapGrid'),
       resetBtn: document.getElementById('resetBtn'),
-      printBtn: document.getElementById('printBtn')
+      printBtn: document.getElementById('printBtn'),
+      insightsSubtitle: document.getElementById('insightsSubtitle'),
+      insightOverview: document.getElementById('insightOverview'),
+      insightFindings: document.getElementById('insightFindings'),
+      insightServices: document.getElementById('insightServices'),
+      insightRoadmap: document.getElementById('insightRoadmap')
     };
 
     function saveState() {
@@ -1370,7 +1563,84 @@
         els.goalSummary.textContent = 'Add your primary transformation ambition above to tailor the report narrative.';
       }
 
+      // ── Update the dedicated insights section ──────────────────────
+      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company);
+
       saveState();
+    }
+
+    function buildInsightRoadmap(priorityDims) {
+      const labels = [
+        { period: 'Days 1–30', theme: 'Stabilise the basics', key: 'quick' },
+        { period: 'Days 31–60', theme: 'Build the operating layer', key: 'next' },
+        { period: 'Days 61–90', theme: 'Scale what works', key: 'later' }
+      ];
+      const weakest = priorityDims[0] || dimensions[0];
+      const second  = priorityDims[1] || dimensions[1];
+      const third   = priorityDims[2] || dimensions[2];
+      const picks   = [weakest, second, third];
+
+      return labels.map((meta, i) => {
+        const dim = picks[i];
+        return `
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.14);border-radius:16px;padding:16px;">
+            <div style="display:inline-flex;margin-bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(79,209,197,0.12);color:#bffcf2;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${meta.period}</div>
+            <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme} — <span style="color:var(--brand);">${dim.name}</span></h4>
+            <p style="color:var(--text);margin:0;font-size:0.91rem;line-height:1.6;">${dim.roadmap[meta.key]}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company) {
+      const answered = completion.answered;
+      const total    = completion.total;
+      const pct      = completion.pct;
+      const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
+      const weakest   = priorityDims[0];
+
+      // Subtitle
+      if (pct === 0) {
+        els.insightsSubtitle.textContent = 'Complete the scorecard above — insights update in real time as you answer.';
+      } else if (pct < 100) {
+        els.insightsSubtitle.textContent = `${pct}% complete (${answered} of ${total} questions answered) — keep going to sharpen the recommendations.`;
+      } else {
+        els.insightsSubtitle.textContent = `Assessment complete for ${company}. All insights are fully personalised to your results.`;
+      }
+
+      // Overview
+      if (pct === 0) {
+        els.insightOverview.className = 'insight-placeholder';
+        els.insightOverview.innerHTML = 'Your overall maturity profile will appear here once you begin scoring the five dimensions.';
+      } else {
+        els.insightOverview.className = '';
+        if (pct < 100) {
+          els.insightOverview.innerHTML = `<strong>${company}</strong> is currently at <strong>${overall.toFixed(1)} / 5</strong> across the dimensions answered so far, placing it in the <strong>${stage}</strong> category. ${narrative} Complete the remaining questions for a fully calibrated profile.`;
+        } else {
+          els.insightOverview.innerHTML = `<strong>${company}</strong> scores <strong>${overall.toFixed(1)} / 5</strong> overall, placing it firmly in the <strong>${stage}</strong> maturity category. ${narrative} The strongest dimension is <strong>${strongest ? strongest.name : '—'}</strong> (${strongest ? strongest.avg.toFixed(1) : '—'} / 5), while <strong>${weakest ? weakest.name : '—'}</strong> (${weakest ? weakest.avg.toFixed(1) : '—'} / 5) represents the primary constraint on broader digital progress.`;
+        }
+      }
+
+      // Key findings
+      if (pct === 0) {
+        els.insightFindings.innerHTML = '<li class="insight-placeholder">Findings will populate as you answer the assessment questions.</li>';
+      } else {
+        els.insightFindings.innerHTML = buildFindings(priorityDims, overall);
+      }
+
+      // Strategic focus / services
+      if (pct === 0) {
+        els.insightServices.innerHTML = '<li class="insight-placeholder">Recommended focus areas will appear based on your lowest-scoring dimensions.</li>';
+      } else {
+        els.insightServices.innerHTML = buildServices(priorityDims);
+      }
+
+      // Roadmap
+      if (pct === 0) {
+        els.insightRoadmap.innerHTML = '<p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>';
+      } else {
+        els.insightRoadmap.innerHTML = buildInsightRoadmap(priorityDims);
+      }
     }
 
     function loadInputs() {
