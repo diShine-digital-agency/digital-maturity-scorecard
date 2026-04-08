@@ -1,4 +1,4 @@
-# digital-maturity-scorecard: digital maturity assessment (diShine pre-audit).**
+# digital-maturity-scorecard: digital maturity assessment (diShine pre-audit).
 
 <p align="center">
   <img src="docs/images/digital_maturity_03_maturity_profile_scene.webp" alt="Digital Maturity" width="65%">
