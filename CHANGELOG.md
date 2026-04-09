@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [2.2.0] - 2026-04-09
+
+### Fixed
+
+**PDF Export — Blank Pages Permanently Resolved**: Replaced the `html2pdf.js` (html2canvas-based) export pipeline with `jsPDF` direct PDF generation. Previous attempts to fix blank exports by overriding CSS for html2canvas were unsuccessful because html2canvas fundamentally struggled with the application's CSS complexity (custom properties, gradients, backdrop filters, dark theme). The new approach builds the PDF programmatically from report data — no DOM capture, no CSS rendering, no canvas issues. PDFs now reliably contain all report content with proper formatting, pagination, and a clean professional layout.
+
+### Added
+
+**Multi-Format Report Downloads**: Three export formats are now available at the bottom of the full report:
+
+- **PDF (.pdf)**: Formatted multi-page report via jsPDF with branded header, dimension score table with colour-coded bars, composite indices, key findings, service recommendations, 90-day roadmap, strategic narrative, detected patterns, cross-dimensional intelligence, and question-level gap analysis. Includes page numbers and diShine footer.
+- **Markdown (.md)**: Full report in GitHub-flavoured Markdown with tables, headings, and structured sections. Suitable for documentation, wikis, repositories, and Markdown-compatible platforms.
+- **Plain Text (.txt)**: Complete report in formatted plain text with word-wrapping, aligned columns, and section separators. Suitable for emails, notes, and systems that don't support rich formatting.
+
+**Structured Data Extraction**: New `getReportData()` function centralises all report content extraction into a single structured object. All three export formats (PDF, Markdown, Text) consume the same data, ensuring consistency across outputs.
+
+**Download Section UI**: New "Download Your Report" section appears after the AI-Powered Strategic Analysis section, providing clear access to all three download options with descriptive labels and responsive layout.
+
+### Changed
+
+- **Export button relocated**: The "Export Digital Health Report" button has been removed from the sidebar. Download buttons are now positioned at the bottom of the full report (after viewing all sections) for a more natural workflow. The "View Insights ↓" button remains in the sidebar.
+- **Dependency change**: Replaced `html2pdf.js` (which bundled html2canvas + jsPDF internally) with standalone `jsPDF 4.2.1` from jsdelivr CDN. This removes the html2canvas dependency entirely.
+- **Removed unused CSS**: ~210 lines of `.pdf-export-mode` CSS overrides that were only needed for html2canvas DOM capture have been removed, reducing file size.
+
+---
+
 ## [2.1.1] - 2026-04-09
 
 ### Fixed

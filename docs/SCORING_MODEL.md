@@ -394,7 +394,8 @@ See [`ALGORITHM.md`](ALGORITHM.md#statistical-measures) for full formulas and in
 
 ## Technical notes
 
-- The entire application runs client-side with zero external dependencies (except html2pdf.js for PDF export)
+- The entire application runs client-side with zero external dependencies (except jsPDF for PDF export)
+- Reports are downloadable in three formats: PDF (via jsPDF), Markdown, and plain text
 - No data is transmitted to any server — all analysis is performed in the browser
 - The AI-powered analysis uses a sophisticated rule-based engine, not an external AI service
 - Pattern detection uses statistical analysis (mean, variance, min/max, standard deviation) of the score distribution

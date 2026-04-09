@@ -23,8 +23,8 @@ Built by [diShine](https://dishine.it)
 | --- | --- |
 | Repository purpose | Interactive digital maturity assessment with AI-powered analytical engine for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
-| Dependencies | None (html2pdf.js for PDF export) |
-| Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, branded PDF report |
+| Dependencies | None (jsPDF for PDF export) |
+| Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, downloadable reports (PDF, Markdown, plain text) |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
 | AI model | On-device intelligent engine — no API, no installation, no data leaves the browser |
 | Primary value | Turns a discovery conversation into a structured diagnostic with genuinely unique, contextual insights |
@@ -117,7 +117,9 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
 | Local persistence | Saves progress in browser storage so the user can resume later |
-| PDF export | Generates a branded PDF with radar chart, analytics summary, and all insights via html2pdf.js |
+| PDF export | Generates a formatted PDF report built directly from assessment data via jsPDF — no DOM capture, guaranteed non-blank output |
+| Markdown export | Downloads the complete report as a `.md` file for docs, wikis, and repositories |
+| Plain text export | Downloads the complete report as a `.txt` file for emails and notes |
 | Print-ready output | Optimised print CSS for browser-based PDF generation |
 | Responsive interface | Works across desktop and mobile screen sizes |
 
@@ -127,7 +129,7 @@ In a real discovery or consulting context, the scorecard helps convert a broad d
 
 The live radar chart makes imbalance immediately visible. The intelligent analytical engine detects score patterns (e.g., uniform low scores vs polarized scores vs single bottlenecks), analyses cross-dimensional relationships (e.g., how data gaps constrain AI potential), and generates genuinely unique narratives for every score profile. The AI-powered strategic analysis section provides pattern diagnosis, cross-dimensional intelligence, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with zero external dependencies.
 
-The report layer then interprets the scores through a maturity-stage narrative and produces a professional PDF export that can support proposals, workshops, strategic reviews, or internal planning sessions.
+The report layer then interprets the scores through a maturity-stage narrative and produces downloadable reports in three formats (PDF, Markdown, and plain text) that can support proposals, workshops, strategic reviews, or internal planning sessions.
 
 | Practical output | Advisory use |
 | --- | --- |
@@ -166,7 +168,7 @@ As you answer questions, each dimension shows **real-time micro-feedback** with 
 
 The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis (19 patterns), cross-dimensional intelligence with dependency-graph analysis, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
 
-When the assessment is complete, review the live radar chart (with benchmark overlay), the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To create a shareable output, select **Export Digital Health Report** and the tool will generate a branded PDF with the radar chart, analytics summary, and all insights.
+When the assessment is complete, review the live radar chart (with benchmark overlay), the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To download a shareable output, scroll to the **Download Your Report** section at the bottom and choose your preferred format — **PDF** for print-ready sharing, **Markdown** for documentation and wikis, or **plain text** for emails and notes.
 
 | Step | User action | Tool output |
 | --- | --- | --- |
@@ -176,7 +178,7 @@ When the assessment is complete, review the live radar chart (with benchmark ove
 | 4 | Select company size | Adds size-appropriate interpretation of results |
 | 5 | Score assessment prompts | Updates dimension averages, statistical measures, composite indices, risk score, and dynamic insights in real time |
 | 6 | Review live insights | Identifies patterns, cross-dimensional constraints, risk factors, and dimension-specific guidance with benchmark comparison |
-| 7 | Export report | Creates a branded PDF with radar chart, analytics summary, and complete assessment results |
+| 7 | Download report | Exports the complete assessment as PDF, Markdown, or plain text |
 
 ## Assessment dimensions
 
@@ -296,7 +298,7 @@ This repository is released under the **MIT License**. See the `LICENSE` file fo
 
 ## Maintainer notes
 
-This project is intentionally framework-free so that it remains easy to audit, fork, and customise for client engagements. If you want a future version with CRM capture, downloadable branded PDFs, multi-user analytics, or backend persistence, that can be added as a later iteration.
+This project is intentionally framework-free so that it remains easy to audit, fork, and customise for client engagements. Reports are downloadable in three formats (PDF, Markdown, plain text) directly from the browser. If you want a future version with CRM capture, multi-user analytics, or backend persistence, that can be added as a later iteration.
 
 ## Contact
 
