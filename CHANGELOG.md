@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [2.1.1] - 2026-04-09
+
+### Fixed
+
+**PDF Export – Blank Pages Resolved**: The "Export Digital Health Report" button downloaded a multi-page PDF with completely blank pages. Root cause: the `pdf-exporting` CSS class applied during export only set `background: #ffffff` and `color: #101828` on the root report element but did not override CSS custom properties (`--text`, `--muted`, `--brand`, etc.) or the hard-coded dark backgrounds on child elements (`.report-card`, `.insights-section`, `.ai-advisor-section`). Since `html2pdf.js` uses `html2canvas` (which captures the on-screen render, not `@media print` styles), dark-theme text (e.g. `#ecf3ff`) was rendered on a white canvas — producing invisible content.
+
+**Changes made:**
+
+- **Consolidated export CSS**: Replaced the minimal `pdf-exporting` class with the comprehensive `pdf-export-mode` class that overrides all 11 CSS custom properties (`--bg`, `--panel`, `--panel-soft`, `--text`, `--muted`, `--brand`, `--brand-2`, `--line`, `--shadow`, `--accent`, `--danger`, `--good`) plus hard-coded backgrounds on `.report`, `.report-card`, `.insight-card`, `.priority`, `.ai-advisor-section`, `.ai-card`, `.ai-badge`, `.ai-priority-quadrant`, `.ai-cross-insight`, `.score-ring::after`, `.insights-badge`, and `.priority span`
+- **Added text colour overrides** for badges and pills that had hard-coded light text (`#bffcf2`, `#c4cbff`, `#bffcf2`) now forced to readable dark colours in export mode
+- **Full report export**: Export now wraps all three report sections (Digital Health Report, Dynamic Assessment Insights, AI-Powered Strategic Analysis) in a temporary light-themed container — previously only the report header section was captured
+- **Explicit white background** added to `html2canvas` configuration (`backgroundColor: '#ffffff'`) to prevent transparent canvas issues
+- **DOM restoration**: After export completes (or fails), all sections are moved back to their original positions in the page with correct ordering, ensuring the live page remains fully functional
+- **Animation frame timing**: Export uses `requestAnimationFrame()` to ensure the light-theme CSS class takes full effect before `html2canvas` captures the DOM
+
+### Hardened (post-audit)
+
+- **Export cleanup resilience**: Wrapped DOM restoration in `try/catch/finally` with `wrapper.parentNode` guards — prevents `_pdfExporting` flag from permanently locking the export button if cleanup encounters an error
+- **Export timeout guard**: Added 30-second timeout on `html2pdf().save()` — if the library hangs (e.g. CDN issues, large DOM), cleanup fires automatically and the export button unlocks
+- **Maturity DNA code background**: Changed from `rgba(255,255,255,0.08)` (invisible on white) to `rgba(0,0,0,0.06)` (visible on both dark and light backgrounds) — fixes fingerprint display in PDF export
+- **Analytics summary colour**: Changed `reportAnalyticsSummary` inline style from hardcoded `color:#666` to `color:var(--muted)` for consistency with the CSS variable system and correct light/dark theme handling
+
+---
+
 ## [2.1.0] - 2026-04-09
 
 ### Added
