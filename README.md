@@ -11,7 +11,7 @@
   <img src="docs/images/digital_maturity_04_insight_engine_scene.webp" alt="Digital maturity insight" width="49%">
 </p>
 
-The tool combines a structured thirty-question scorecard, a live radar chart, an intelligent analytical engine with pattern detection and cross-dimensional intelligence, a five-tier insight model, AI-powered strategic analysis, and a printable one-page **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, detects score patterns, analyses cross-dimensional relationships, and generates genuinely unique insights and recommendations tailored to the specific assessment profile.
+The tool combines a structured thirty-question scorecard, a live radar chart with benchmark overlay, an intelligent analytical engine with pattern detection, composite strategic indices, digital risk scoring, cross-dimensional intelligence, a five-tier insight model, AI-powered strategic analysis, a capability heatmap, and a printable branded **Digital Health Report**. As answers are entered, the interface recalculates dimension scores, statistical measures, detects score patterns, analyses cross-dimensional relationships, and generates genuinely unique insights and recommendations tailored to the specific assessment profile.
 
 Built by [diShine](https://dishine.it)
 
@@ -24,7 +24,7 @@ Built by [diShine](https://dishine.it)
 | Repository purpose | Interactive digital maturity assessment with AI-powered analytical engine for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
 | Dependencies | None (html2pdf.js for PDF export) |
-| Output | Live maturity profile, radar chart, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, printable report |
+| Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, branded PDF report |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
 | AI model | On-device intelligent engine — no API, no installation, no data leaves the browser |
 | Primary value | Turns a discovery conversation into a structured diagnostic with genuinely unique, contextual insights |
@@ -38,12 +38,16 @@ The intelligent analytical engine detects patterns across all five dimensions, i
 | Value area | What the tool delivers |
 | --- | --- |
 | Diagnostic clarity | Exposes where digital capability is uneven, not just where it is weak overall |
-| Pattern intelligence | Detects 13 distinct score patterns and explains what they mean strategically |
+| Pattern intelligence | Detects 19 distinct score patterns and explains what they mean strategically |
 | Cross-dimensional analysis | Identifies how dimensions interact — data limits AI, governance limits scaling, performance limits proof |
+| Composite indices | Four strategic indices (Digital Foundation, Innovation Readiness, Operational Excellence, Customer Value) for cross-cutting analysis |
+| Digital risk scoring | 0-100 risk assessment with factor breakdown showing governance, data, variance, and floor risks |
 | AI-powered analysis | On-device intelligent engine provides unique, contextual insights with zero external dependencies |
-| Executive communication | Converts assessment inputs into a concise one-page Digital Health Report |
+| Executive communication | Converts assessment inputs into a concise branded Digital Health Report |
 | Strategic direction | Produces a ninety-day roadmap with what-if scenario modelling |
 | Question-level precision | Surfaces specific capability gaps within dimensions, not just dimension-level averages |
+| Statistical depth | Standard deviation, confidence scoring, and benchmark comparison per dimension |
+| Industry context | Industry-specific and company-size-specific interpretation of results |
 | Agency relevance | Pins recommendations to diShine-style services so the output supports real consulting conversations |
 | Ease of adoption | Runs anywhere as a static file with no build process, packages, or frameworks |
 
@@ -91,22 +95,29 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 
 | Feature | Description |
 | --- | --- |
-| Live radar chart | Updates instantly as users answer the assessment with properly positioned multi-line dimension labels |
-| Five-dimension scoring | Calculates per-dimension averages and an overall maturity score |
+| Live radar chart | Updates instantly with properly positioned labels and benchmark overlay polygon for industry comparison |
+| Five-dimension scoring | Calculates per-dimension averages, standard deviations, and confidence scores |
+| Composite strategic indices | Four weighted cross-cutting indices: Digital Foundation, Innovation Readiness, Operational Excellence, Customer Value |
+| Digital risk score | 0-100 risk assessment with four weighted factors and severity classification |
+| Maturity DNA fingerprint | Compact alphanumeric representation of the full maturity profile |
 | Eight-level maturity scale | Interprets the average score into one of eight granular maturity stages for precise diagnostic output |
 | Five-tier insight model | Each dimension has five insight tiers (critical/low/mid/advancing/high) with unique, actionable guidance |
-| Pattern detection engine | Detects 13 distinct score patterns including uniform, polarized, outlier, and cross-dimensional relationships |
-| Cross-dimensional intelligence | Analyses how dimensions interact and constrain each other with severity-rated insights |
+| Pattern detection engine | Detects 19 distinct score patterns including uniform, polarized, outlier, and cross-dimensional relationships |
+| Cross-dimensional intelligence | Analyses how dimensions interact and constrain each other with severity-rated insights and dependency-graph-based gap detection |
 | AI-powered strategic analysis | On-device analytical engine providing pattern diagnosis, cross-dimensional intelligence, question-level gaps, priority matrix, and what-if scenarios — no API, no installation |
-| Per-dimension micro-feedback | Real-time contextual status bar in each dimension card showing tier-appropriate feedback as users answer |
+| Per-question contextual labels | 150 unique answer descriptions (30 questions × 5 levels) providing question-specific interpretation |
+| Industry and company size context | 11 industry sectors and 6 company sizes with contextual narrative adaptation |
+| Per-dimension micro-feedback | Real-time status bar showing tier, standard deviation, confidence level, and ROI improvement potential |
+| Capability heatmap | Question-level colour-coded grid across all dimensions with legend |
+| ROI impact estimation | Per-dimension, per-tier-transition business value estimates |
+| Benchmark overlay | Industry-average reference polygon on the radar chart for visual comparison |
 | Question-level gap analysis | Surfaces the specific weakest capabilities within each dimension, not just dimension averages |
-| Dynamic narrative generation | Multi-variable engine producing genuinely unique analysis text for every score profile |
+| Dynamic narrative generation | Multi-variable engine producing genuinely unique analysis with industry and size context |
 | What-if scenario modelling | Shows the impact of improving the weakest dimension by 1 point on overall score and maturity stage |
-| Per-dimension gap analysis | Visual status indicators (Critical gap/Weak/Developing/Advancing/Strong) for each dimension with colour-coded scoring |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
 | Local persistence | Saves progress in browser storage so the user can resume later |
-| PDF export | Generates a branded, professional PDF report with all insights and recommendations |
+| PDF export | Generates a branded PDF with radar chart, analytics summary, and all insights via html2pdf.js |
 | Print-ready output | Optimised print CSS for browser-based PDF generation |
 | Responsive interface | Works across desktop and mobile screen sizes |
 
@@ -140,6 +151,7 @@ This project is intentionally minimal.
 | Path | Purpose |
 | --- | --- |
 | `index.html` | The full application, including layout, styling, scoring logic, analytical engine, pattern detection, AI-powered analysis, chart rendering, insights generation, and export functionality |
+| `docs/ALGORITHM.md` | Complete mathematical reference: all formulas, statistical methods, composite indices, risk scoring, pattern detection algorithms, dependency graphs, and report generation pipeline |
 | `docs/SCORING_MODEL.md` | Complete documentation of the scoring model, analytical engine, pattern detection, cross-dimensional intelligence, and all insight generation mechanisms |
 | `README.md` | Repository overview, installation, usage, and customisation guidance |
 | `CHANGELOG.md` | Version history |
@@ -148,21 +160,23 @@ This project is intentionally minimal.
 
 ## How to use the scorecard
 
-Start by entering the organisation name and the primary transformation ambition. Then complete the thirty assessment prompts using the five-level maturity scale. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
+Start by entering the organisation name, the primary transformation ambition, your industry sector, and company size. Then complete the thirty assessment prompts using the five-level maturity scale — each question now shows **contextual answer descriptions** specific to that capability area. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
-As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status and contextual insight. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, and a 90-day roadmap tailored to your lowest-scoring dimensions.
+As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status, standard deviation, confidence level, and ROI improvement potential. The sidebar displays **Maturity DNA**, **Digital Risk Score**, and **Composite Strategic Indices** updated live. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, composite indices, risk assessment, a capability heatmap, and a 90-day roadmap tailored to your lowest-scoring dimensions.
 
-The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis, cross-dimensional intelligence, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
+The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis (19 patterns), cross-dimensional intelligence with dependency-graph analysis, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
 
-When the assessment is complete, review the live radar chart, the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To create a shareable output, select **Export Digital Health Report** and the tool will generate a branded PDF with all insights, grades, and recommendations.
+When the assessment is complete, review the live radar chart (with benchmark overlay), the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To create a shareable output, select **Export Digital Health Report** and the tool will generate a branded PDF with the radar chart, analytics summary, and all insights.
 
 | Step | User action | Tool output |
 | --- | --- | --- |
 | 1 | Enter organisation name | Personalises the report header and insights |
 | 2 | Enter transformation ambition | Tailors the narrative focus of the recommendations |
-| 3 | Score assessment prompts | Updates dimension averages, overall maturity, and dynamic insights in real time |
-| 4 | Review live insights | Identifies the main strategic constraint, strongest capability, and dimension-specific guidance |
-| 5 | Export report | Creates a branded PDF with complete assessment results, insights, and roadmap |
+| 3 | Select industry sector | Adds industry-specific context to the narrative |
+| 4 | Select company size | Adds size-appropriate interpretation of results |
+| 5 | Score assessment prompts | Updates dimension averages, statistical measures, composite indices, risk score, and dynamic insights in real time |
+| 6 | Review live insights | Identifies patterns, cross-dimensional constraints, risk factors, and dimension-specific guidance with benchmark comparison |
+| 7 | Export report | Creates a branded PDF with radar chart, analytics summary, and complete assessment results |
 
 ## Assessment dimensions
 
@@ -229,10 +243,18 @@ The tool is easy to adapt for different propositions, sectors, or agency offers.
 | Customisation need | Where to edit |
 | --- | --- |
 | Questions and prompts | The `dimensions` array (6 questions per dimension) |
+| Per-question answer labels | The `questionAnswerLabels` object (30 × 5 contextual descriptions) |
 | Dimension descriptions | The `dimensions` array |
 | Service recommendations | The `services` lists per dimension |
 | Roadmap recommendations | The `roadmap` object per dimension |
 | Insight models | The `insightModels` object for 5-tier (critical/low/mid/advancing/high) dimension-specific guidance |
+| Industry context | The `industryContext` object for sector-specific narrative |
+| Company size context | The `companySizeContext` object for size-specific interpretation |
+| Composite index weights | The `computeCompositeIndices` function |
+| Risk factor weights | The `computeRiskScore` function |
+| Benchmark data | The `benchmarkRanges` object |
+| ROI estimates | The `roiImpactEstimates` object |
+| Dimension dependencies | The `dimensionDependencies` graph |
 | Cross-dimensional rules | The `generateCrossDimensionalInsights` function |
 | Pattern detection | The `analyzePatterns` function |
 | Brand colours and visual style | CSS variables in `:root` |

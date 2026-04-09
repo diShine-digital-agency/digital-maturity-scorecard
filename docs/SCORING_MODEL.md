@@ -303,11 +303,65 @@ State is saved after every answer change and loaded on page refresh. The Reset f
 
 ---
 
+## v2.1.0 enhancements
+
+### Statistical measures
+
+Each dimension now includes:
+- **Standard deviation (σ)**: Population standard deviation of answered question scores measuring internal consistency
+- **Confidence score**: Combined metric of completion ratio (50%) and consistency (50%), classified as High/Medium/Low
+- **Dimension-level stage**: Optimised/Integrated/Developing/Emerging/Critical classification with colour coding
+
+### Composite strategic indices
+
+Four weighted composite scores provide cross-cutting strategic views:
+- **Digital Foundation Index**: Data (60%) + Governance (40%)
+- **Innovation Readiness Index**: AI (55%) + Experience (45%)
+- **Operational Excellence Index**: Governance (50%) + Performance (50%)
+- **Customer Value Index**: Experience (40%) + Data (35%) + Performance (25%)
+
+### Digital risk score
+
+A 0–100 risk assessment combining four weighted factors: lowest dimension risk (40%), score variance (25%), governance gaps (20%), and data gaps (15%). Classified as Critical/High/Moderate/Low/Minimal.
+
+### Maturity DNA fingerprint
+
+Compact alphanumeric representation: `D{score}·A{score}·E{score}·G{score}·P{score}` (scores are averages × 10).
+
+### Enhanced pattern detection
+
+Expanded to 19 patterns including 6 new cross-dimensional relationships: AI-Experience gap, Performance-AI gap, Data-Governance gap, Foundation First, Innovation First, and Measurement Last.
+
+### Dependency graph & adjacent gap detection
+
+A directed acyclic graph models dimensional interdependencies. The engine detects when downstream capabilities exceed their upstream foundations by more than 1.0 points.
+
+### Per-question contextual answer labels
+
+150 unique descriptions (30 questions × 5 levels) replacing generic maturity labels with question-specific interpretations.
+
+### Industry and company size context
+
+11 industry sectors and 6 company sizes with sector-specific and size-specific narrative paragraphs injected into the dynamic analysis.
+
+### Benchmark overlay
+
+Radar chart includes a dashed-line benchmark polygon showing industry-average reference scores for visual comparison.
+
+### ROI impact estimation
+
+Per-dimension, per-tier-transition business impact estimates displayed in dimension micro-feedback.
+
+For the complete mathematical specification, see [`ALGORITHM.md`](ALGORITHM.md).
+
+---
+
 ## Technical notes
 
 - The entire application runs client-side with zero external dependencies (except html2pdf.js for PDF export)
 - No data is transmitted to any server — all analysis is performed in the browser
 - The AI-powered analysis uses a sophisticated rule-based engine, not an external AI service
-- Pattern detection uses statistical analysis (mean, variance, min/max) of the score distribution
-- Cross-dimensional insights use domain-specific knowledge about how digital capabilities interact
+- Pattern detection uses statistical analysis (mean, variance, min/max, standard deviation) of the score distribution
+- Composite indices use weighted arithmetic means with automatic handling of missing dimensions
+- Cross-dimensional insights use a dependency graph and domain-specific knowledge about how digital capabilities interact
 - The engine is designed to produce genuinely unique, specific output for every possible combination of scores
