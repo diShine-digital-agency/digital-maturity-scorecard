@@ -1605,6 +1605,16 @@
       font-size: 0.78rem;
       color: rgba(153, 171, 200, 0.7);
     }
+    /* ── Footer Tools Grid ──────────────────────────────────────── */
+    .footer-tools { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
+    .footer-tools-title { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); margin-bottom: 14px; }
+    .footer-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 18px; text-align: left; max-width: 960px; margin: 0 auto 14px; }
+    .footer-tool-link { display: block; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); transition: border-color .2s, background .2s; text-decoration: none !important; }
+    .footer-tool-link:hover { border-color: var(--brand); background: rgba(99,102,241,0.06); }
+    .footer-tool-link .ftl-name { font-weight: 700; font-size: 0.82rem; color: var(--brand); display: block; margin-bottom: 3px; }
+    .footer-tool-link .ftl-desc { font-size: 0.74rem; color: var(--muted); line-height: 1.45; display: block; }
+    .footer-explore { margin-top: 6px; font-size: 0.78rem; }
+    .footer-explore a { font-weight: 600; }
     @media print {
       .lang-switcher, .app-footer { display: none; }
     }
@@ -2022,6 +2032,30 @@
     </p>
     <p style="margin-top:4px;" data-i18n="footer.usedInternally">Used internally for clients. Released Open Source for sharing.</p>
     <p class="footer-license" data-i18n="footer.mitLicense">Licensed under MIT. Anyone can fork, modify, adapt, and use this framework for their own purposes or for clients.</p>
+
+    <!-- Tools & Frameworks -->
+    <div class="footer-tools">
+      <div class="footer-tools-title" data-i18n="footer.toolsTitle">Open-Source Tools &amp; Frameworks by diShine</div>
+      <div class="footer-tools-grid">
+        <a class="footer-tool-link" href="https://github.com/diShine-digital-agency/ai-compliance-framework" target="_blank" rel="noopener">
+          <span class="ftl-name">🛡️ AI Compliance Framework</span>
+          <span class="ftl-desc" data-i18n="footer.tool.compliance">Templates, audit checklists, and decision matrices for EU AI Act, GDPR, and IP protection.</span>
+        </a>
+        <a class="footer-tool-link" href="https://github.com/diShine-digital-agency/align-framework" target="_blank" rel="noopener">
+          <span class="ftl-name">📖 ALIGN Storytelling Framework</span>
+          <span class="ftl-desc" data-i18n="footer.tool.align">A 5-phase methodology to diagnose narrative gaps and turn strategic storytelling into measurable growth.</span>
+        </a>
+        <a class="footer-tool-link" href="https://github.com/diShine-digital-agency/Tools-and-Resources" target="_blank" rel="noopener">
+          <span class="ftl-name">🧰 Tech Stack Toolbox</span>
+          <span class="ftl-desc" data-i18n="footer.tool.techstack">426 curated tools with smart matching, free/paid alternatives, and branded export packs.</span>
+        </a>
+        <a class="footer-tool-link" href="https://github.com/diShine-digital-agency/ai-prompt-library" target="_blank" rel="noopener">
+          <span class="ftl-name">⚡ Prompt Engineering Workshop</span>
+          <span class="ftl-desc" data-i18n="footer.tool.prompts">82+ expert prompt templates with a CLI, browser app, linter, optimizer, and AI playground.</span>
+        </a>
+      </div>
+      <p class="footer-explore"><span data-i18n="footer.exploreMore">Explore all our tools and apps</span> → <a href="https://github.com/diShine-digital-agency?tab=stars" target="_blank" rel="noopener">github.com/diShine</a></p>
+    </div>
   </footer>
 
   <script>
@@ -2294,6 +2328,12 @@ const TRANSLATIONS = {
     "footer.framework":             "Framework designed by",
     "footer.usedInternally":        "Used internally for clients. Released Open Source for sharing.",
     "footer.mitLicense":            "Licensed under MIT. Anyone can fork, modify, adapt, and use this framework for their own purposes or for clients.",
+    "footer.toolsTitle":            "Open-Source Tools & Frameworks by diShine",
+    "footer.tool.compliance":       "Templates, audit checklists, and decision matrices for EU AI Act, GDPR, and IP protection.",
+    "footer.tool.align":            "A 5-phase methodology to diagnose narrative gaps and turn strategic storytelling into measurable growth.",
+    "footer.tool.techstack":        "426 curated tools with smart matching, free/paid alternatives, and branded export packs.",
+    "footer.tool.prompts":          "82+ expert prompt templates with a CLI, browser app, linter, optimizer, and AI playground.",
+    "footer.exploreMore":           "Explore all our tools and apps",
 
     /* 11 · Micro-feedback --------------------------------------------- */
     "micro.critical":               "Foundational capabilities are missing. This is the most urgent area.",
@@ -2642,6 +2682,12 @@ const TRANSLATIONS = {
     "footer.framework":             "Framework con\u00e7u par",
     "footer.usedInternally":        "Utilis\u00e9 en interne pour les clients. Publi\u00e9 en Open Source pour le partage.",
     "footer.mitLicense":            "Sous licence MIT. Chacun peut forker, modifier, adapter et utiliser ce framework pour ses propres besoins ou pour ses clients.",
+    "footer.toolsTitle":            "Outils & Frameworks Open Source par diShine",
+    "footer.tool.compliance":       "Mod\u00e8les, checklists d\u2019audit et matrices de d\u00e9cision pour le R\u00e8glement europ\u00e9en sur l\u2019IA, le RGPD et la protection de la PI.",
+    "footer.tool.align":            "Une m\u00e9thodologie en 5 phases pour diagnostiquer les \u00e9carts narratifs et transformer le storytelling strat\u00e9gique en croissance mesurable.",
+    "footer.tool.techstack":        "426 outils s\u00e9lectionn\u00e9s avec matching intelligent, alternatives gratuites/payantes et packs d\u2019export personnalis\u00e9s.",
+    "footer.tool.prompts":          "82+ mod\u00e8les de prompts experts avec CLI, application navigateur, linter, optimiseur et playground IA.",
+    "footer.exploreMore":           "D\u00e9couvrez tous nos outils et applications",
 
     /* 11 · Micro-feedback --------------------------------------------- */
     "micro.critical":               "Les capacit\u00e9s fondamentales font d\u00e9faut. C\u2019est le domaine le plus urgent.",
@@ -2990,6 +3036,12 @@ const TRANSLATIONS = {
     "footer.framework":             "Framework progettato da",
     "footer.usedInternally":        "Utilizzato internamente per i clienti. Rilasciato in Open Source per la condivisione.",
     "footer.mitLicense":            "Rilasciato sotto licenza MIT. Chiunque pu\u00f2 eseguire il fork, modificare, adattare e utilizzare questo framework per i propri scopi o per i clienti.",
+    "footer.toolsTitle":            "Strumenti & Framework Open Source di diShine",
+    "footer.tool.compliance":       "Template, checklist di audit e matrici decisionali per il Regolamento europeo sull\u2019IA, il GDPR e la protezione della PI.",
+    "footer.tool.align":            "Una metodologia in 5 fasi per diagnosticare i gap narrativi e trasformare lo storytelling strategico in crescita misurabile.",
+    "footer.tool.techstack":        "426 strumenti selezionati con matching intelligente, alternative gratuite/a pagamento e pack di esportazione personalizzati.",
+    "footer.tool.prompts":          "82+ template di prompt esperti con CLI, app browser, linter, ottimizzatore e playground IA.",
+    "footer.exploreMore":           "Scopri tutti i nostri strumenti e applicazioni",
 
     /* 11 · Micro-feedback --------------------------------------------- */
     "micro.critical":               "Le competenze fondamentali mancano. Questa \u00e8 l\u2019area pi\u00f9 urgente.",
