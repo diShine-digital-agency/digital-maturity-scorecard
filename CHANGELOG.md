@@ -4,6 +4,49 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [3.0.0] - 2026-04-09
+
+### Added
+
+**Internationalisation (i18n) System**: Full tri-lingual support for English, French, and Italian:
+- **Language switcher** (EN/FR/IT) fixed in the top-right corner of the interface, always accessible
+- All UI text, question titles, hints, dimension names, and maturity stage labels translated with native-quality translations
+- Over **200 translation keys per language** covering every user-facing string in the application
+- **Question-specific translations**: All 30 questions × 3 languages = 90 translated question sets with localised titles, hints, and contextual answer descriptions
+- Language preference persisted in `localStorage` so returning users see their chosen language immediately
+- `t(key)` translation function for runtime string lookup, `applyI18n()` DOM updater for declarative `data-i18n` attributes, and `setLanguage(lang)` switcher for programmatic language changes
+
+**Help Tooltips**: Contextual help icons (?) next to every insight section title:
+- **8 tooltip explanations** covering Overall Maturity, Key Findings, Recommended Focus, Gap Analysis, Roadmap, Composite Indices, Risk Assessment, and Heatmap
+- Each tooltip explains what the metric is, why it matters, and how it is calculated
+- Appear on hover or click, auto-dismiss after 6–8 seconds
+- Fully translated into French and Italian
+
+**Incomplete Assessment Warning System**: Intelligent warnings that adapt to assessment progress:
+- Warning banner in insights section when the assessment is between 1–99% complete, encouraging users to finish for accurate results
+- Warning near download buttons when the assessment is not 100% complete, preventing premature report generation
+- Both warnings hidden at 0% (fresh start) and 100% (complete assessment) — only visible during partial completion
+- Fully translated into French and Italian
+
+**Download Report Button in Sidebar**: A new "Download Report" button positioned next to the existing "View Insights" button in the sidebar. Clicking it scrolls the user to the download CTA section at the bottom of the page, providing faster access to report export.
+
+**Footer**: Credits, disclaimer, and licensing information displayed at the bottom of the page:
+- Framework credits: [diShine](https://dishine.it) | Kevin Escoda
+- Usage note: "Used internally for clients. Released Open Source for sharing."
+- MIT license explanation with link to the `LICENSE` file
+- Fully translated into French and Italian
+
+**Empty Initial State**: On first visit, all answers start empty with completion at 0%. Insights sections show placeholder text explaining that results will appear as questions are answered. This replaces the previous behaviour where default scores could produce misleading initial insights.
+
+### Changed
+
+- **Version bump to 3.0.0**: Major version increment reflecting the addition of the internationalisation system, which touches every user-facing string in the application
+- **All UI strings externalised**: Text previously hard-coded in HTML and JavaScript is now served through the `t(key)` translation function, enabling consistent multi-language support
+- **Insight section titles**: Now include contextual help tooltip icons (?) providing on-demand explanations of each analytical metric
+- **Assessment initial state**: Changed from pre-populated to empty, with 0% completion and placeholder insight text on first load
+
+---
+
 ## [2.2.0] - 2026-04-09
 
 ### Fixed

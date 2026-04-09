@@ -24,6 +24,7 @@ Built by [diShine](https://dishine.it)
 | Repository purpose | Interactive digital maturity assessment with AI-powered analytical engine for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
 | Dependencies | None (jsPDF for PDF export) |
+| Languages | English, French, Italian — full tri-lingual interface with native-quality translations |
 | Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, downloadable reports (PDF, Markdown, plain text) |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
 | AI model | On-device intelligent engine — no API, no installation, no data leaves the browser |
@@ -106,6 +107,9 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Cross-dimensional intelligence | Analyses how dimensions interact and constrain each other with severity-rated insights and dependency-graph-based gap detection |
 | AI-powered strategic analysis | On-device analytical engine providing pattern diagnosis, cross-dimensional intelligence, question-level gaps, priority matrix, and what-if scenarios — no API, no installation |
 | Per-question contextual labels | 150 unique answer descriptions (30 questions × 5 levels) providing question-specific interpretation |
+| Internationalisation (i18n) | Full tri-lingual support (EN/FR/IT) with language switcher, 200+ translation keys per language, and language preference persistence |
+| Help tooltips | Contextual (?) icons on each insight section explaining what the metric is, why it matters, and how it is calculated |
+| Incomplete assessment warnings | Smart banners in insights and download sections when the assessment is partially complete (1–99%) |
 | Industry and company size context | 11 industry sectors and 6 company sizes with contextual narrative adaptation |
 | Per-dimension micro-feedback | Real-time status bar showing tier, standard deviation, confidence level, and ROI improvement potential |
 | Capability heatmap | Question-level colour-coded grid across all dimensions with legend |
@@ -116,7 +120,9 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | What-if scenario modelling | Shows the impact of improving the weakest dimension by 1 point on overall score and maturity stage |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
-| Local persistence | Saves progress in browser storage so the user can resume later |
+| Footer | Credits (diShine, Kevin Escoda), disclaimer, and MIT license explanation — fully translated |
+| Empty initial state | Answers start empty on first visit with 0% completion and placeholder insight text |
+| Local persistence | Saves progress and language preference in browser storage so the user can resume later |
 | PDF export | Generates a formatted PDF report built directly from assessment data via jsPDF — no DOM capture, guaranteed non-blank output |
 | Markdown export | Downloads the complete report as a `.md` file for docs, wikis, and repositories |
 | Plain text export | Downloads the complete report as a `.txt` file for emails and notes |
@@ -162,9 +168,9 @@ This project is intentionally minimal.
 
 ## How to use the scorecard
 
-Start by entering the organisation name, the primary transformation ambition, your industry sector, and company size. Then complete the thirty assessment prompts using the five-level maturity scale — each question now shows **contextual answer descriptions** specific to that capability area. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
+Start by selecting your preferred language using the **EN/FR/IT switcher** in the top-right corner — the entire interface updates instantly. Then enter the organisation name, the primary transformation ambition, your industry sector, and company size. Complete the thirty assessment prompts using the five-level maturity scale — each question shows **contextual answer descriptions** specific to that capability area, fully translated in all three languages. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
-As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status, standard deviation, confidence level, and ROI improvement potential. The sidebar displays **Maturity DNA**, **Digital Risk Score**, and **Composite Strategic Indices** updated live. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, composite indices, risk assessment, a capability heatmap, and a 90-day roadmap tailored to your lowest-scoring dimensions.
+As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status, standard deviation, confidence level, and ROI improvement potential. The sidebar displays **Maturity DNA**, **Digital Risk Score**, and **Composite Strategic Indices** updated live, along with a **Download Report** button for quick access to the export section. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, composite indices, risk assessment, a capability heatmap, and a 90-day roadmap tailored to your lowest-scoring dimensions. Each insight section title includes a **help tooltip** (?) that explains what the metric means and how it is calculated. If the assessment is partially complete, **warning banners** appear in the insights and download sections encouraging completion before generating reports.
 
 The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis (19 patterns), cross-dimensional intelligence with dependency-graph analysis, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
 
@@ -172,13 +178,14 @@ When the assessment is complete, review the live radar chart (with benchmark ove
 
 | Step | User action | Tool output |
 | --- | --- | --- |
-| 1 | Enter organisation name | Personalises the report header and insights |
-| 2 | Enter transformation ambition | Tailors the narrative focus of the recommendations |
-| 3 | Select industry sector | Adds industry-specific context to the narrative |
-| 4 | Select company size | Adds size-appropriate interpretation of results |
-| 5 | Score assessment prompts | Updates dimension averages, statistical measures, composite indices, risk score, and dynamic insights in real time |
-| 6 | Review live insights | Identifies patterns, cross-dimensional constraints, risk factors, and dimension-specific guidance with benchmark comparison |
-| 7 | Download report | Exports the complete assessment as PDF, Markdown, or plain text |
+| 1 | Select language (EN/FR/IT) | Entire interface updates to the chosen language |
+| 2 | Enter organisation name | Personalises the report header and insights |
+| 3 | Enter transformation ambition | Tailors the narrative focus of the recommendations |
+| 4 | Select industry sector | Adds industry-specific context to the narrative |
+| 5 | Select company size | Adds size-appropriate interpretation of results |
+| 6 | Score assessment prompts | Updates dimension averages, statistical measures, composite indices, risk score, and dynamic insights in real time |
+| 7 | Review live insights | Identifies patterns, cross-dimensional constraints, risk factors, and dimension-specific guidance with benchmark comparison. Use (?) tooltips for metric explanations |
+| 8 | Download report | Exports the complete assessment as PDF, Markdown, or plain text |
 
 ## Assessment dimensions
 
@@ -246,6 +253,7 @@ The tool is easy to adapt for different propositions, sectors, or agency offers.
 | --- | --- |
 | Questions and prompts | The `dimensions` array (6 questions per dimension) |
 | Per-question answer labels | The `questionAnswerLabels` object (30 × 5 contextual descriptions) |
+| Translations | The `translations` object — add keys or languages to extend i18n coverage |
 | Dimension descriptions | The `dimensions` array |
 | Service recommendations | The `services` lists per dimension |
 | Roadmap recommendations | The `roadmap` object per dimension |
@@ -282,7 +290,7 @@ The repository is especially useful to turn early-stage conversations into struc
 
 ## Browser support
 
-The application is built with standard modern browser capabilities, including Canvas for the radar chart and `localStorage` for persistence. Current versions of Chrome, Edge, Firefox, and Safari should work well.
+The application is built with standard modern browser capabilities, including Canvas for the radar chart and `localStorage` for persistence and language preference. Current versions of Chrome, Edge, Firefox, and Safari should work well.
 
 ---
 
@@ -292,9 +300,13 @@ At [diShine](https://dishine.it), we build practical digital systems, growth arc
 
 If you want to extend this scorecard into a fuller consulting product, a future iteration could add CRM capture, backend persistence, analytics, sector-specific models, or integration into wider transformation workflows.
 
+## Credits
+
+Framework by [diShine](https://dishine.it) | Kevin Escoda. Used internally for clients. Released open source for sharing.
+
 ## Licence
 
-This repository is released under the **MIT License**. See the `LICENSE` file for full terms.
+This repository is released under the **MIT License**. See the `LICENSE` file for full terms. A brief explanation of the MIT license is also displayed in the application footer.
 
 ## Maintainer notes
 
