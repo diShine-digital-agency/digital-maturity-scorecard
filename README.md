@@ -192,7 +192,7 @@ The framework is organised around five operational dimensions that together shap
 
 ## Scoring model
 
-Each dimension contains six prompts scored from **1** to **5**. For the complete technical documentation of the scoring model, analytical engine, pattern detection, and insight generation, see [`docs/SCORING_MODEL.md`](docs/SCORING_MODEL.md).
+Each dimension contains six prompts scored from **1** to **5**. For a high-level overview of the scoring model, see [`docs/SCORING_MODEL.md`](docs/SCORING_MODEL.md). For the complete mathematical specification of all algorithms and formulas, see [`docs/ALGORITHM.md`](docs/ALGORITHM.md).
 
 | Score | Meaning |
 | --- | --- |

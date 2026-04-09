@@ -2,6 +2,8 @@
 
 This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v2.1.0**.
 
+For a higher-level overview of how these algorithms integrate into the scoring model, insight tiers, and report generation, see [`SCORING_MODEL.md`](SCORING_MODEL.md). For usage instructions and feature overview, see the main [`README.md`](../README.md).
+
 ---
 
 ## Table of contents

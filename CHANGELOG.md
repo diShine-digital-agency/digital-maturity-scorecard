@@ -77,6 +77,22 @@ The format is inspired by **Keep a Changelog**, and this project uses a simple s
 
 This release significantly expands the analytical depth of the scorecard while maintaining its single-file, zero-dependency architecture. The addition of composite indices, risk scoring, statistical measures, and benchmark data transforms the tool from a maturity diagnostic into a comprehensive digital strategy assessment platform. All new features are fully documented in `docs/ALGORITHM.md`.
 
+### Audit & Quality Fixes (post-release)
+
+**Duplicate Content Removed**: The Digital Health Report (PDF/print section) was duplicating the exact same findings and service recommendations that appear in the Dynamic Assessment Insights section. Report now shows a unique **dimension breakdown table** with progress bars and tier indicators instead.
+
+**Function Consolidation**: Merged `buildRoadmap` and `buildInsightRoadmap` into a single parameterised function to eliminate code duplication and ensure consistent roadmap content.
+
+**Performance**: Composite indices and risk score are now computed once per refresh cycle and passed to sub-functions, eliminating 3× redundant computation on every answer change.
+
+**Defensive Guards**: Added null/empty-array checks in `generateDynamicNarrative()` and `updateInsightsSection()` to prevent runtime errors when no questions have been answered.
+
+**PDF Export Hardened**: Fixed a scoping bug where `cachedIndices` was referenced outside its declaring function. Added canvas null check, reportEl null check, and double-click prevention guard.
+
+**Pattern Detection Precision**: Replaced exact floating-point equality (`===`) with epsilon-based comparison (`Math.abs(a - b) < 0.01`) in `governanceBottleneck` and `executionGap` pattern detection to prevent false negatives from floating-point arithmetic.
+
+**Documentation**: Updated `docs/SCORING_MODEL.md` with correct pattern count (19), complete v2.1.0 sections as first-class headings, expanded cross-references to `ALGORITHM.md`, and updated table of contents.
+
 ---
 
 ## [2.0.0] - 2026-04-06
