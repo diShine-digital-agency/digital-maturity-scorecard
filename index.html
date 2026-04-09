@@ -3493,8 +3493,8 @@
       }
 
       // Check jsPDF availability
-      const JsPDF = (typeof jspdf !== 'undefined' && jspdf.jsPDF) ? jspdf.jsPDF : (typeof jsPDF !== 'undefined' ? jsPDF : null);
-      if (!JsPDF) {
+      const PDFConstructor = (typeof jspdf !== 'undefined' && jspdf.jsPDF) ? jspdf.jsPDF : (typeof jsPDF !== 'undefined' ? jsPDF : null);
+      if (!PDFConstructor) {
         alert('PDF library failed to load. Please check your internet connection and try again, or use the Markdown or Text download instead.');
         return;
       }
@@ -3504,7 +3504,7 @@
 
       try {
         const data = getReportData();
-        const doc = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const doc = new PDFConstructor({ orientation: 'portrait', unit: 'mm', format: 'a4' });
         const pageW = 210;
         const pageH = 297;
         const marginL = 18;
