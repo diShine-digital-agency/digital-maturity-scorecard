@@ -4066,7 +4066,7 @@ const QUESTION_TRANSLATIONS = {
       // Dynamic Strategic Implication based on Score + Imbalance
       const variance = strongest.avg - weakest.avg;
       if (variance > 1.5 && strongest.avg > 3.5 && weakest.avg < 2.5) {
-        findings.push(`<li><strong>⚠ Maturity Imbalance Detected:</strong> Your significant strengths in <strong>${strongest.name}</strong> are being undermined by critical gaps in <strong>${weakest.name}</strong>. This imbalance creates a ceiling effect. advanced capabilities in one area cannot deliver full value when foundational elements in another are missing. Closing this gap should be the highest strategic priority.</li>`);
+        findings.push(`<li><strong>⚠ Maturity Imbalance Detected:</strong> Your significant strengths in <strong>${getDimName(strongest)}</strong> are being undermined by critical gaps in <strong>${getDimName(weakest)}</strong>. This imbalance creates a ceiling effect. advanced capabilities in one area cannot deliver full value when foundational elements in another are missing. Closing this gap should be the highest strategic priority.</li>`);
       } else if (overallScore >= 4.0) {
         findings.push(`<li><strong>Strategic Trajectory. Innovation & Leadership:</strong> Your advanced maturity positions you to drive industry-leading innovation. Focus on emerging capabilities, ecosystem partnerships, and scaling AI-powered personalisation to maintain competitive distance.</li>`);
       } else if (overallScore >= 3.0) {
@@ -4108,14 +4108,14 @@ const QUESTION_TRANSLATIONS = {
           return `
             <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.14);border-radius:16px;padding:16px;">
               <div style="display:inline-flex;margin-bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(79,209,197,0.12);color:#bffcf2;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${meta.period}</div>
-              <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme}. <span style="color:var(--brand);">${dim.name}</span></h4>
+              <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme}. <span style="color:var(--brand);">${getDimName(dim)}</span></h4>
               <p style="color:var(--text);margin:0;font-size:0.91rem;line-height:1.6;">${dim.roadmap[meta.key]}</p>
             </div>`;
         }
         return `
           <div class="priority">
             <span>${meta.period}</span>
-            <h4>${meta.theme}. ${dim.name}</h4>
+            <h4>${meta.theme}. ${getDimName(dim)}</h4>
             <p>${dim.roadmap[meta.key]}</p>
           </div>`;
       }).join('');
@@ -4279,13 +4279,13 @@ const QUESTION_TRANSLATIONS = {
       } else if (patterns.allHigh) {
         paragraphs.push(`<strong>${company}</strong> demonstrates advanced digital maturity across all dimensions. a rare achievement. With consistently strong scores, the organisation has moved beyond foundational concerns. The focus now is on continuous optimisation, innovation leadership, and maintaining competitive distance.`);
       } else if (patterns.polarized) {
-        paragraphs.push(`<strong>${company}</strong> shows a significant maturity imbalance. While <strong>${strongest.name}</strong> (${strongest.avg.toFixed(1)}/5) demonstrates genuine strength, <strong>${weakest.name}</strong> (${weakest.avg.toFixed(1)}/5) represents a critical constraint. This polarisation creates a ceiling effect. the strongest capabilities cannot deliver full value until the weakest are addressed.`);
+        paragraphs.push(`<strong>${company}</strong> shows a significant maturity imbalance. While <strong>${getDimName(strongest)}</strong> (${strongest.avg.toFixed(1)}/5) demonstrates genuine strength, <strong>${getDimName(weakest)}</strong> (${weakest.avg.toFixed(1)}/5) represents a critical constraint. This polarisation creates a ceiling effect. the strongest capabilities cannot deliver full value until the weakest are addressed.`);
       } else if (patterns.uniform && patterns.allMid) {
         paragraphs.push(`<strong>${company}</strong> has achieved moderate, balanced progress across dimensions. While this consistency shows disciplined investment, it also signals a plateau risk. Everything is developing, but nothing yet stands out as a genuine differentiator. Breaking through requires selecting one or two dimensions for accelerated focus.`);
       } else if (patterns.oneOutlierLow) {
-        paragraphs.push(`<strong>${company}</strong> has a clear bottleneck in <strong>${weakest.name}</strong> (${weakest.avg.toFixed(1)}/5), which is significantly below the other dimensions. This single dimension is likely constraining the value of stronger capabilities elsewhere. Targeted investment here would have the highest systemic impact.`);
+        paragraphs.push(`<strong>${company}</strong> has a clear bottleneck in <strong>${getDimName(weakest)}</strong> (${weakest.avg.toFixed(1)}/5), which is significantly below the other dimensions. This single dimension is likely constraining the value of stronger capabilities elsewhere. Targeted investment here would have the highest systemic impact.`);
       } else {
-        paragraphs.push(`<strong>${company}</strong> scores <strong>${overall.toFixed(1)} / 5</strong> overall, with a maturity profile that shows both strengths and areas for improvement. <strong>${strongest.name}</strong> leads at ${strongest.avg.toFixed(1)}/5, while <strong>${weakest.name}</strong> at ${weakest.avg.toFixed(1)}/5 represents the most immediate opportunity.`);
+        paragraphs.push(`<strong>${company}</strong> scores <strong>${overall.toFixed(1)} / 5</strong> overall, with a maturity profile that shows both strengths and areas for improvement. <strong>${getDimName(strongest)}</strong> leads at ${strongest.avg.toFixed(1)}/5, while <strong>${getDimName(weakest)}</strong> at ${weakest.avg.toFixed(1)}/5 represents the most immediate opportunity.`);
       }
 
       // Cross-dimensional relationships
@@ -4415,19 +4415,19 @@ const QUESTION_TRANSLATIONS = {
         els.aiPriorityMatrix.innerHTML = `<div class="ai-priority-matrix">
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--good);">
             <h4 style="color:var(--good);">🎯 Quick Wins (High Impact, Lower Effort)</h4>
-            <p>${highImpactQuickWin.length > 0 ? highImpactQuickWin.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Moderate gaps where targeted actions can deliver fast improvement.' : 'No dimensions in this quadrant.'}</p>
+            <p>${highImpactQuickWin.length > 0 ? highImpactQuickWin.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Moderate gaps where targeted actions can deliver fast improvement.' : 'No dimensions in this quadrant.'}</p>
           </div>
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--danger);">
             <h4 style="color:var(--danger);">🔥 Strategic Priorities (High Impact, Higher Effort)</h4>
-            <p>${highImpactStrategic.length > 0 ? highImpactStrategic.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Critical gaps requiring sustained investment and organisational commitment.' : 'No dimensions in this quadrant.'}</p>
+            <p>${highImpactStrategic.length > 0 ? highImpactStrategic.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Critical gaps requiring sustained investment and organisational commitment.' : 'No dimensions in this quadrant.'}</p>
           </div>
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--brand);">
             <h4 style="color:var(--brand);">📈 Optimise (Moderate Impact, Moderate Effort)</h4>
-            <p>${optimise.length > 0 ? optimise.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Solid foundations to build on with structured optimisation.' : 'No dimensions in this quadrant.'}</p>
+            <p>${optimise.length > 0 ? optimise.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Solid foundations to build on with structured optimisation.' : 'No dimensions in this quadrant.'}</p>
           </div>
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--brand-2);">
             <h4 style="color:var(--brand-2);">✅ Maintain (Lower Impact, Lower Effort)</h4>
-            <p>${maintain.length > 0 ? maintain.map(d => `<strong>${d.name}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Mature capabilities to protect and incrementally improve.' : 'No dimensions in this quadrant.'}</p>
+            <p>${maintain.length > 0 ? maintain.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Mature capabilities to protect and incrementally improve.' : 'No dimensions in this quadrant.'}</p>
           </div>
         </div>`;
       }
@@ -4460,7 +4460,7 @@ const QUESTION_TRANSLATIONS = {
           const s2Overall = s2Averages.reduce((s, v) => s + v, 0) / s2Averages.length;
           const [s2Stage] = getStage(s2Overall);
           secondRow = `<tr>
-            <td><strong>${second.name}</strong> ${second.avg.toFixed(1)} → ${s2capped.toFixed(1)}</td>
+            <td><strong>${getDimName(second)}</strong> ${second.avg.toFixed(1)} → ${s2capped.toFixed(1)}</td>
             <td>${overall.toFixed(1)} → <strong>${s2Overall.toFixed(1)}</strong></td>
             <td>${s2Stage}${s2Stage !== currentStage ? ' <span style="color:var(--good);">↑</span>' : ''}</td>
           </tr>`;
@@ -4477,14 +4477,14 @@ const QUESTION_TRANSLATIONS = {
                 <td>${currentStage}</td>
               </tr>
               <tr>
-                <td><strong>${weakest.name}</strong> ${weakest.avg.toFixed(1)} → ${cappedImproved.toFixed(1)}</td>
+                <td><strong>${getDimName(weakest)}</strong> ${weakest.avg.toFixed(1)} → ${cappedImproved.toFixed(1)}</td>
                 <td>${overall.toFixed(1)} → <strong>${newOverall.toFixed(1)}</strong></td>
                 <td>${newStage}${stageChanged ? ' <span style="color:var(--good);">↑</span>' : ''}</td>
               </tr>
               ${secondRow}
             </tbody>
           </table>
-          ${stageChanged ? `<p style="color:var(--good);font-size:0.88rem;margin-top:8px;">💡 Improving <strong>${weakest.name}</strong> by 1 point would advance the organisation to <strong>${newStage}</strong>.</p>` : `<p style="color:var(--muted);font-size:0.88rem;margin-top:8px;">Improving <strong>${weakest.name}</strong> by 1 point raises the overall score but does not yet trigger a stage change.</p>`}
+          ${stageChanged ? `<p style="color:var(--good);font-size:0.88rem;margin-top:8px;">💡 Improving <strong>${getDimName(weakest)}</strong> by 1 point would advance the organisation to <strong>${newStage}</strong>.</p>` : `<p style="color:var(--muted);font-size:0.88rem;margin-top:8px;">Improving <strong>${getDimName(weakest)}</strong> by 1 point raises the overall score but does not yet trigger a stage change.</p>`}
         `;
       }
     }
@@ -4655,7 +4655,7 @@ const QUESTION_TRANSLATIONS = {
       } else {
         els.insightOverview.className = '';
         const dimScores = dimensions.map(d => ({ name: getDimName(d), avg: getDimensionAverage(d) })).filter(d => d.avg > 0);
-        const scoreBreakdown = dimScores.map(d => `<strong>${d.name}:</strong> ${d.avg.toFixed(1)}`).join(' &middot; ');
+        const scoreBreakdown = dimScores.map(d => `<strong>${getDimName(d)}:</strong> ${d.avg.toFixed(1)}`).join(' &middot; ');
         const dynamicNarrative = generateDynamicNarrative(overall, patterns, priorityDims, company);
         if (pct < 100) {
           els.insightOverview.innerHTML = `${dynamicNarrative}<br><strong>${t('ui.scoresSoFar')}:</strong> ${scoreBreakdown}. ${t('ui.completeRemaining')}`;
@@ -4876,13 +4876,13 @@ const QUESTION_TRANSLATIONS = {
         const tier = getInsightTier(strongest.avg);
         const model = insightModels[strongest.key] || {};
         const text = model[tier] || '';
-        findings.push({ title: `Core Advantage. ${strongest.name} (${strongest.avg.toFixed(1)}/5)`, text: stripHTML(text) });
+        findings.push({ title: `${t('ui.coreAdvantage')}. ${getDimName(strongest)} (${strongest.avg.toFixed(1)}/5)`, text: stripHTML(text) });
       }
       if (weakest && weakest.avg > 0 && weakest.key !== strongest.key) {
         const tier = getInsightTier(weakest.avg);
         const model = insightModels[weakest.key] || {};
         const text = model[tier] || '';
-        findings.push({ title: `Critical Constraint. ${weakest.name} (${weakest.avg.toFixed(1)}/5)`, text: stripHTML(text) });
+        findings.push({ title: `${t('ui.criticalConstraint')}. ${getDimName(weakest)} (${weakest.avg.toFixed(1)}/5)`, text: stripHTML(text) });
       }
 
       // Services
