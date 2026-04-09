@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [3.0.1] - 2026-04-09
+
+### Changed
+
+- **Content rationalisation**: Removed duplicated "Recommended Strategic Focus" and "90-Day Prioritised Roadmap" cards from the Dynamic Assessment Insights section. These were duplicates of content already present in the Digital Health Report section. The Insights section now focuses exclusively on analytical intelligence (narrative, findings, gap analysis, composite indices, risk assessment, heatmap)
+- **Export enhancements**: Added Strategic Priority Matrix and What-If Scenarios data to PDF, Markdown, and Plain Text exports. All three export formats now include every analytical section from the tool
+
+### Added
+
+- **Help tooltips expanded**: Added contextual help tooltips (?) to all 5 AI-Powered Strategic Analysis cards (Pattern Diagnosis, Cross-Dimensional Intelligence, Question-Level Gap Analysis, Strategic Priority Matrix, What-If Scenarios) and all 3 Digital Health Report card headers (Overall Maturity Snapshot, Strategic Focus, 90-Day Roadmap). Each tooltip explains what the metric shows, why it matters, and how it is calculated. All tooltips translated into French and Italian
+- **Full i18n completion**: ~55 new translation keys across EN/FR/IT covering AI section placeholder texts, Strategic Priority Matrix quadrant labels, What-If Scenarios UI labels, and Key Findings strategic trajectory text
+- **Clickable capability heatmap**: Heatmap cells are now clickable — clicking a scored cell scrolls to the corresponding question with a highlight animation
+- **What-if Scenarios improvements**: Section now includes a translated introduction paragraph and interpretation footnote
+
+### Fixed
+
+- **Gap analysis text truncation**: Question-Level Gap Analysis now shows 80 characters (up from 40) with full text available on hover via the `title` attribute
+
+---
+
 ## [3.0.0] - 2026-04-09
 
 ### Added

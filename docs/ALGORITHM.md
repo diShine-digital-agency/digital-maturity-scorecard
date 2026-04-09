@@ -1,6 +1,6 @@
 # Algorithm & Mathematical Reference
 
-This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v3.0.0**.
+This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v3.0.1**.
 
 For a higher-level overview of how these algorithms integrate into the scoring model, insight tiers, and report generation, see [`SCORING_MODEL.md`](SCORING_MODEL.md). For usage instructions and feature overview, see the main [`README.md`](../README.md).
 
@@ -43,7 +43,7 @@ Each of the 30 questions is scored on a discrete ordinal scale from **1** to **5
 | 4 | Integrated | Cross-functional, governed, scalable |
 | 5 | Optimised | Continuously improved and value-led |
 
-In v3.0.0, each question also has **contextual answer descriptions** — 150 unique labels (30 questions × 5 levels) that provide question-specific interpretation of what each level means in that particular capability area. All question titles, hints, and answer labels are available in three languages (English, French, Italian) through the internationalisation system.
+In v3.0.1, each question also has **contextual answer descriptions** — 150 unique labels (30 questions × 5 levels) that provide question-specific interpretation of what each level means in that particular capability area. All question titles, hints, and answer labels are available in three languages (English, French, Italian) through the internationalisation system.
 
 ### Dimension scoring
 
@@ -594,4 +594,4 @@ Both warnings are hidden at 0% (fresh start — no misleading alerts on an empty
 
 ---
 
-*This document is part of the Digital Maturity Scorecard v3.0.0 by [diShine](https://dishine.it).*
+*This document is part of the Digital Maturity Scorecard v3.0.1 by [diShine](https://dishine.it).*
