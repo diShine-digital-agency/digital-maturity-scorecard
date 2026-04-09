@@ -3005,11 +3005,29 @@ const QUESTION_TRANSLATIONS = {
 
     function applyI18n() {
       // Update all static elements with data-i18n
+      // Preserves child elements (e.g. help-trigger spans) by only updating text nodes
       document.querySelectorAll('[data-i18n]').forEach(function(el) {
         var key = el.getAttribute('data-i18n');
         var translation = t(key);
         if (translation && translation !== key) {
-          el.textContent = translation;
+          // If element has child elements (like help-trigger), only replace text nodes
+          var hasChildElements = el.querySelector('*');
+          if (hasChildElements) {
+            var childNodes = el.childNodes;
+            var replaced = false;
+            for (var i = 0; i < childNodes.length; i++) {
+              if (childNodes[i].nodeType === 3 && childNodes[i].textContent.trim()) {
+                childNodes[i].textContent = translation;
+                replaced = true;
+                break;
+              }
+            }
+            if (!replaced) {
+              el.insertBefore(document.createTextNode(translation), el.firstChild);
+            }
+          } else {
+            el.textContent = translation;
+          }
         }
       });
       // Update placeholders
