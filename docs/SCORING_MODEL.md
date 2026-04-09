@@ -1,6 +1,6 @@
 # Scoring Model & Analytical Engine
 
-This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.0.0**.
+This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.0.1**.
 
 For the full mathematical specification of all algorithms, formulas, and computations, see [`ALGORITHM.md`](ALGORITHM.md).
 
@@ -251,6 +251,13 @@ Models the impact of improving each dimension by 1 point:
 
 ## Report generation
 
+The application has two main output areas:
+
+1. **Digital Health Report** — the formal, printable report card containing the score ring, dimension breakdown, strategic focus with service recommendations, and 90-day roadmap
+2. **Dynamic Assessment Insights** — the live analytical dashboard containing overall maturity narrative, key findings, dimension gap analysis, composite indices, risk assessment, and capability heatmap
+
+Service recommendations and the 90-day roadmap appear exclusively in the Digital Health Report. The Dynamic Assessment Insights section focuses on analytical depth — findings, patterns, and risk.
+
 ### Summary text logic
 
 The report summary adapts its language based on the strongest dimension score:
@@ -378,7 +385,7 @@ See [`ALGORITHM.md`](ALGORITHM.md#statistical-measures) for full formulas and in
 
 **Benchmark overlay**: The radar chart includes a dashed-line benchmark polygon showing industry-average mid-tier reference scores for visual comparison. Benchmark data for each dimension is defined at three tiers (low, mid, high).
 
-**Capability heatmap**: A question-level colour-coded grid across all five dimensions, with six cells per dimension row. Colour intensity maps directly to the 1–5 score. See [`ALGORITHM.md`](ALGORITHM.md#benchmark-overlay) for benchmark reference values.
+**Capability heatmap**: A question-level colour-coded grid across all five dimensions, with six cells per dimension row. Colour intensity maps directly to the 1–5 score. Cells with scores are **clickable** — clicking a cell scrolls the page to the corresponding question with a brief highlight animation. See [`ALGORITHM.md`](ALGORITHM.md#benchmark-overlay) for benchmark reference values.
 
 ---
 
@@ -402,16 +409,36 @@ Each insight section title includes a contextual help icon (?) that displays a t
 
 ### Tooltip coverage
 
+Sixteen tooltips are defined across three sections of the application:
+
+**Dynamic Assessment Insights** (6 tooltips):
+
 | Insight section | What the tooltip explains |
 | --- | --- |
 | Overall Maturity | The overall score is the arithmetic mean of dimension scores; the maturity stage maps the score to one of eight levels |
 | Key Findings | The strongest and weakest dimensions are identified and given 5-tier guidance (critical/low/mid/advancing/high) |
-| Recommended Focus | Service recommendations are selected deterministically from the two weakest dimensions |
 | Gap Analysis | Each dimension is classified into a visual status tier (Critical gap/Weak/Developing/Advancing/Strong) based on its score |
-| Roadmap | The 90-day roadmap assigns the three weakest dimensions to three improvement phases |
 | Composite Indices | Four weighted indices combine dimension scores for cross-cutting strategic views (Digital Foundation, Innovation Readiness, Operational Excellence, Customer Value) |
 | Risk Assessment | The 0–100 risk score combines four weighted factors: lowest dimension, score variance, governance, and data |
-| Heatmap | The question-level colour grid maps 1–5 scores to colour intensity across all dimensions |
+| Heatmap | The question-level colour grid maps 1–5 scores to colour intensity across all dimensions; cells are clickable to navigate to the question |
+
+**Digital Health Report** (3 tooltips):
+
+| Report section | What the tooltip explains |
+| --- | --- |
+| Overall Maturity Snapshot | How the score ring represents the overall maturity score, stage, and dimension breakdown |
+| Strategic Focus | How the stated transformation ambition shapes the report narrative and recommended service areas |
+| 90-Day Roadmap | How the three weakest dimensions map to three phased improvement actions |
+
+**AI-Powered Strategic Analysis** (5 tooltips):
+
+| AI section | What the tooltip explains |
+| --- | --- |
+| Pattern Diagnosis | How 19 score patterns are detected from the score distribution and what each pattern means strategically |
+| Cross-Dimensional Intelligence | How the dependency graph models inter-dimensional relationships and identifies constraints |
+| Question-Level Gap Analysis | How the weakest individual questions within each scored dimension are surfaced for targeted improvement |
+| Strategic Priority Matrix | How dimensions are plotted by impact and effort into four quadrants to guide investment decisions |
+| What-If Scenarios | How improving the weakest dimension by 1 point affects the overall score and may unlock a new maturity stage |
 
 Tooltips appear on hover or click, auto-dismiss after 6–8 seconds, and are fully translated into all supported languages (EN/FR/IT). See [`ALGORITHM.md`](ALGORITHM.md#help-tooltip-system) for implementation details.
 
@@ -436,13 +463,13 @@ Warnings are hidden at 0% to avoid alarming users before they start, and hidden 
 ## Data persistence
 
 - The entire application runs client-side with zero external dependencies (except jsPDF for PDF export)
-- Reports are downloadable in three formats: PDF (via jsPDF), Markdown, and plain text
+- Reports are downloadable in three formats: PDF (via jsPDF), Markdown, and plain text — all three include dimension scores, composite indices, key findings, service recommendations, 90-day roadmap, narrative, patterns, cross-dimensional intelligence, question-level gaps, strategic priority matrix, and what-if scenarios
 - No data is transmitted to any server — all analysis is performed in the browser
 - The AI-powered analysis uses a sophisticated rule-based engine, not an external AI service
 - Pattern detection uses statistical analysis (mean, variance, min/max, standard deviation) of the score distribution
 - Composite indices use weighted arithmetic means with automatic handling of missing dimensions
 - Cross-dimensional insights use a dependency graph and domain-specific knowledge about how digital capabilities interact
 - The engine is designed to produce genuinely unique, specific output for every possible combination of scores
-- Full tri-lingual support (English, French, Italian) with 200+ translation keys per language, covering all UI text, questions, answer labels, insight content, tooltips, and footer
-- Help tooltips on every insight section title explain what the metric is, why it matters, and how it is calculated
+- Full tri-lingual support (English, French, Italian) with 250+ translation keys per language, covering all UI text, questions, answer labels, insight content, tooltips, and footer
+- Help tooltips on insight section titles, Digital Health Report headers, and AI-Powered Strategic Analysis cards explain what the metric is, why it matters, and how it is calculated
 - Completion-based warnings prevent premature interpretation of partial assessment results

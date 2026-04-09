@@ -107,12 +107,12 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Cross-dimensional intelligence | Analyses how dimensions interact and constrain each other with severity-rated insights and dependency-graph-based gap detection |
 | AI-powered strategic analysis | On-device analytical engine providing pattern diagnosis, cross-dimensional intelligence, question-level gaps, priority matrix, and what-if scenarios — no API, no installation |
 | Per-question contextual labels | 150 unique answer descriptions (30 questions × 5 levels) providing question-specific interpretation |
-| Internationalisation (i18n) | Full tri-lingual support (EN/FR/IT) with language switcher, 200+ translation keys per language, and language preference persistence |
-| Help tooltips | Contextual (?) icons on each insight section explaining what the metric is, why it matters, and how it is calculated |
+| Internationalisation (i18n) | Full tri-lingual support (EN/FR/IT) with language switcher, 250+ translation keys per language, and language preference persistence |
+| Help tooltips | Contextual (?) icons on insight sections, Digital Health Report headers, and AI-Powered Strategic Analysis cards explaining what the metric is, why it matters, and how it is calculated |
 | Incomplete assessment warnings | Smart banners in insights and download sections when the assessment is partially complete (1–99%) |
 | Industry and company size context | 11 industry sectors and 6 company sizes with contextual narrative adaptation |
 | Per-dimension micro-feedback | Real-time status bar showing tier, standard deviation, confidence level, and ROI improvement potential |
-| Capability heatmap | Question-level colour-coded grid across all dimensions with legend |
+| Capability heatmap | Question-level colour-coded grid across all dimensions with legend — clickable cells navigate to the corresponding question |
 | ROI impact estimation | Per-dimension, per-tier-transition business value estimates |
 | Benchmark overlay | Industry-average reference polygon on the radar chart for visual comparison |
 | Question-level gap analysis | Surfaces the specific weakest capabilities within each dimension, not just dimension averages |
@@ -170,7 +170,7 @@ This project is intentionally minimal.
 
 Start by selecting your preferred language using the **EN/FR/IT switcher** in the top-right corner — the entire interface updates instantly. Then enter the organisation name, the primary transformation ambition, your industry sector, and company size. Complete the thirty assessment prompts using the five-level maturity scale — each question shows **contextual answer descriptions** specific to that capability area, fully translated in all three languages. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
-As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status, standard deviation, confidence level, and ROI improvement potential. The sidebar displays **Maturity DNA**, **Digital Risk Score**, and **Composite Strategic Indices** updated live, along with a **Download Report** button for quick access to the export section. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, strategic focus areas, composite indices, risk assessment, a capability heatmap, and a 90-day roadmap tailored to your lowest-scoring dimensions. Each insight section title includes a **help tooltip** (?) that explains what the metric means and how it is calculated. If the assessment is partially complete, **warning banners** appear in the insights and download sections encouraging completion before generating reports.
+As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status, standard deviation, confidence level, and ROI improvement potential. The sidebar displays **Maturity DNA**, **Digital Risk Score**, and **Composite Strategic Indices** updated live, along with a **Download Report** button for quick access to the export section. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, composite indices, risk assessment, a capability heatmap, and gap analysis. Each insight section title includes a **help tooltip** (?) that explains what the metric means and how it is calculated. If the assessment is partially complete, **warning banners** appear in the insights and download sections encouraging completion before generating reports.
 
 The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis (19 patterns), cross-dimensional intelligence with dependency-graph analysis, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
 
@@ -238,6 +238,7 @@ The generated **Digital Health Report** is intended to be short enough to use in
 | Pattern diagnosis | Identifies score patterns (uniform, polarized, outlier, etc.) and their strategic meaning |
 | Cross-dimensional intelligence | Shows how dimensions interact and constrain each other |
 | Question-level gaps | Surfaces specific capability weaknesses within each dimension |
+| Strategic priority matrix | Plots dimensions by impact and effort to guide investment decisions |
 | What-if scenarios | Models the impact of improving the weakest dimension |
 | Strategic focus | Connects the stated transformation ambition to the output narrative |
 | Recommended support | Aligns findings with relevant diShine-style intervention areas |
