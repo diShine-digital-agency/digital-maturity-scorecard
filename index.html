@@ -1069,6 +1069,13 @@
     .hide-print { display: block; }
     .show-print { display: none; }
 
+    /* v2.1.0: pdf-exporting class for html2pdf.js */
+    .pdf-exporting .show-print { display: block !important; }
+    .pdf-exporting {
+      background: #ffffff !important;
+      color: #101828 !important;
+    }
+
     /* ── PDF export light-theme overrides ────────────────────────── */
     .pdf-export-mode {
       --text: #101828;
@@ -1611,8 +1618,16 @@
         <div class="priority-grid" id="roadmapGrid"></div>
       </div>
 
+      <!-- Radar chart image for PDF (v2.1.0) -->
+      <div class="report-card show-print" id="reportRadarContainer" style="text-align:center;">
+        <h3>Maturity Radar</h3>
+        <img id="reportRadarImage" style="max-width:400px;margin:0 auto;" alt="Maturity radar chart" />
+        <div id="reportAnalyticsSummary" style="margin-top:12px;font-size:0.85rem;color:#666;"></div>
+      </div>
+
       <p class="footnote">
         This scorecard is a directional decision-support tool designed to accelerate discovery and prioritisation. It is most effective when used alongside stakeholder interviews, analytics review, and operating-model analysis.
+        <br><strong style="color:#4fd1c5;">Prepared by diShine</strong> · dishine.it · Confidential
       </p>
     </section>
 
@@ -2939,6 +2954,10 @@
       renderDimensionList();
       drawRadar();
 
+      // Update radar image for print/PDF (v2.1.0)
+      const radarImg = document.getElementById('reportRadarImage');
+      if (radarImg) radarImg.src = els.radarChart.toDataURL('image/png');
+
       const completion = getCompletion();
       const overall = getOverallAverage();
       const [stage, narrative] = getStage(overall);
@@ -3246,9 +3265,67 @@
     }
 
     function exportToPDF() {
-      // Use native browser print dialog for reliable PDF export
-      // This works across all browsers and doesn't require external libraries
-      window.print();
+      // Validate completeness
+      const completion = getCompletion();
+      if (completion.pct < 100) {
+        if (!confirm(`Assessment is ${completion.pct}% complete (${completion.answered}/${completion.total} questions). The report will be more accurate with all questions answered.\n\nProceed with export anyway?`)) return;
+      }
+
+      // Prepare radar chart as image for PDF
+      const canvas = els.radarChart;
+      const radarDataURL = canvas.toDataURL('image/png');
+      const radarImg = document.getElementById('reportRadarImage');
+      if (radarImg) radarImg.src = radarDataURL;
+
+      // Prepare analytics summary for PDF
+      const analyticsSummary = document.getElementById('reportAnalyticsSummary');
+      if (analyticsSummary) {
+        const dna = getMaturityDNA();
+        const risk = computeRiskScore();
+        const indices = computeCompositeIndices();
+        let summaryHTML = `<strong>Maturity DNA:</strong> ${dna}`;
+        if (risk) summaryHTML += ` · <strong>Risk Score:</strong> ${risk.score}/100 (${risk.level})`;
+        if (indices) {
+          summaryHTML += '<br>';
+          Object.values(indices).forEach(idx => {
+            summaryHTML += `${idx.label}: <strong>${idx.score.toFixed(1)}</strong> · `;
+          });
+        }
+        if (state.industrySector && industryContext[state.industrySector]) {
+          summaryHTML += `<br><strong>Industry:</strong> ${industryContext[state.industrySector].name}`;
+        }
+        if (state.companySize && companySizeContext[state.companySize]) {
+          summaryHTML += ` · <strong>Size:</strong> ${companySizeContext[state.companySize].name} employees`;
+        }
+        analyticsSummary.innerHTML = summaryHTML;
+      }
+
+      // Check if html2pdf is available, otherwise fallback to window.print()
+      if (typeof html2pdf !== 'undefined') {
+        const reportEl = document.getElementById('reportCard');
+        const company = state.companyName.trim() || 'Organisation';
+        const filename = `diShine_Digital_Health_Report_${company.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+
+        const opt = {
+          margin: [10, 10, 15, 10],
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        // Temporarily show the report for export
+        reportEl.classList.add('pdf-exporting');
+        html2pdf().set(opt).from(reportEl).save().then(() => {
+          reportEl.classList.remove('pdf-exporting');
+        }).catch(() => {
+          reportEl.classList.remove('pdf-exporting');
+          window.print();
+        });
+      } else {
+        window.print();
+      }
     }
 
     loadState();
