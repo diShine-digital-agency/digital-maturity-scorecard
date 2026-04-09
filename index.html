@@ -1823,7 +1823,7 @@
 
       <div class="report-grid">
         <div class="report-card">
-          <h3 data-i18n="report.overallSnapshot">Overall maturity snapshot</h3>
+          <h3 data-i18n="report.overallSnapshot">Overall maturity snapshot <span class="help-trigger" data-tooltip="tooltip.reportSnapshot" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div class="score-ring" id="scoreRing">
             <div>
               <b id="ringScore">0.0</b>
@@ -1834,14 +1834,14 @@
           <div id="reportDimensionBreakdown"></div>
         </div>
         <div class="report-card">
-          <h3 data-i18n="report.strategicFocus">Strategic focus and recommended diShine support</h3>
+          <h3 data-i18n="report.strategicFocus">Strategic focus and recommended diShine support <span class="help-trigger" data-tooltip="tooltip.reportStrategicFocus" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <p class="insight" id="goalSummary" data-i18n="report.defaultGoal">Add your primary transformation ambition above to tailor the report narrative.</p>
           <div id="reportStrategicSummary"></div>
         </div>
       </div>
 
       <div class="report-card">
-        <h3 data-i18n="report.roadmapTitle">90-day improvement roadmap</h3>
+        <h3 data-i18n="report.roadmapTitle">90-day improvement roadmap <span class="help-trigger" data-tooltip="tooltip.reportRoadmap" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
         <div class="priority-grid" id="roadmapGrid"></div>
       </div>
 
@@ -1951,39 +1951,39 @@
 
       <div class="ai-card-grid">
         <div class="ai-card">
-          <h3 data-i18n="ui.patternDiagnosis">Pattern Diagnosis</h3>
+          <h3 data-i18n="ui.patternDiagnosis">Pattern Diagnosis <span class="help-trigger" data-tooltip="tooltip.patternDiagnosis" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div id="aiPatternDiagnosis">
-            <p class="insight-placeholder">Pattern analysis will appear once you begin answering questions.</p>
+            <p class="insight-placeholder" data-i18n="ui.aiPatternPlaceholder">Pattern analysis will appear once you begin answering questions.</p>
           </div>
         </div>
         <div class="ai-card">
-          <h3 data-i18n="ui.crossDimensional">Cross-Dimensional Intelligence</h3>
+          <h3 data-i18n="ui.crossDimensional">Cross-Dimensional Intelligence <span class="help-trigger" data-tooltip="tooltip.crossDimensional" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div id="aiCrossDimensional">
-            <p class="insight-placeholder">Cross-dimensional insights require at least two scored dimensions.</p>
+            <p class="insight-placeholder" data-i18n="ui.aiCrossDimPlaceholder">Cross-dimensional insights require at least two scored dimensions.</p>
           </div>
         </div>
       </div>
 
       <div class="ai-card-grid">
         <div class="ai-card">
-          <h3 data-i18n="ui.questionGapAnalysis">Question-Level Gap Analysis</h3>
+          <h3 data-i18n="ui.questionGapAnalysis">Question-Level Gap Analysis <span class="help-trigger" data-tooltip="tooltip.questionGapAnalysis" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div id="aiQuestionGaps">
-            <p class="insight-placeholder">Specific capability gaps will be identified once you score individual questions.</p>
+            <p class="insight-placeholder" data-i18n="ui.aiGapPlaceholder">Specific capability gaps will be identified once you score individual questions.</p>
           </div>
         </div>
         <div class="ai-card">
-          <h3 data-i18n="ui.priorityMatrix">Strategic Priority Matrix</h3>
+          <h3 data-i18n="ui.priorityMatrix">Strategic Priority Matrix <span class="help-trigger" data-tooltip="tooltip.priorityMatrix" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div id="aiPriorityMatrix">
-            <p class="insight-placeholder">The impact-effort matrix will populate based on your assessment results.</p>
+            <p class="insight-placeholder" data-i18n="ui.aiMatrixPlaceholder">The impact-effort matrix will populate based on your assessment results.</p>
           </div>
         </div>
       </div>
 
       <div class="ai-card-grid">
         <div class="ai-card ai-card-full">
-          <h3 data-i18n="ui.whatIfScenarios">What-If Scenarios</h3>
+          <h3 data-i18n="ui.whatIfScenarios">What-If Scenarios <span class="help-trigger" data-tooltip="tooltip.whatIfScenarios" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div id="aiWhatIf">
-            <p class="insight-placeholder">Scenario modelling will show the impact of improving your weakest dimension.</p>
+            <p class="insight-placeholder" data-i18n="ui.aiWhatIfPlaceholder">Scenario modelling will show the impact of improving your weakest dimension.</p>
           </div>
         </div>
       </div>
@@ -2254,6 +2254,45 @@ const TRANSLATIONS = {
     "tooltip.compositeIndices":     "Composite Strategic Indices combine multiple dimensions into four business-critical lenses: Digital Foundation (Data + Governance), Innovation Readiness (AI + Experience), Operational Excellence (Governance + Performance), and Customer Value (Experience + Data). They matter because individual dimensions don\u2019t tell the full story. These cross-cutting indices reveal strategic capabilities. Calculated from: weighted averages of paired dimensions.",
     "tooltip.riskAssessment":       "Digital Risk Assessment quantifies your organisation\u2019s digital vulnerability on a 0\u2013100 scale. It matters because it highlights where systemic weaknesses could cause failures. Calculated from: lowest dimension score (40% weight), score variance across dimensions (25%), governance gaps (20%), and data gaps (15%).",
     "tooltip.heatmap":              "The Capability Heatmap shows individual question-level scores across all dimensions in a colour-coded grid. It matters because it reveals specific capability gaps that dimension averages can mask. A dimension scoring 3.0 might have a mix of 1s and 5s. Each cell represents one question\u2019s score from 1 (red) to 5 (green).",
+
+    /* 9b · AI Section tooltips ----------------------------------------- */
+    "tooltip.patternDiagnosis":     "Pattern Diagnosis detects recurring themes across your scores such as consistently low governance, fragmented data practices, or strong customer experience paired with weak measurement. It matters because isolated scores don't reveal systemic issues. Calculated from: cross-dimension pattern matching algorithms that identify clusters of high, low, or imbalanced scores.",
+    "tooltip.crossDimensional":     "Cross-Dimensional Intelligence identifies dependencies and tensions between dimensions. For example, strong AI ambitions with weak data foundations, or high experience maturity undermined by poor governance. It matters because dimensions don't operate in isolation. Weaknesses in one area can block progress in others. Calculated from: pairwise comparison of dimension averages with threshold-based dependency rules.",
+    "tooltip.questionGapAnalysis":  "Question-Level Gap Analysis surfaces the lowest-scoring individual questions within each dimension. It matters because dimension averages can mask critical gaps. A dimension scoring 3.0 overall might contain a single question at 1.0 that represents a serious blind spot. Shows the two weakest questions per dimension for targeted action.",
+    "tooltip.priorityMatrix":       "The Strategic Priority Matrix categorises your dimensions into four quadrants. Quick Wins (moderate gaps, fast to fix), Strategic Priorities (critical gaps, sustained effort needed), Optimise (solid foundations to build on), and Maintain (mature capabilities to protect). It matters because not all gaps are equal. This matrix helps allocate resources efficiently. Calculated from: dimension averages mapped to impact-effort thresholds.",
+    "tooltip.whatIfScenarios":      "What-If Scenarios model the impact of improving your weakest dimensions by 1.0 points. It shows how your overall score and maturity stage would change. It matters because it quantifies the value of focused investment and helps prioritise where improvement yields the biggest systemic benefit. Calculated from: recalculated averages with simulated score improvements.",
+
+    /* 9c · Report Card tooltips ---------------------------------------- */
+    "tooltip.reportSnapshot":       "The Overall Maturity Snapshot shows your organisation's composite score on a 0-5 scale, your maturity stage classification, and a contextualised summary. It matters because it provides the single most important number for benchmarking digital readiness. Calculated from: the average of all answered questions across five dimensions.",
+    "tooltip.reportStrategicFocus": "Strategic Focus translates your weakest dimensions into recommended diShine service areas and capabilities. It matters because it connects assessment gaps directly to actionable professional support. Based on: the two lowest-scoring dimensions and their associated service catalogues.",
+    "tooltip.reportRoadmap":        "The 90-Day Improvement Roadmap provides a phased action plan. Days 1-30 address your weakest dimension, Days 31-60 the second weakest, and Days 61-90 the third. It matters because it turns assessment into structured execution with clear timelines and ownership. Generated from: dimension rankings and pre-built remediation strategies.",
+
+    /* 9d · AI section UI strings --------------------------------------- */
+    "ui.aiPatternPlaceholder":      "Pattern analysis will appear once you begin answering questions.",
+    "ui.aiCrossDimPlaceholder":     "Cross-dimensional insights require at least two scored dimensions.",
+    "ui.aiCrossDimNone":            "No critical cross-dimensional dependencies detected at current scoring levels. Continue refining scores for deeper analysis.",
+    "ui.aiGapPlaceholder":          "Specific capability gaps will be identified once you score individual questions.",
+    "ui.aiGapMoreNeeded":           "Score more questions to reveal specific capability gaps.",
+    "ui.aiMatrixPlaceholder":       "The impact-effort matrix will populate based on your assessment results.",
+    "ui.aiWhatIfPlaceholder":       "Scenario modelling will show the impact of improving your weakest dimension.",
+    "ui.aiWhatIfIntro":             "What happens if you improve a dimension by 1.0 points?",
+    "ui.aiWhatIfUpgrade":           "Improving {dim} by 1 point would advance the organisation to {stage}.",
+    "ui.aiWhatIfNoChange":          "Improving {dim} by 1 point raises the overall score but does not yet trigger a stage change.",
+    "ui.matrixQuickWins":           "\uD83C\uDFAF Quick Wins (High Impact, Lower Effort)",
+    "ui.matrixStrategic":           "\uD83D\uDD25 Strategic Priorities (High Impact, Higher Effort)",
+    "ui.matrixOptimise":            "\uD83D\uDCC8 Optimise (Moderate Impact, Moderate Effort)",
+    "ui.matrixMaintain":            "\u2705 Maintain (Lower Impact, Lower Effort)",
+    "ui.matrixModerateGaps":        "Moderate gaps where targeted actions can deliver fast improvement.",
+    "ui.matrixCriticalGaps":        "Critical gaps requiring sustained investment and organisational commitment.",
+    "ui.matrixSolidFound":          "Solid foundations to build on with structured optimisation.",
+    "ui.matrixMatureCaps":          "Mature capabilities to protect and incrementally improve.",
+    "ui.matrixNone":                "No dimensions in this quadrant.",
+    "ui.aiCurrentState":            "\uD83D\uDCCD Current state",
+    "ui.aiScenario":                "Scenario",
+    "ui.aiOverallScore":            "Overall Score",
+    "ui.aiMaturityStage":           "Maturity Stage",
+    "ui.whatIfExplain":             "This scenario analysis models the impact of focused improvement. By raising your weakest dimension by 1.0 points \u2014 achievable with 90 days of targeted effort \u2014 you can see how it shifts your overall maturity stage and score.",
+    "ui.whatIfFootnote":            "Scenarios assume focused improvement on the specified dimension while maintaining current performance in all others. Actual results depend on implementation quality and organisational context.",
 
     /* 10 · Footer text ------------------------------------------------ */
     "footer.disclaimer":            "This assessment is a directional decision-support tool designed to help organisations identify digital maturity gaps and prioritise improvement areas. Results are indicative and should be complemented with stakeholder interviews, operational analysis, and expert consultation for comprehensive strategic planning.",
@@ -2547,6 +2586,45 @@ const TRANSLATIONS = {
     "tooltip.riskAssessment":       "L\u2019\u00c9valuation des risques num\u00e9riques quantifie la vuln\u00e9rabilit\u00e9 digitale de votre organisation sur une \u00e9chelle de 0 \u00e0 100. C\u2019est important car elle met en \u00e9vidence les faiblesses syst\u00e9miques pouvant entra\u00eener des d\u00e9faillances. Calcul\u00e9e \u00e0 partir de : le score de la dimension la plus faible (pond\u00e9ration 40 %), la variance des scores entre dimensions (25 %), les lacunes en gouvernance (20 %) et les lacunes en donn\u00e9es (15 %).",
     "tooltip.heatmap":              "La Carte thermique des comp\u00e9tences affiche les scores individuels de chaque question sur toutes les dimensions dans une grille color\u00e9e. C\u2019est important car elle r\u00e9v\u00e8le des lacunes sp\u00e9cifiques que les moyennes par dimension peuvent masquer. Une dimension \u00e0 3,0 peut \u00eatre un m\u00e9lange de 1 et de 5. Chaque cellule repr\u00e9sente le score d\u2019une question de 1 (rouge) \u00e0 5 (vert).",
 
+    /* 9b · AI Section tooltips ----------------------------------------- */
+    "tooltip.patternDiagnosis":     "Le Diagnostic de tendances d\u00e9tecte des th\u00e8mes r\u00e9currents dans vos scores : gouvernance syst\u00e9matiquement basse, pratiques de donn\u00e9es fragment\u00e9es ou exp\u00e9rience client forte associ\u00e9e \u00e0 une mesure faible. C'est important car les scores isol\u00e9s ne r\u00e9v\u00e8lent pas les probl\u00e8mes syst\u00e9miques. Calcul\u00e9 \u00e0 partir de : algorithmes de correspondance de tendances crois\u00e9es qui identifient des groupes de scores \u00e9lev\u00e9s, bas ou d\u00e9s\u00e9quilibr\u00e9s.",
+    "tooltip.crossDimensional":     "L'Intelligence interdimensionnelle identifie les d\u00e9pendances et tensions entre dimensions. Par exemple, des ambitions IA fortes avec des fondations de donn\u00e9es faibles, ou une maturit\u00e9 \u00e9lev\u00e9e en exp\u00e9rience compromise par une gouvernance d\u00e9ficiente. C'est important car les dimensions n'op\u00e8rent pas de mani\u00e8re isol\u00e9e. Les faiblesses dans un domaine peuvent bloquer les progr\u00e8s dans d'autres. Calcul\u00e9 \u00e0 partir de : comparaison par paires des moyennes de dimensions avec des r\u00e8gles de d\u00e9pendance bas\u00e9es sur des seuils.",
+    "tooltip.questionGapAnalysis":  "L'Analyse des \u00e9carts au niveau des questions met en lumi\u00e8re les questions individuelles les moins bien not\u00e9es dans chaque dimension. C'est important car les moyennes par dimension peuvent masquer des lacunes critiques. Une dimension \u00e0 3,0 pourrait contenir une question \u00e0 1,0 repr\u00e9sentant un angle mort s\u00e9rieux. Affiche les deux questions les plus faibles par dimension pour une action cibl\u00e9e.",
+    "tooltip.priorityMatrix":       "La Matrice de priorit\u00e9s strat\u00e9giques classe vos dimensions en quatre quadrants. Victoires rapides (\u00e9carts mod\u00e9r\u00e9s, correction rapide), Priorit\u00e9s strat\u00e9giques (\u00e9carts critiques, effort soutenu n\u00e9cessaire), Optimiser (bases solides \u00e0 d\u00e9velopper) et Maintenir (capacit\u00e9s matures \u00e0 prot\u00e9ger). C'est important car tous les \u00e9carts ne se valent pas. Cette matrice aide \u00e0 allouer les ressources efficacement. Calcul\u00e9 \u00e0 partir de : moyennes par dimension mapp\u00e9es sur des seuils impact-effort.",
+    "tooltip.whatIfScenarios":      "Les Sc\u00e9narios What-If mod\u00e9lisent l'impact de l'am\u00e9lioration de vos dimensions les plus faibles de 1,0 point. Ils montrent comment votre score global et votre stade de maturit\u00e9 changeraient. C'est important car cela quantifie la valeur de l'investissement cibl\u00e9 et aide \u00e0 prioriser l'am\u00e9lioration offrant le plus grand b\u00e9n\u00e9fice syst\u00e9mique. Calcul\u00e9 \u00e0 partir de : moyennes recalcul\u00e9es avec des am\u00e9liorations de scores simul\u00e9es.",
+
+    /* 9c · Report Card tooltips ---------------------------------------- */
+    "tooltip.reportSnapshot":       "L'Aper\u00e7u global de maturit\u00e9 affiche le score composite de votre organisation sur une \u00e9chelle de 0 \u00e0 5, la classification du stade de maturit\u00e9 et un r\u00e9sum\u00e9 contextualis\u00e9. C'est important car il fournit le chiffre le plus essentiel pour \u00e9valuer la pr\u00e9paration digitale. Calcul\u00e9 \u00e0 partir de : la moyenne de toutes les questions r\u00e9pondues sur cinq dimensions.",
+    "tooltip.reportStrategicFocus": "Le Focus strat\u00e9gique traduit vos dimensions les plus faibles en domaines de services et comp\u00e9tences recommand\u00e9s par diShine. C'est important car il relie directement les lacunes de l'\u00e9valuation \u00e0 un accompagnement professionnel actionnable. Bas\u00e9 sur : les deux dimensions les moins bien not\u00e9es et leurs catalogues de services associ\u00e9s.",
+    "tooltip.reportRoadmap":        "La Feuille de route d'am\u00e9lioration \u00e0 90 jours propose un plan d'action par phases. Les jours 1 \u00e0 30 traitent votre dimension la plus faible, les jours 31 \u00e0 60 la deuxi\u00e8me et les jours 61 \u00e0 90 la troisi\u00e8me. C'est important car elle transforme l'\u00e9valuation en ex\u00e9cution structur\u00e9e avec des d\u00e9lais et des responsabilit\u00e9s clairs. G\u00e9n\u00e9r\u00e9e \u00e0 partir de : classements des dimensions et strat\u00e9gies de rem\u00e9diation pr\u00e9d\u00e9finies.",
+
+    /* 9d · AI section UI strings --------------------------------------- */
+    "ui.aiPatternPlaceholder":      "L'analyse de tendances appara\u00eetra une fois que vous commencerez \u00e0 r\u00e9pondre aux questions.",
+    "ui.aiCrossDimPlaceholder":     "Les analyses interdimensionnelles n\u00e9cessitent au moins deux dimensions \u00e9valu\u00e9es.",
+    "ui.aiCrossDimNone":            "Aucune d\u00e9pendance interdimensionnelle critique d\u00e9tect\u00e9e aux niveaux de notation actuels. Continuez \u00e0 affiner les scores pour une analyse plus approfondie.",
+    "ui.aiGapPlaceholder":          "Les lacunes sp\u00e9cifiques seront identifi\u00e9es une fois que vous aurez not\u00e9 les questions individuelles.",
+    "ui.aiGapMoreNeeded":           "Notez plus de questions pour r\u00e9v\u00e9ler des lacunes sp\u00e9cifiques.",
+    "ui.aiMatrixPlaceholder":       "La matrice impact-effort se remplira en fonction de vos r\u00e9sultats d'\u00e9valuation.",
+    "ui.aiWhatIfPlaceholder":       "La mod\u00e9lisation de sc\u00e9narios montrera l'impact de l'am\u00e9lioration de votre dimension la plus faible.",
+    "ui.aiWhatIfIntro":             "Que se passe-t-il si vous am\u00e9liorez une dimension de 1,0 point ?",
+    "ui.aiWhatIfUpgrade":           "Am\u00e9liorer {dim} de 1 point ferait passer l'organisation au stade {stage}.",
+    "ui.aiWhatIfNoChange":          "Am\u00e9liorer {dim} de 1 point augmente le score global mais ne d\u00e9clenche pas encore un changement de stade.",
+    "ui.matrixQuickWins":           "\uD83C\uDFAF Victoires rapides (Impact \u00e9lev\u00e9, Effort moindre)",
+    "ui.matrixStrategic":           "\uD83D\uDD25 Priorit\u00e9s strat\u00e9giques (Impact \u00e9lev\u00e9, Effort soutenu)",
+    "ui.matrixOptimise":            "\uD83D\uDCC8 Optimiser (Impact mod\u00e9r\u00e9, Effort mod\u00e9r\u00e9)",
+    "ui.matrixMaintain":            "\u2705 Maintenir (Impact moindre, Effort moindre)",
+    "ui.matrixModerateGaps":        "\u00c9carts mod\u00e9r\u00e9s o\u00f9 des actions cibl\u00e9es peuvent apporter une am\u00e9lioration rapide.",
+    "ui.matrixCriticalGaps":        "\u00c9carts critiques n\u00e9cessitant un investissement soutenu et un engagement organisationnel.",
+    "ui.matrixSolidFound":          "Bases solides \u00e0 d\u00e9velopper avec une optimisation structur\u00e9e.",
+    "ui.matrixMatureCaps":          "Capacit\u00e9s matures \u00e0 prot\u00e9ger et am\u00e9liorer progressivement.",
+    "ui.matrixNone":                "Aucune dimension dans ce quadrant.",
+    "ui.aiCurrentState":            "\uD83D\uDCCD \u00c9tat actuel",
+    "ui.aiScenario":                "Sc\u00e9nario",
+    "ui.aiOverallScore":            "Score global",
+    "ui.aiMaturityStage":           "Stade de maturit\u00e9",
+    "ui.whatIfExplain":             "Cette analyse de sc\u00e9narios mod\u00e9lise l'impact d'une am\u00e9lioration cibl\u00e9e. En augmentant votre dimension la plus faible de 1,0 point \u2014 r\u00e9alisable en 90 jours d'effort cibl\u00e9 \u2014 vous pouvez voir comment cela modifie votre stade de maturit\u00e9 global et votre score.",
+    "ui.whatIfFootnote":            "Les sc\u00e9narios supposent une am\u00e9lioration cibl\u00e9e sur la dimension sp\u00e9cifi\u00e9e tout en maintenant les performances actuelles dans toutes les autres. Les r\u00e9sultats r\u00e9els d\u00e9pendent de la qualit\u00e9 de mise en \u0153uvre et du contexte organisationnel.",
+
     /* 10 · Footer text ------------------------------------------------ */
     "footer.disclaimer":            "Cette \u00e9valuation est un outil d\u2019aide \u00e0 la d\u00e9cision con\u00e7u pour aider les organisations \u00e0 identifier les \u00e9carts de maturit\u00e9 digitale et \u00e0 prioriser les axes d\u2019am\u00e9lioration. Les r\u00e9sultats sont indicatifs et doivent \u00eatre compl\u00e9t\u00e9s par des entretiens avec les parties prenantes, une analyse op\u00e9rationnelle et un accompagnement expert pour une planification strat\u00e9gique compl\u00e8te.",
     "footer.framework":             "Framework con\u00e7u par",
@@ -2838,6 +2916,45 @@ const TRANSLATIONS = {
     "tooltip.compositeIndices":     "Gli Indici strategici compositi combinano pi\u00f9 dimensioni in quattro lenti critiche per il business: Fondamenta digitali (Dati + Governance), Prontezza all\u2019innovazione (IA + Esperienza), Eccellenza operativa (Governance + Performance) e Valore per il cliente (Esperienza + Dati). Sono importanti perch\u00e9 le singole dimensioni non raccontano l\u2019intera storia. Questi indici trasversali rivelano le capacit\u00e0 strategiche. Calcolati da: medie ponderate di coppie di dimensioni.",
     "tooltip.riskAssessment":       "La Valutazione del rischio digitale quantifica la vulnerabilit\u00e0 digitale della tua organizzazione su una scala da 0 a 100. \u00c8 importante perch\u00e9 evidenzia dove le debolezze sistemiche potrebbero causare criticit\u00e0. Calcolata da: punteggio della dimensione pi\u00f9 bassa (peso 40%), varianza dei punteggi tra dimensioni (25%), lacune nella governance (20%) e lacune nei dati (15%).",
     "tooltip.heatmap":              "La Heatmap delle competenze mostra i punteggi individuali a livello di domanda su tutte le dimensioni in una griglia a colori. \u00c8 importante perch\u00e9 rivela lacune specifiche che le medie per dimensione possono nascondere. Una dimensione con punteggio 3,0 potrebbe essere un mix di 1 e 5. Ogni cella rappresenta il punteggio di una domanda da 1 (rosso) a 5 (verde).",
+
+    /* 9b · AI Section tooltips ----------------------------------------- */
+    "tooltip.patternDiagnosis":     "La Diagnosi dei pattern rileva temi ricorrenti nei tuoi punteggi: governance costantemente bassa, pratiche dati frammentate o forte esperienza cliente abbinata a una misurazione debole. \u00c8 importante perch\u00e9 i punteggi isolati non rivelano problemi sistemici. Calcolato da: algoritmi di corrispondenza dei pattern incrociati che identificano cluster di punteggi alti, bassi o sbilanciati.",
+    "tooltip.crossDimensional":     "L'Intelligenza interdimensionale identifica dipendenze e tensioni tra dimensioni. Per esempio, forti ambizioni IA con fondamenta dati deboli, o alta maturit\u00e0 nell'esperienza compromessa da una governance carente. \u00c8 importante perch\u00e9 le dimensioni non operano in modo isolato. Le debolezze in un'area possono bloccare i progressi in altre. Calcolato da: confronto a coppie delle medie dimensionali con regole di dipendenza basate su soglie.",
+    "tooltip.questionGapAnalysis":  "L'Analisi dei gap a livello di domanda evidenzia le singole domande con punteggio pi\u00f9 basso in ogni dimensione. \u00c8 importante perch\u00e9 le medie dimensionali possono mascherare lacune critiche. Una dimensione a 3,0 potrebbe contenere una domanda a 1,0 che rappresenta un punto cieco serio. Mostra le due domande pi\u00f9 deboli per dimensione per un'azione mirata.",
+    "tooltip.priorityMatrix":       "La Matrice di priorit\u00e0 strategiche classifica le dimensioni in quattro quadranti. Vittorie rapide (gap moderati, correzione veloce), Priorit\u00e0 strategiche (gap critici, sforzo sostenuto necessario), Ottimizzare (basi solide da sviluppare) e Mantenere (capacit\u00e0 mature da proteggere). \u00c8 importante perch\u00e9 non tutti i gap sono uguali. Questa matrice aiuta ad allocare le risorse in modo efficiente. Calcolato da: medie dimensionali mappate su soglie impatto-sforzo.",
+    "tooltip.whatIfScenarios":      "Gli Scenari What-If modellano l'impatto del miglioramento delle dimensioni pi\u00f9 deboli di 1,0 punto. Mostrano come cambierebbe il punteggio complessivo e lo stadio di maturit\u00e0. \u00c8 importante perch\u00e9 quantifica il valore dell'investimento mirato e aiuta a dare priorit\u00e0 al miglioramento che offre il maggior beneficio sistemico. Calcolato da: medie ricalcolate con miglioramenti simulati dei punteggi.",
+
+    /* 9c · Report Card tooltips ---------------------------------------- */
+    "tooltip.reportSnapshot":       "L'Istantanea complessiva di maturit\u00e0 mostra il punteggio composito della tua organizzazione su una scala da 0 a 5, la classificazione dello stadio di maturit\u00e0 e un riepilogo contestualizzato. \u00c8 importante perch\u00e9 fornisce il numero pi\u00f9 essenziale per valutare la prontezza digitale. Calcolato da: la media di tutte le domande risposte su cinque dimensioni.",
+    "tooltip.reportStrategicFocus": "Il Focus strategico traduce le dimensioni pi\u00f9 deboli in aree di servizio e competenze raccomandate da diShine. \u00c8 importante perch\u00e9 collega direttamente le lacune della valutazione a un supporto professionale azionabile. Basato su: le due dimensioni con punteggio pi\u00f9 basso e i loro cataloghi di servizi associati.",
+    "tooltip.reportRoadmap":        "La Roadmap di miglioramento a 90 giorni fornisce un piano d'azione per fasi. I giorni 1-30 affrontano la dimensione pi\u00f9 debole, i giorni 31-60 la seconda e i giorni 61-90 la terza. \u00c8 importante perch\u00e9 trasforma la valutazione in esecuzione strutturata con tempistiche e responsabilit\u00e0 chiare. Generata da: classifiche delle dimensioni e strategie di rimedio predefinite.",
+
+    /* 9d · AI section UI strings --------------------------------------- */
+    "ui.aiPatternPlaceholder":      "L'analisi dei pattern apparir\u00e0 quando inizierai a rispondere alle domande.",
+    "ui.aiCrossDimPlaceholder":     "Le analisi interdimensionali richiedono almeno due dimensioni valutate.",
+    "ui.aiCrossDimNone":            "Nessuna dipendenza interdimensionale critica rilevata ai livelli di punteggio attuali. Continua a perfezionare i punteggi per un'analisi pi\u00f9 approfondita.",
+    "ui.aiGapPlaceholder":          "Le lacune specifiche verranno identificate quando avrai valutato le singole domande.",
+    "ui.aiGapMoreNeeded":           "Valuta pi\u00f9 domande per rivelare lacune specifiche.",
+    "ui.aiMatrixPlaceholder":       "La matrice impatto-sforzo si compiler\u00e0 in base ai risultati della valutazione.",
+    "ui.aiWhatIfPlaceholder":       "La modellazione degli scenari mostrer\u00e0 l'impatto del miglioramento della dimensione pi\u00f9 debole.",
+    "ui.aiWhatIfIntro":             "Cosa succede se migliori una dimensione di 1,0 punto?",
+    "ui.aiWhatIfUpgrade":           "Migliorare {dim} di 1 punto porterebbe l'organizzazione allo stadio {stage}.",
+    "ui.aiWhatIfNoChange":          "Migliorare {dim} di 1 punto alza il punteggio complessivo ma non innesca ancora un cambio di stadio.",
+    "ui.matrixQuickWins":           "\uD83C\uDFAF Vittorie rapide (Impatto elevato, Sforzo minore)",
+    "ui.matrixStrategic":           "\uD83D\uDD25 Priorit\u00e0 strategiche (Impatto elevato, Sforzo sostenuto)",
+    "ui.matrixOptimise":            "\uD83D\uDCC8 Ottimizzare (Impatto moderato, Sforzo moderato)",
+    "ui.matrixMaintain":            "\u2705 Mantenere (Impatto minore, Sforzo minore)",
+    "ui.matrixModerateGaps":        "Gap moderati dove azioni mirate possono offrire un miglioramento rapido.",
+    "ui.matrixCriticalGaps":        "Gap critici che richiedono investimento sostenuto e impegno organizzativo.",
+    "ui.matrixSolidFound":          "Basi solide da sviluppare con ottimizzazione strutturata.",
+    "ui.matrixMatureCaps":          "Capacit\u00e0 mature da proteggere e migliorare progressivamente.",
+    "ui.matrixNone":                "Nessuna dimensione in questo quadrante.",
+    "ui.aiCurrentState":            "\uD83D\uDCCD Stato attuale",
+    "ui.aiScenario":                "Scenario",
+    "ui.aiOverallScore":            "Punteggio complessivo",
+    "ui.aiMaturityStage":           "Stadio di maturit\u00e0",
+    "ui.whatIfExplain":             "Questa analisi degli scenari modella l'impatto di un miglioramento mirato. Aumentando la dimensione pi\u00f9 debole di 1,0 punto \u2014 raggiungibile con 90 giorni di sforzo mirato \u2014 puoi vedere come si modificano lo stadio di maturit\u00e0 complessivo e il punteggio.",
+    "ui.whatIfFootnote":            "Gli scenari presuppongono un miglioramento mirato sulla dimensione specificata mantenendo le performance attuali in tutte le altre. I risultati effettivi dipendono dalla qualit\u00e0 dell'implementazione e dal contesto organizzativo.",
 
     /* 10 · Footer text ------------------------------------------------ */
     "footer.disclaimer":            "Questa valutazione \u00e8 uno strumento di supporto decisionale progettato per aiutare le organizzazioni a identificare i gap di maturit\u00e0 digitale e a stabilire le priorit\u00e0 di miglioramento. I risultati sono indicativi e devono essere integrati con interviste agli stakeholder, analisi operative e consulenza esperta per una pianificazione strategica completa.",
@@ -4278,7 +4395,7 @@ const QUESTION_TRANSLATIONS = {
     }
 
     // Find the weakest 2 questions within a dimension
-    const TRUNCATED_TITLE_LENGTH = 40;
+    const TRUNCATED_TITLE_LENGTH = 80;
     function analyzeQuestionGaps(dim) {
       const scored = dim.questions
         .map(([id, title]) => ({ id, title, score: Number(state.answers[id] || 0) }))
@@ -4288,6 +4405,7 @@ const QUESTION_TRANSLATIONS = {
         .sort((a, b) => a.score - b.score)
         .slice(0, 2)
         .map(q => ({
+          fullTitle: q.title,
           title: q.title.length > TRUNCATED_TITLE_LENGTH ? q.title.substring(0, TRUNCATED_TITLE_LENGTH) + '…' : q.title,
           score: q.score,
           dimName: getDimName(dim)
@@ -4380,7 +4498,7 @@ const QUESTION_TRANSLATIONS = {
 
       // Pattern Diagnosis
       if (pct === 0) {
-        els.aiPatternDiagnosis.innerHTML = '<p class="insight-placeholder">Pattern analysis will appear once you begin answering questions.</p>';
+        els.aiPatternDiagnosis.innerHTML = '<p class="insight-placeholder">' + t('ui.aiPatternPlaceholder') + '</p>';
       } else {
         const detected = [];
         if (patterns.allLow) detected.push({ icon: '🔴', label: 'All Low', desc: 'All scored dimensions are below 2.0. Foundational investment needed across the board.' });
@@ -4414,11 +4532,11 @@ const QUESTION_TRANSLATIONS = {
 
       // Cross-Dimensional Intelligence
       if (pct === 0 || scored.length < 2) {
-        els.aiCrossDimensional.innerHTML = '<p class="insight-placeholder">Cross-dimensional insights require at least two scored dimensions.</p>';
+        els.aiCrossDimensional.innerHTML = '<p class="insight-placeholder">' + t('ui.aiCrossDimPlaceholder') + '</p>';
       } else {
         const crossInsights = generateCrossDimensionalInsights(priorityDims, patterns);
         if (crossInsights.length === 0) {
-          els.aiCrossDimensional.innerHTML = '<p style="color:var(--muted);font-size:0.92rem;">No critical cross-dimensional dependencies detected at current scoring levels. Continue refining scores for deeper analysis.</p>';
+          els.aiCrossDimensional.innerHTML = '<p style="color:var(--muted);font-size:0.92rem;">' + t('ui.aiCrossDimNone') + '</p>';
         } else {
           els.aiCrossDimensional.innerHTML = crossInsights.map(i =>
             `<div class="ai-cross-insight ai-severity-${i.severity}">
@@ -4431,11 +4549,11 @@ const QUESTION_TRANSLATIONS = {
 
       // Question-Level Gap Analysis
       if (pct === 0) {
-        els.aiQuestionGaps.innerHTML = '<p class="insight-placeholder">Specific capability gaps will be identified once you score individual questions.</p>';
+        els.aiQuestionGaps.innerHTML = '<p class="insight-placeholder">' + t('ui.aiGapPlaceholder') + '</p>';
       } else {
         const allGaps = scored.flatMap(d => analyzeQuestionGaps(d));
         if (allGaps.length === 0) {
-          els.aiQuestionGaps.innerHTML = '<p class="insight-placeholder">Score more questions to reveal specific capability gaps.</p>';
+          els.aiQuestionGaps.innerHTML = '<p class="insight-placeholder">' + t('ui.aiGapMoreNeeded') + '</p>';
         } else {
           const grouped = {};
           allGaps.forEach(g => {
@@ -4446,7 +4564,7 @@ const QUESTION_TRANSLATIONS = {
             `<div style="margin-bottom:12px;">
               <strong style="color:var(--brand-2);font-size:0.88rem;text-transform:uppercase;letter-spacing:0.04em;">${dim}</strong>
               ${gaps.map(g => `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(148,163,184,0.06);">
-                <span style="font-size:0.88rem;color:var(--text);">${g.title}</span>
+                <span style="font-size:0.88rem;color:var(--text);cursor:help;" title="${(g.fullTitle || g.title).replace(/"/g, '&quot;')}">${g.title}</span>
                 <span style="font-size:0.82rem;padding:2px 8px;border-radius:999px;background:rgba(251,113,133,0.12);color:var(--danger);font-weight:600;">${g.score}/5</span>
               </div>`).join('')}
             </div>`
@@ -4456,7 +4574,7 @@ const QUESTION_TRANSLATIONS = {
 
       // Strategic Priority Matrix
       if (pct === 0 || scored.length < 2) {
-        els.aiPriorityMatrix.innerHTML = '<p class="insight-placeholder">The impact-effort matrix will populate based on your assessment results.</p>';
+        els.aiPriorityMatrix.innerHTML = '<p class="insight-placeholder">' + t('ui.aiMatrixPlaceholder') + '</p>';
       } else {
         const sorted = [...scored].sort((a, b) => a.avg - b.avg);
         const highImpactQuickWin = sorted.filter(d => d.avg >= 1.5 && d.avg < 3.0);
@@ -4466,27 +4584,27 @@ const QUESTION_TRANSLATIONS = {
 
         els.aiPriorityMatrix.innerHTML = `<div class="ai-priority-matrix">
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--good);">
-            <h4 style="color:var(--good);">🎯 Quick Wins (High Impact, Lower Effort)</h4>
-            <p>${highImpactQuickWin.length > 0 ? highImpactQuickWin.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Moderate gaps where targeted actions can deliver fast improvement.' : 'No dimensions in this quadrant.'}</p>
+            <h4 style="color:var(--good);">${t('ui.matrixQuickWins')}</h4>
+            <p>${highImpactQuickWin.length > 0 ? highImpactQuickWin.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. ' + t('ui.matrixModerateGaps') : t('ui.matrixNone')}</p>
           </div>
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--danger);">
-            <h4 style="color:var(--danger);">🔥 Strategic Priorities (High Impact, Higher Effort)</h4>
-            <p>${highImpactStrategic.length > 0 ? highImpactStrategic.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Critical gaps requiring sustained investment and organisational commitment.' : 'No dimensions in this quadrant.'}</p>
+            <h4 style="color:var(--danger);">${t('ui.matrixStrategic')}</h4>
+            <p>${highImpactStrategic.length > 0 ? highImpactStrategic.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. ' + t('ui.matrixCriticalGaps') : t('ui.matrixNone')}</p>
           </div>
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--brand);">
-            <h4 style="color:var(--brand);">📈 Optimise (Moderate Impact, Moderate Effort)</h4>
-            <p>${optimise.length > 0 ? optimise.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Solid foundations to build on with structured optimisation.' : 'No dimensions in this quadrant.'}</p>
+            <h4 style="color:var(--brand);">${t('ui.matrixOptimise')}</h4>
+            <p>${optimise.length > 0 ? optimise.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. ' + t('ui.matrixSolidFound') : t('ui.matrixNone')}</p>
           </div>
           <div class="ai-priority-quadrant" style="border-left:3px solid var(--brand-2);">
-            <h4 style="color:var(--brand-2);">✅ Maintain (Lower Impact, Lower Effort)</h4>
-            <p>${maintain.length > 0 ? maintain.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. Mature capabilities to protect and incrementally improve.' : 'No dimensions in this quadrant.'}</p>
+            <h4 style="color:var(--brand-2);">${t('ui.matrixMaintain')}</h4>
+            <p>${maintain.length > 0 ? maintain.map(d => `<strong>${getDimName(d)}</strong> (${d.avg.toFixed(1)})`).join(', ') + '. ' + t('ui.matrixMatureCaps') : t('ui.matrixNone')}</p>
           </div>
         </div>`;
       }
 
       // What-If Scenarios
       if (pct === 0 || scored.length < 2) {
-        els.aiWhatIf.innerHTML = '<p class="insight-placeholder">Scenario modelling will show the impact of improving your weakest dimension.</p>';
+        els.aiWhatIf.innerHTML = '<p class="insight-placeholder">' + t('ui.aiWhatIfPlaceholder') + '</p>';
       } else {
         const weakest = priorityDims[0];
         const improved = weakest.avg + 1.0;
@@ -4519,12 +4637,13 @@ const QUESTION_TRANSLATIONS = {
         }
 
         els.aiWhatIf.innerHTML = `
-          <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">What happens if you improve a dimension by 1.0 points?</p>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:12px;line-height:1.5;">${t('ui.whatIfExplain')}</p>
+          <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">${t('ui.aiWhatIfIntro')}</p>
           <table class="ai-whatif-table">
-            <thead><tr><th>Scenario</th><th>Overall Score</th><th>Maturity Stage</th></tr></thead>
+            <thead><tr><th>${t('ui.aiScenario')}</th><th>${t('ui.aiOverallScore')}</th><th>${t('ui.aiMaturityStage')}</th></tr></thead>
             <tbody>
               <tr style="background:rgba(124,140,255,0.06);">
-                <td>📍 <strong>Current state</strong></td>
+                <td>${(() => { const cs = t('ui.aiCurrentState'); const idx = cs.indexOf(' '); return idx > 0 ? cs.substring(0, idx + 1) + '<strong>' + cs.substring(idx + 1) + '</strong>' : '<strong>' + cs + '</strong>'; })()}</td>
                 <td><strong>${overall.toFixed(1)}</strong></td>
                 <td>${currentStage}</td>
               </tr>
@@ -4536,7 +4655,8 @@ const QUESTION_TRANSLATIONS = {
               ${secondRow}
             </tbody>
           </table>
-          ${stageChanged ? `<p style="color:var(--good);font-size:0.88rem;margin-top:8px;">💡 Improving <strong>${getDimName(weakest)}</strong> by 1 point would advance the organisation to <strong>${newStage}</strong>.</p>` : `<p style="color:var(--muted);font-size:0.88rem;margin-top:8px;">Improving <strong>${getDimName(weakest)}</strong> by 1 point raises the overall score but does not yet trigger a stage change.</p>`}
+          ${stageChanged ? `<p style="color:var(--good);font-size:0.88rem;margin-top:8px;">💡 ${t('ui.aiWhatIfUpgrade').replace('{dim}', '<strong>' + getDimName(weakest) + '</strong>').replace('{stage}', '<strong>' + newStage + '</strong>')}</p>` : `<p style="color:var(--muted);font-size:0.88rem;margin-top:8px;">${t('ui.aiWhatIfNoChange').replace('{dim}', '<strong>' + getDimName(weakest) + '</strong>')}</p>`}
+          <p style="color:var(--muted);font-size:0.8rem;margin-top:12px;font-style:italic;line-height:1.4;">${t('ui.whatIfFootnote')}</p>
         `;
       }
     }
@@ -4816,7 +4936,7 @@ const QUESTION_TRANSLATIONS = {
         els.insightHeatmap.innerHTML = `<p class="insight-placeholder">${t('ui.heatmapPlaceholder')}</p>`;
       } else {
         const heatmapColors = ['rgba(148,163,184,0.15)', 'rgba(251,113,133,0.7)', 'rgba(251,146,60,0.7)', 'rgba(250,204,21,0.7)', 'rgba(79,209,197,0.7)', 'rgba(74,222,128,0.8)'];
-        let heatmapHTML = '<div style="display:grid;grid-template-columns:140px repeat(6, 1fr);gap:3px;font-size:0.78rem;">';
+        let heatmapHTML = '<div id="heatmapGrid" style="display:grid;grid-template-columns:140px repeat(6, 1fr);gap:3px;font-size:0.78rem;">';
         heatmapHTML += `<div style="font-weight:600;color:var(--muted);padding:4px;">${t('ui.dimension')}</div>`;
         for (let q = 1; q <= 6; q++) heatmapHTML += `<div style="text-align:center;font-weight:600;color:var(--muted);padding:4px;">Q${q}</div>`;
         dimensions.forEach(dim => {
@@ -4826,7 +4946,9 @@ const QUESTION_TRANSLATIONS = {
             const score = Number(state.answers[id] || 0);
             const bg = heatmapColors[score];
             const label = score > 0 ? score : '. ';
-            heatmapHTML += `<div style="background:${bg};text-align:center;padding:6px 4px;border-radius:6px;font-weight:600;color:${score > 0 ? '#fff' : 'var(--muted)'};">${label}</div>`;
+            const clickStyle = score > 0 ? 'cursor:pointer;' : '';
+            const dataAttr = score > 0 ? ` data-question-id="${id}"` : '';
+            heatmapHTML += `<div style="background:${bg};text-align:center;padding:6px 4px;border-radius:6px;font-weight:600;color:${score > 0 ? '#fff' : 'var(--muted)'};${clickStyle}"${dataAttr}>${label}</div>`;
           });
         });
         heatmapHTML += '</div>';
@@ -4836,6 +4958,25 @@ const QUESTION_TRANSLATIONS = {
         });
         heatmapHTML += '</div>';
         els.insightHeatmap.innerHTML = heatmapHTML;
+        // Event delegation for clickable heatmap cells
+        const heatmapGrid = document.getElementById('heatmapGrid');
+        if (heatmapGrid) {
+          heatmapGrid.addEventListener('click', function(e) {
+            const cell = e.target.closest('[data-question-id]');
+            if (!cell) return;
+            const qId = cell.dataset.questionId;
+            const radio = document.querySelector('input[name="' + qId + '"]');
+            if (radio) {
+              radio.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              const row = radio.closest('.question-row') || radio.parentElement;
+              if (row) {
+                row.style.transition = 'box-shadow 0.3s';
+                row.style.boxShadow = '0 0 0 2px var(--brand)';
+                setTimeout(() => { row.style.boxShadow = ''; }, 2000);
+              }
+            }
+          });
+        }
       }
     }
 
