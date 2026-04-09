@@ -1,6 +1,6 @@
 # Scoring Model & Analytical Engine
 
-This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v2.1.0**.
+This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.0.0**.
 
 For the full mathematical specification of all algorithms, formulas, and computations, see [`ALGORITHM.md`](ALGORITHM.md).
 
@@ -26,8 +26,10 @@ For the full mathematical specification of all algorithms, formulas, and computa
 16. [Statistical measures](#statistical-measures)
 17. [Benchmark overlay & heatmap](#benchmark-overlay--heatmap)
 18. [Industry & company size context](#industry--company-size-context)
-19. [Data persistence](#data-persistence)
-20. [Technical notes](#technical-notes)
+19. [Help tooltip system](#help-tooltip-system)
+20. [Incomplete assessment warnings](#incomplete-assessment-warnings)
+21. [Data persistence](#data-persistence)
+22. [Technical notes](#technical-notes)
 
 ---
 
@@ -321,6 +323,8 @@ Assessment state is stored in browser `localStorage` under the key `dishine_digi
 
 State is saved after every answer change and loaded on page refresh. The Reset function clears both the state object and the localStorage entry.
 
+In v3.0.0, the user's **language preference** is also persisted in `localStorage`. The selected language (EN/FR/IT) is stored separately and restored on page load, ensuring returning users see the interface in their chosen language without needing to re-select it.
+
 ---
 
 ## Composite strategic indices
@@ -392,7 +396,44 @@ See [`ALGORITHM.md`](ALGORITHM.md#statistical-measures) for full formulas and in
 
 ---
 
-## Technical notes
+## Help tooltip system
+
+Each insight section title includes a contextual help icon (?) that displays a tooltip explaining the metric. This helps users understand the analytical output without leaving the interface.
+
+### Tooltip coverage
+
+| Insight section | What the tooltip explains |
+| --- | --- |
+| Overall Maturity | The overall score is the arithmetic mean of dimension scores; the maturity stage maps the score to one of eight levels |
+| Key Findings | The strongest and weakest dimensions are identified and given 5-tier guidance (critical/low/mid/advancing/high) |
+| Recommended Focus | Service recommendations are selected deterministically from the two weakest dimensions |
+| Gap Analysis | Each dimension is classified into a visual status tier (Critical gap/Weak/Developing/Advancing/Strong) based on its score |
+| Roadmap | The 90-day roadmap assigns the three weakest dimensions to three improvement phases |
+| Composite Indices | Four weighted indices combine dimension scores for cross-cutting strategic views (Digital Foundation, Innovation Readiness, Operational Excellence, Customer Value) |
+| Risk Assessment | The 0–100 risk score combines four weighted factors: lowest dimension, score variance, governance, and data |
+| Heatmap | The question-level colour grid maps 1–5 scores to colour intensity across all dimensions |
+
+Tooltips appear on hover or click, auto-dismiss after 6–8 seconds, and are fully translated into all supported languages (EN/FR/IT). See [`ALGORITHM.md`](ALGORITHM.md#help-tooltip-system) for implementation details.
+
+---
+
+## Incomplete assessment warnings
+
+The application displays context-sensitive warning banners when the assessment is partially complete (between 1% and 99%).
+
+### Warning behaviour
+
+| Completion | Insight warning | Download warning |
+| --- | --- | --- |
+| 0% (no answers) | Hidden | Hidden |
+| 1–99% (partial) | Visible — warns that results may change | Visible — discourages premature report export |
+| 100% (complete) | Hidden | Hidden |
+
+Warnings are hidden at 0% to avoid alarming users before they start, and hidden at 100% to avoid unnecessary friction when the assessment is fully complete. Warning text is fully translated into all supported languages.
+
+---
+
+## Data persistence
 
 - The entire application runs client-side with zero external dependencies (except jsPDF for PDF export)
 - Reports are downloadable in three formats: PDF (via jsPDF), Markdown, and plain text
@@ -402,3 +443,6 @@ See [`ALGORITHM.md`](ALGORITHM.md#statistical-measures) for full formulas and in
 - Composite indices use weighted arithmetic means with automatic handling of missing dimensions
 - Cross-dimensional insights use a dependency graph and domain-specific knowledge about how digital capabilities interact
 - The engine is designed to produce genuinely unique, specific output for every possible combination of scores
+- Full tri-lingual support (English, French, Italian) with 200+ translation keys per language, covering all UI text, questions, answer labels, insight content, tooltips, and footer
+- Help tooltips on every insight section title explain what the metric is, why it matters, and how it is calculated
+- Completion-based warnings prevent premature interpretation of partial assessment results

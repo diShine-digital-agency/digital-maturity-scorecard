@@ -1,6 +1,6 @@
 # Algorithm & Mathematical Reference
 
-This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v2.1.0**.
+This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v3.0.0**.
 
 For a higher-level overview of how these algorithms integrate into the scoring model, insight tiers, and report generation, see [`SCORING_MODEL.md`](SCORING_MODEL.md). For usage instructions and feature overview, see the main [`README.md`](../README.md).
 
@@ -23,6 +23,9 @@ For a higher-level overview of how these algorithms integrate into the scoring m
 13. [What-if scenario modelling](#what-if-scenario-modelling)
 14. [Benchmark overlay](#benchmark-overlay)
 15. [Report generation pipeline](#report-generation-pipeline)
+16. [Internationalisation system](#internationalisation-system)
+17. [Help tooltip system](#help-tooltip-system)
+18. [Completion-based warning logic](#completion-based-warning-logic)
 
 ---
 
@@ -40,7 +43,7 @@ Each of the 30 questions is scored on a discrete ordinal scale from **1** to **5
 | 4 | Integrated | Cross-functional, governed, scalable |
 | 5 | Optimised | Continuously improved and value-led |
 
-In v2.1.0, each question also has **contextual answer descriptions** — 150 unique labels (30 questions × 5 levels) that provide question-specific interpretation of what each level means in that particular capability area.
+In v3.0.0, each question also has **contextual answer descriptions** — 150 unique labels (30 questions × 5 levels) that provide question-specific interpretation of what each level means in that particular capability area. All question titles, hints, and answer labels are available in three languages (English, French, Italian) through the internationalisation system.
 
 ### Dimension scoring
 
@@ -450,6 +453,122 @@ All computation runs **client-side in the browser** with zero external dependenc
 
 ---
 
+## Internationalisation system
+
+The i18n system provides full tri-lingual support (English, French, Italian) for every user-facing string in the application.
+
+### Translation architecture
+
+The system is built around three core functions:
+
+```
+t(key) → string
+  Looks up the translation key in the current language's translation table.
+  Falls back to English if the key is not found in the active language.
+  Falls back to the raw key if not found in any language.
+
+applyI18n()
+  Scans the DOM for elements with data-i18n attributes and replaces their
+  text content with the translated value of the attribute's key.
+  Called once on page load and again whenever the language changes.
+
+setLanguage(lang)
+  Sets the active language ('en', 'fr', or 'it'), persists the choice
+  in localStorage, updates the language switcher UI, and calls applyI18n()
+  to refresh all translated strings in the DOM.
+```
+
+### Language detection and persistence
+
+On page load, the system determines the active language using this priority:
+
+```
+1. localStorage value (user's previous explicit choice)
+2. Default: 'en' (English)
+```
+
+The selected language is stored in `localStorage` alongside the assessment state, ensuring the preference persists across sessions.
+
+### Translation coverage
+
+Each language contains a complete translation table with over **200 keys** covering:
+- All UI chrome (buttons, labels, headings, placeholders, navigation)
+- All 30 question titles and their contextual hints
+- All 150 contextual answer descriptions (30 questions × 5 levels)
+- All 5 dimension names and descriptions
+- All 8 maturity stage names and descriptions
+- Insight section titles, tooltip content, and warning messages
+- Footer text, credits, and licensing information
+
+### Language switcher
+
+The language switcher is rendered as a fixed-position button group in the top-right corner of the viewport:
+
+```
+[EN] [FR] [IT]
+```
+
+The active language button is visually highlighted. Clicking a different language triggers `setLanguage()`, which immediately updates all visible text without a page reload.
+
+---
+
+## Help tooltip system
+
+The tooltip system provides contextual help for each insight section, explaining what the metric is, why it matters, and how it is calculated.
+
+### Tooltip content
+
+Eight tooltips are defined, one for each insight section:
+
+| Section | Tooltip explains |
+| --- | --- |
+| Overall Maturity | How the overall score is calculated (arithmetic mean of dimension scores) and what the maturity stage represents |
+| Key Findings | How the strongest/weakest dimensions are identified and how the 5-tier guidance works |
+| Recommended Focus | How service recommendations are selected from the weakest dimensions |
+| Gap Analysis | How each dimension is classified into visual status tiers (Critical/Weak/Developing/Advancing/Strong) |
+| Roadmap | How the 90-day roadmap maps the three weakest dimensions to three time phases |
+| Composite Indices | How the four weighted indices combine dimension scores for cross-cutting strategic views |
+| Risk Assessment | How the 0–100 risk score combines four weighted risk factors |
+| Heatmap | How the question-level colour grid maps scores to colour intensity |
+
+### Tooltip behaviour
+
+```
+trigger = hover OR click
+display_duration = 6–8 seconds (auto-dismiss)
+position = adjacent to the (?) icon
+translations = fully localised in EN, FR, IT
+```
+
+Tooltips are implemented as lightweight DOM elements that appear on demand and auto-dismiss after a timeout, avoiding permanent clutter in the interface.
+
+---
+
+## Completion-based warning logic
+
+The warning system displays contextual alerts when the assessment is partially complete, preventing users from drawing conclusions or generating reports from incomplete data.
+
+### Warning conditions
+
+```
+completion = answered_valid_questions / total_valid_questions × 100
+
+show_insight_warning  = completion > 0 AND completion < 100
+show_download_warning = completion > 0 AND completion < 100
+hide_all_warnings     = completion = 0 OR completion = 100
+```
+
+### Warning placements
+
+| Warning | Location | Purpose |
+| --- | --- | --- |
+| Insight warning | Top of insights section | Alerts users that displayed metrics may change as more questions are answered |
+| Download warning | Near download buttons | Discourages generating reports before the assessment is fully complete |
+
+Both warnings are hidden at 0% (fresh start — no misleading alerts on an empty assessment) and at 100% (complete — no unnecessary friction). The warning text is fully translated into all three supported languages.
+
+---
+
 ## Technical specifications
 
 | Property | Value |
@@ -469,7 +588,10 @@ All computation runs **client-side in the browser** with zero external dependenc
 | Dependency graph edges | 5 |
 | ROI estimates | 20 (4 transitions × 5 dimensions) |
 | Benchmark data points | 15 (3 tiers × 5 dimensions) |
+| Languages | 3 (English, French, Italian) |
+| Translation keys | ~600 (200+ per language) |
+| Help tooltips | 8 |
 
 ---
 
-*This document is part of the Digital Maturity Scorecard v2.1.0 by [diShine](https://dishine.it).*
+*This document is part of the Digital Maturity Scorecard v3.0.0 by [diShine](https://dishine.it).*
