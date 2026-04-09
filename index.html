@@ -1627,7 +1627,7 @@
 
       <p class="footnote">
         This scorecard is a directional decision-support tool designed to accelerate discovery and prioritisation. It is most effective when used alongside stakeholder interviews, analytics review, and operating-model analysis.
-        <br><strong style="color:#4fd1c5;">Prepared by diShine</strong> · dishine.it · Confidential
+        <br><strong style="color:#4fd1c5;">Prepared by diShine</strong> · diShine.it · Confidential
       </p>
     </section>
 
@@ -2117,6 +2117,7 @@
       return { score: totalRisk, level, color, factors: { minRisk: Math.round(minRisk), varianceRisk: Math.round(varianceRisk), govRisk: Math.round(govRisk), dataRisk: Math.round(dataRisk) } };
     }
 
+    // Stage thresholds shared with getStage() — keep in sync
     function getGapToNextStage(score) {
       const thresholds = [1.5, 2.2, 2.7, 3.2, 3.7, 4.2, 4.7];
       for (const t of thresholds) {
