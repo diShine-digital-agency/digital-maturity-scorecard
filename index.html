@@ -3667,15 +3667,6 @@ const QUESTION_TRANSLATIONS = {
       return { score: totalRisk, level, color, factors: { minRisk: Math.round(minRisk), varianceRisk: Math.round(varianceRisk), govRisk: Math.round(govRisk), dataRisk: Math.round(dataRisk) } };
     }
 
-    // Stage thresholds shared with getStage(). keep in sync
-    function getGapToNextStage(score) {
-      const thresholds = [1.5, 2.2, 2.7, 3.2, 3.7, 4.2, 4.7];
-      for (const t of thresholds) {
-        if (score < t) return { target: t, gap: +(t - score).toFixed(2), targetStage: getStage(t)[0] };
-      }
-      return { target: 5.0, gap: +(5.0 - score).toFixed(2), targetStage: 'Maximum maturity' };
-    }
-
     // Benchmark reference data (typical ranges by maturity tier)
     const benchmarkRanges = {
       data: { low: 2.1, mid: 2.8, high: 3.5, label: 'Industry average: 2.6–3.0' },
@@ -4709,7 +4700,7 @@ const QUESTION_TRANSLATIONS = {
       } else {
         els.insightOverview.className = '';
         const dimScores = dimensions.map(d => ({ name: getDimName(d), avg: getDimensionAverage(d) })).filter(d => d.avg > 0);
-        const scoreBreakdown = dimScores.map(d => `<strong>${getDimName(d)}:</strong> ${d.avg.toFixed(1)}`).join(' &middot; ');
+        const scoreBreakdown = dimScores.map(d => `<strong>${d.name}:</strong> ${d.avg.toFixed(1)}`).join(' &middot; ');
         const dynamicNarrative = generateDynamicNarrative(overall, patterns, priorityDims, company);
         if (pct < 100) {
           els.insightOverview.innerHTML = `${dynamicNarrative}<br><strong>${t('ui.scoresSoFar')}:</strong> ${scoreBreakdown}. ${t('ui.completeRemaining')}`;
@@ -5197,8 +5188,11 @@ const QUESTION_TRANSLATIONS = {
           doc.rect(barX, barY, barW, barH, 'F');
           if (dim.avg > 0) {
             const fillW = (dim.avg / 5) * barW;
-            const colors = { 'Optimised': [5, 150, 105], 'Integrated': [13, 115, 119], 'Developing': [184, 116, 0], 'Emerging': [251, 146, 60], 'Critical': [225, 29, 72] };
-            const c = colors[dim.stageLabel] || [100, 100, 100];
+            const c = dim.avg >= 4.0 ? [5, 150, 105]
+                    : dim.avg >= 3.2 ? [13, 115, 119]
+                    : dim.avg >= 2.2 ? [184, 116, 0]
+                    : dim.avg >= 1.5 ? [251, 146, 60]
+                    : [225, 29, 72];
             doc.setFillColor(c[0], c[1], c[2]);
             doc.rect(barX, barY, fillW, barH, 'F');
           }
