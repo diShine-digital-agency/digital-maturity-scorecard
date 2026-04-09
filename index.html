@@ -253,6 +253,12 @@
       padding: 20px;
     }
 
+    .profile-selects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
     .dimension-header {
       display: flex;
       align-items: center;
@@ -1170,6 +1176,7 @@
       .summary-grid,
       .scale,
       .intro-grid,
+      .profile-selects,
       .report-grid { grid-template-columns: 1fr; }
       .dimension-header,
       .section-title,
@@ -1685,18 +1692,18 @@
               <div class="question-head">
                 <div class="question-title" data-i18n="ui.orgName">Organisation or client name</div>
               </div>
-              <input id="companyName" type="text" data-i18n-placeholder="ui.orgNamePlaceholder" placeholder="Example: Acme Retail Group" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;" />
+              <input id="companyName" type="text" aria-label="Organisation or client name" data-i18n-placeholder="ui.orgNamePlaceholder" placeholder="Example: Acme Retail Group" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;" />
             </div>
             <div class="dimension-card">
               <div class="question-head">
                 <div class="question-title" data-i18n="ui.primaryGoalLabel">Primary transformation ambition</div>
               </div>
-              <textarea id="primaryGoal" rows="3" data-i18n-placeholder="ui.primaryGoalPlaceholder" placeholder="Example: Unify data, improve campaign performance, and introduce practical AI into marketing operations." style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;resize:vertical;"></textarea>
+              <textarea id="primaryGoal" rows="3" aria-label="Primary transformation ambition" data-i18n-placeholder="ui.primaryGoalPlaceholder" placeholder="Example: Unify data, improve campaign performance, and introduce practical AI into marketing operations." style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;resize:vertical;"></textarea>
             </div>
-            <div class="dimension-card" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div class="dimension-card profile-selects">
               <div>
                 <div class="question-head"><div class="question-title" data-i18n="ui.industrySector">Industry sector</div></div>
-                <select id="industrySector" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;cursor:pointer;">
+                <select id="industrySector" aria-label="Industry sector" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;cursor:pointer;">
                   <option value="" data-i18n="ui.selectIndustry">Select industry…</option>
                   <option value="retail" data-i18n="industry.retail">Retail & E-commerce</option>
                   <option value="finance" data-i18n="industry.finance">Financial Services & Insurance</option>
@@ -1713,7 +1720,7 @@
               </div>
               <div>
                 <div class="question-head"><div class="question-title" data-i18n="ui.companySize">Company size</div></div>
-                <select id="companySize" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;cursor:pointer;">
+                <select id="companySize" aria-label="Company size" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;cursor:pointer;">
                   <option value="" data-i18n="ui.selectSize">Select size…</option>
                   <option value="micro" data-i18n="size.micro">1–10 employees</option>
                   <option value="small" data-i18n="size.small">11–50 employees</option>
@@ -3550,14 +3557,14 @@ const QUESTION_TRANSLATIONS = {
     }
 
     function getStage(score) {
-      if (score >= 4.7) return ['Transformational leader', 'Digital capability is a core growth engine, deeply embedded, continuously optimised, and driving competitive advantage across every function. Focus on innovation diffusion and ecosystem leadership.'];
-      if (score >= 4.2) return ['Optimised performer', 'Strong cross-functional integration with mature governance and data-driven decision-making. Key opportunity: push toward predictive capabilities and advanced personalisation at scale.'];
-      if (score >= 3.7) return ['Scaling integrator', 'Core capabilities are well-established and starting to compound. The priority is connecting strong individual dimensions into a unified operating model and closing remaining maturity gaps.'];
-      if (score >= 3.2) return ['Structured executor', 'Repeatable processes are in place with growing consistency across teams. Strategic focus should be on eliminating silos, automating manual workflows, and building measurement discipline.'];
-      if (score >= 2.7) return ['Developing practitioner', 'Foundations are forming with pockets of good practice. The risk is stalling at this level, and systematic investment in standards, tooling, and cross-team alignment is needed.'];
-      if (score >= 2.2) return ['Emerging operator', 'Basic capabilities exist but remain inconsistent and under-governed. Immediate priority: establish clear ownership, baseline standards, and a roadmap for professionalising key processes.'];
-      if (score >= 1.5) return ['Ad hoc responder', 'Digital activity is largely reactive, siloed, and dependent on individual effort rather than organisational capability. Begin with stabilising core processes, data quality, and operational clarity.'];
-      return ['Foundational gap', 'Digital maturity is at its earliest stage with critical gaps across most dimensions. Start by identifying the single most impactful area for improvement and build from there with clear ownership and quick wins.'];
+      if (score >= 4.7) return [t('stage.optimised'), t('stage.optimisedDesc')];
+      if (score >= 4.2) return [t('stage.advanced'), t('stage.advancedDesc')];
+      if (score >= 3.7) return [t('stage.integrated'), t('stage.integratedDesc')];
+      if (score >= 3.2) return [t('stage.structured'), t('stage.structuredDesc')];
+      if (score >= 2.7) return [t('stage.developing'), t('stage.developingDesc')];
+      if (score >= 2.2) return [t('stage.emerging'), t('stage.emergingDesc')];
+      if (score >= 1.5) return [t('stage.fragmented'), t('stage.fragmentedDesc')];
+      return [t('stage.critical'), t('stage.criticalDesc')];
     }
 
     function getPriorityDimensions() {
