@@ -19,6 +19,13 @@ The format is inspired by **Keep a Changelog**, and this project uses a simple s
 - **DOM restoration**: After export completes (or fails), all sections are moved back to their original positions in the page with correct ordering, ensuring the live page remains fully functional
 - **Animation frame timing**: Export uses `requestAnimationFrame()` to ensure the light-theme CSS class takes full effect before `html2canvas` captures the DOM
 
+### Hardened (post-audit)
+
+- **Export cleanup resilience**: Wrapped DOM restoration in `try/catch/finally` with `wrapper.parentNode` guards — prevents `_pdfExporting` flag from permanently locking the export button if cleanup encounters an error
+- **Export timeout guard**: Added 30-second timeout on `html2pdf().save()` — if the library hangs (e.g. CDN issues, large DOM), cleanup fires automatically and the export button unlocks
+- **Maturity DNA code background**: Changed from `rgba(255,255,255,0.08)` (invisible on white) to `rgba(0,0,0,0.06)` (visible on both dark and light backgrounds) — fixes fingerprint display in PDF export
+- **Analytics summary colour**: Changed `reportAnalyticsSummary` inline style from hardcoded `color:#666` to `color:var(--muted)` for consistency with the CSS variable system and correct light/dark theme handling
+
 ---
 
 ## [2.1.0] - 2026-04-09

@@ -1646,7 +1646,7 @@
       <div class="report-card show-print" id="reportRadarContainer" style="text-align:center;">
         <h3>Maturity Radar</h3>
         <img id="reportRadarImage" style="max-width:400px;margin:0 auto;" alt="Maturity radar chart" />
-        <div id="reportAnalyticsSummary" style="margin-top:12px;font-size:0.85rem;color:#666;"></div>
+        <div id="reportAnalyticsSummary" style="margin-top:12px;font-size:0.85rem;color:var(--muted);"></div>
       </div>
 
       <p class="footnote">
@@ -2807,7 +2807,7 @@
       const dna = getMaturityDNA();
       const risk = computeRiskScore();
       if (risk) {
-        paragraphs.push(`<strong>Maturity fingerprint:</strong> <code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:6px;font-family:monospace;letter-spacing:0.04em;">${dna}</code> · Digital risk score: <strong style="color:${risk.color};">${risk.score}/100 (${risk.level})</strong>.`);
+        paragraphs.push(`<strong>Maturity fingerprint:</strong> <code style="background:rgba(0,0,0,0.06);padding:2px 8px;border-radius:6px;font-family:monospace;letter-spacing:0.04em;">${dna}</code> · Digital risk score: <strong style="color:${risk.color};">${risk.score}/100 (${risk.level})</strong>.`);
       }
 
       return paragraphs.map(p => `<p>${p}</p>`).join('');
@@ -3389,18 +3389,27 @@
 
       function cleanup() {
         // Move sections back to their original parent (order: report, insights, ai)
-        if (reportEl) parentEl.insertBefore(reportEl, wrapper);
-        if (insightsEl) parentEl.insertBefore(insightsEl, wrapper);
-        if (aiEl) parentEl.insertBefore(aiEl, wrapper);
-        parentEl.removeChild(wrapper);
-        _pdfExporting = false;
+        try {
+          if (reportEl && wrapper.parentNode) parentEl.insertBefore(reportEl, wrapper);
+          if (insightsEl && wrapper.parentNode) parentEl.insertBefore(insightsEl, wrapper);
+          if (aiEl && wrapper.parentNode) parentEl.insertBefore(aiEl, wrapper);
+          if (wrapper.parentNode) parentEl.removeChild(wrapper);
+        } catch (e) {
+          console.warn('PDF export cleanup error:', e);
+        } finally {
+          _pdfExporting = false;
+        }
       }
 
       // Allow one animation frame for the CSS export-mode class to take effect
       requestAnimationFrame(() => {
+        // Timeout guard: if html2pdf hangs, unlock after 30s
+        const exportTimeout = setTimeout(() => { cleanup(); }, 30000);
         html2pdf().set(opt).from(wrapper).save().then(() => {
+          clearTimeout(exportTimeout);
           cleanup();
         }).catch(() => {
+          clearTimeout(exportTimeout);
           cleanup();
           window.print();
         });
