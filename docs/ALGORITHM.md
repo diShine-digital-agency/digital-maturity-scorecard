@@ -442,11 +442,13 @@ The complete report generation follows this pipeline:
 11. Detect adjacent gaps → detectAdjacentGaps()
 12. Generate cross-dimensional insights → generateCrossDimensionalInsights()
 13. Generate dynamic narrative → generateDynamicNarrative()
-14. Build findings, services, roadmap → buildFindings(), buildServices(), buildRoadmap()
+14. Build findings → buildFindings() [Insights + Report]
+14b. Build services, roadmap → buildServices(), buildRoadmap() [Report Card only]
 15. Render all UI components → refresh()
 16. Update radar chart with benchmark overlay → drawRadar()
-17. Update heatmap → insightHeatmap
-18. Update composite/risk visualizations → insightCompositeIndices, insightRiskScore
+17. Update heatmap (clickable cells) → insightHeatmap
+18. Update composite/risk visualisations → insightCompositeIndices, insightRiskScore
+19. Update AI analysis (patterns, cross-dim, gaps, priority matrix, what-if) → updateAISection()
 ```
 
 All computation runs **client-side in the browser** with zero external dependencies. No data is transmitted, no API calls are made, and all analysis is deterministic given the same inputs.
@@ -491,7 +493,7 @@ The selected language is stored in `localStorage` alongside the assessment state
 
 ### Translation coverage
 
-Each language contains a complete translation table with over **200 keys** covering:
+Each language contains a complete translation table with over **250 keys** covering:
 - All UI chrome (buttons, labels, headings, placeholders, navigation)
 - All 30 question titles and their contextual hints
 - All 150 contextual answer descriptions (30 questions × 5 levels)
@@ -518,18 +520,36 @@ The tooltip system provides contextual help for each insight section, explaining
 
 ### Tooltip content
 
-Eight tooltips are defined, one for each insight section:
+Sixteen tooltips are defined across three sections:
+
+**Dynamic Assessment Insights** (6 tooltips):
 
 | Section | Tooltip explains |
 | --- | --- |
 | Overall Maturity | How the overall score is calculated (arithmetic mean of dimension scores) and what the maturity stage represents |
 | Key Findings | How the strongest/weakest dimensions are identified and how the 5-tier guidance works |
-| Recommended Focus | How service recommendations are selected from the weakest dimensions |
 | Gap Analysis | How each dimension is classified into visual status tiers (Critical/Weak/Developing/Advancing/Strong) |
-| Roadmap | How the 90-day roadmap maps the three weakest dimensions to three time phases |
 | Composite Indices | How the four weighted indices combine dimension scores for cross-cutting strategic views |
 | Risk Assessment | How the 0–100 risk score combines four weighted risk factors |
 | Heatmap | How the question-level colour grid maps scores to colour intensity |
+
+**Digital Health Report** (3 tooltips):
+
+| Section | Tooltip explains |
+| --- | --- |
+| Overall Maturity Snapshot | How the score ring represents the overall maturity score and stage |
+| Strategic Focus | How the stated transformation ambition shapes the report narrative and service recommendations |
+| 90-Day Roadmap | How the three weakest dimensions map to three improvement phases |
+
+**AI-Powered Strategic Analysis** (5 tooltips):
+
+| Section | Tooltip explains |
+| --- | --- |
+| Pattern Diagnosis | How 19 score patterns are detected and what they mean strategically |
+| Cross-Dimensional Intelligence | How the dependency graph identifies inter-dimensional constraints |
+| Question-Level Gap Analysis | How the weakest individual questions within each dimension are surfaced |
+| Strategic Priority Matrix | How dimensions are plotted by impact and effort to guide investment |
+| What-If Scenarios | How improving the weakest dimension by 1 point affects overall score and maturity stage |
 
 ### Tooltip behaviour
 
@@ -589,8 +609,8 @@ Both warnings are hidden at 0% (fresh start — no misleading alerts on an empty
 | ROI estimates | 20 (4 transitions × 5 dimensions) |
 | Benchmark data points | 15 (3 tiers × 5 dimensions) |
 | Languages | 3 (English, French, Italian) |
-| Translation keys | ~600 (200+ per language) |
-| Help tooltips | 8 |
+| Translation keys | ~750+ (250+ per language) |
+| Help tooltips | 16 (6 insights + 3 report + 5 AI + 2 shared) |
 
 ---
 
