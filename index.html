@@ -1602,14 +1602,14 @@
           <p class="insight" id="reportSummary">
             The assessment is ready to translate into a practical digital roadmap once inputs are completed.
           </p>
-          <ul class="report-list" id="keyFindings"></ul>
+          <div id="reportDimensionBreakdown"></div>
         </div>
         <div class="report-card">
           <h3>Strategic focus and recommended diShine support</h3>
           <p class="insight" id="goalSummary">
             Add your primary transformation ambition above to tailor the report narrative.
           </p>
-          <ul class="service-list" id="serviceRecommendations"></ul>
+          <div id="reportStrategicSummary"></div>
         </div>
       </div>
 
@@ -1924,9 +1924,9 @@
       ringScore: document.getElementById('ringScore'),
       scoreRing: document.getElementById('scoreRing'),
       reportSummary: document.getElementById('reportSummary'),
-      keyFindings: document.getElementById('keyFindings'),
+      reportDimensionBreakdown: document.getElementById('reportDimensionBreakdown'),
       goalSummary: document.getElementById('goalSummary'),
-      serviceRecommendations: document.getElementById('serviceRecommendations'),
+      reportStrategicSummary: document.getElementById('reportStrategicSummary'),
       roadmapGrid: document.getElementById('roadmapGrid'),
       resetBtn: document.getElementById('resetBtn'),
       printBtn: document.getElementById('printBtn'),
@@ -2559,26 +2559,33 @@
       return selected.map(item => `<li>${item}</li>`).join("");
     }
 
-    function buildRoadmap(priorityDims) {
+    function buildRoadmap(priorityDims, useInsightStyle) {
       const labels = [
-        ['Days 1–30', 'Stabilise the basics', 'quick'],
-        ['Days 31–60', 'Build the operating layer', 'next'],
-        ['Days 61–90', 'Scale what works', 'later']
+        { period: 'Days 1–30', theme: 'Stabilise the basics', key: 'quick' },
+        { period: 'Days 31–60', theme: 'Build the operating layer', key: 'next' },
+        { period: 'Days 61–90', theme: 'Scale what works', key: 'later' }
       ];
       const weakest = priorityDims[0] || dimensions[0];
-      const second = priorityDims[1] || dimensions[1];
-      const third = priorityDims[2] || dimensions[2];
-      const picks = [weakest, second, third];
+      const second  = priorityDims[1] || dimensions[1];
+      const third   = priorityDims[2] || dimensions[2];
+      const picks   = [weakest, second, third];
 
       return labels.map((meta, i) => {
         const dim = picks[i];
+        if (useInsightStyle) {
+          return `
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.14);border-radius:16px;padding:16px;">
+              <div style="display:inline-flex;margin-bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(79,209,197,0.12);color:#bffcf2;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${meta.period}</div>
+              <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme} — <span style="color:var(--brand);">${dim.name}</span></h4>
+              <p style="color:var(--text);margin:0;font-size:0.91rem;line-height:1.6;">${dim.roadmap[meta.key]}</p>
+            </div>`;
+        }
         return `
           <div class="priority">
-            <span>${meta[0]}</span>
-            <h4>${meta[1]} — ${dim.name}</h4>
-            <p>${dim.roadmap[meta[2]]}</p>
-          </div>
-        `;
+            <span>${meta.period}</span>
+            <h4>${meta.theme} — ${dim.name}</h4>
+            <p>${dim.roadmap[meta.key]}</p>
+          </div>`;
       }).join('');
     }
 
@@ -2614,8 +2621,8 @@
         topHeavy: scored.length >= 4 && top2Avg > bot2Avg + 1.5,
         bottomHeavy: scored.length >= 4 && bot2Avg > top2Avg + 1.5,
         dataAiGap: (dimMap.data || 0) < 2.5 && (dimMap.ai || 0) > (dimMap.data || 0) + 0.5,
-        governanceBottleneck: dimMap.governance !== undefined && dimMap.governance === min && scored.filter(d => d.avg > dimMap.governance + 0.8).length >= 2,
-        executionGap: dimMap.performance !== undefined && dimMap.performance === min && scored.filter(d => d.key !== 'performance' && d.avg > dimMap.performance + 0.5).length >= 2,
+        governanceBottleneck: dimMap.governance !== undefined && Math.abs(dimMap.governance - min) < 0.01 && scored.filter(d => d.avg > dimMap.governance + 0.8).length >= 2,
+        executionGap: dimMap.performance !== undefined && Math.abs(dimMap.performance - min) < 0.01 && scored.filter(d => d.key !== 'performance' && d.avg > dimMap.performance + 0.5).length >= 2,
         experienceDisconnect: (dimMap.experience || 0) >= 3.0 && (dimMap.data || 0) < 2.5,
         // New patterns (v2.1.0)
         aiExperienceGap: (dimMap.ai || 0) >= 3.0 && (dimMap.experience || 0) < 2.5,
@@ -2729,7 +2736,7 @@
 
     // Build a fully dynamic, multi-paragraph narrative based on patterns
     function generateDynamicNarrative(overall, patterns, priorityDims, company) {
-      if (overall === 0) return '<p class="insight-placeholder">Complete the assessment to generate a personalised strategic narrative.</p>';
+      if (overall === 0 || !priorityDims || priorityDims.length === 0) return '<p class="insight-placeholder">Complete the assessment to generate a personalised strategic narrative.</p>';
       const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
       const weakest = priorityDims[0];
       let paragraphs = [];
@@ -2993,8 +3000,36 @@
           })();
       els.reportSummary.innerHTML = summary;
 
-      els.keyFindings.innerHTML = buildFindings(priorityDims, overall);
-      els.serviceRecommendations.innerHTML = buildServices(priorityDims);
+      // Report-specific dimension breakdown (unique — not duplicated from insights)
+      if (els.reportDimensionBreakdown) {
+        const dimRows = priorityDims
+          .filter(d => d.avg > 0)
+          .sort((a, b) => b.avg - a.avg)
+          .map(d => {
+            const tier = getInsightTier(d.avg);
+            const color = getTierColor(tier);
+            const label = getTierLabel(tier);
+            const pct = Math.round((d.avg / 5) * 100);
+            return `<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(148,163,184,0.08);">
+              <span style="min-width:160px;font-size:0.88rem;font-weight:600;">${d.name}</span>
+              <div style="flex:1;height:8px;border-radius:4px;background:rgba(148,163,184,0.1);overflow:hidden;"><div style="height:100%;width:${pct}%;background:${color};border-radius:4px;"></div></div>
+              <span style="min-width:40px;text-align:right;font-size:0.88rem;font-weight:700;color:${color};">${d.avg.toFixed(1)}</span>
+              <span style="min-width:70px;text-align:right;font-size:0.76rem;color:${color};">${label}</span>
+            </div>`;
+          });
+        els.reportDimensionBreakdown.innerHTML = dimRows.length > 0 ? dimRows.join('') : '';
+      }
+
+      // Report-specific strategic summary (unique — not duplicated from insights)
+      if (els.reportStrategicSummary) {
+        if (priorityDims.length > 0 && priorityDims[0].avg > 0) {
+          const services = buildServices(priorityDims);
+          els.reportStrategicSummary.innerHTML = `<ul class="service-list">${services}</ul>`;
+        } else {
+          els.reportStrategicSummary.innerHTML = '';
+        }
+      }
+
       els.roadmapGrid.innerHTML = buildRoadmap(priorityDims);
 
       const goal = state.primaryGoal.trim();
@@ -3006,7 +3041,12 @@
 
       // ── Update the dedicated insights section ──────────────────────
       const patterns = analyzePatterns(priorityDims, overall);
-      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns);
+
+      // Cache computed analytics once per refresh cycle (v2.1.0 audit fix)
+      const cachedRisk = computeRiskScore();
+      const cachedIndices = computeCompositeIndices();
+
+      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns, cachedRisk, cachedIndices);
 
       // ── Update the AI Advisor section ──────────────────────────────
       updateAIAdvisor(completion, overall, priorityDims, patterns, company);
@@ -3014,16 +3054,14 @@
       // ── Update v2.1.0 sidebar analytics ────────────────────────────
       els.maturityDNA.textContent = overall > 0 ? getMaturityDNA() : '—';
 
-      const risk = computeRiskScore();
-      if (risk) {
-        els.riskScoreDisplay.innerHTML = `<span style="color:${risk.color};">${risk.score}/100</span>`;
+      if (cachedRisk) {
+        els.riskScoreDisplay.innerHTML = `<span style="color:${cachedRisk.color};">${cachedRisk.score}/100</span>`;
       } else {
         els.riskScoreDisplay.textContent = '—';
       }
 
-      const indices = computeCompositeIndices();
-      if (indices) {
-        els.compositeIndices.innerHTML = Object.values(indices).map(idx => {
+      if (cachedIndices) {
+        els.compositeIndices.innerHTML = Object.values(cachedIndices).map(idx => {
           const pct = Math.round((idx.score / 5) * 100);
           const color = idx.score >= 3.5 ? 'var(--good)' : idx.score >= 2.5 ? 'var(--brand)' : idx.score >= 1.5 ? 'var(--accent)' : 'var(--danger)';
           return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(148,163,184,0.08);">
@@ -3039,33 +3077,19 @@
       saveState();
     }
 
-    function buildInsightRoadmap(priorityDims) {
-      const labels = [
-        { period: 'Days 1–30', theme: 'Stabilise the basics', key: 'quick' },
-        { period: 'Days 31–60', theme: 'Build the operating layer', key: 'next' },
-        { period: 'Days 61–90', theme: 'Scale what works', key: 'later' }
-      ];
-      const weakest = priorityDims[0] || dimensions[0];
-      const second  = priorityDims[1] || dimensions[1];
-      const third   = priorityDims[2] || dimensions[2];
-      const picks   = [weakest, second, third];
-
-      return labels.map((meta, i) => {
-        const dim = picks[i];
-        return `
-          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.14);border-radius:16px;padding:16px;">
-            <div style="display:inline-flex;margin-bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(79,209,197,0.12);color:#bffcf2;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${meta.period}</div>
-            <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme} — <span style="color:var(--brand);">${dim.name}</span></h4>
-            <p style="color:var(--text);margin:0;font-size:0.91rem;line-height:1.6;">${dim.roadmap[meta.key]}</p>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns) {
+    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns, cachedRisk, cachedIndices) {
       const answered = completion.answered;
       const total    = completion.total;
       const pct      = completion.pct;
+
+      // Defensive guard for empty priorityDims (v2.1.0 audit fix)
+      if (!priorityDims || priorityDims.length === 0) {
+        els.insightsSubtitle.textContent = 'Complete the scorecard above — insights update in real time as you answer.';
+        els.insightOverview.className = 'insight-placeholder';
+        els.insightOverview.innerHTML = 'Your overall maturity profile will appear here once you begin scoring the five dimensions.';
+        return;
+      }
+
       const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
       const weakest   = priorityDims[0];
 
@@ -3134,15 +3158,14 @@
       if (pct === 0) {
         els.insightRoadmap.innerHTML = '<p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>';
       } else {
-        els.insightRoadmap.innerHTML = buildInsightRoadmap(priorityDims);
+        els.insightRoadmap.innerHTML = buildRoadmap(priorityDims, true);
       }
 
-      // ── v2.1.0: Composite Indices ──────────────────────────────────
-      const indices = computeCompositeIndices();
-      if (!indices) {
+      // ── v2.1.0: Composite Indices (uses cached values) ─────────────
+      if (!cachedIndices) {
         els.insightCompositeIndices.innerHTML = '<p class="insight-placeholder">Composite indices will appear once you begin scoring.</p>';
       } else {
-        els.insightCompositeIndices.innerHTML = Object.values(indices).map(idx => {
+        els.insightCompositeIndices.innerHTML = Object.values(cachedIndices).map(idx => {
           const pctBar = Math.round((idx.score / 5) * 100);
           const color = idx.score >= 3.5 ? 'var(--good)' : idx.score >= 2.5 ? 'var(--brand)' : idx.score >= 1.5 ? 'var(--accent)' : 'var(--danger)';
           return `<div style="margin-bottom:12px;">
@@ -3158,33 +3181,32 @@
         }).join('');
       }
 
-      // ── v2.1.0: Risk Score ─────────────────────────────────────────
-      const risk = computeRiskScore();
-      if (!risk) {
+      // ── v2.1.0: Risk Score (uses cached values) ──────────────────
+      if (!cachedRisk) {
         els.insightRiskScore.innerHTML = '<p class="insight-placeholder">Risk assessment will appear once you begin scoring.</p>';
       } else {
-        const riskAngle = (risk.score / 100) * 180;
+        const riskAngle = (cachedRisk.score / 100) * 180;
         els.insightRiskScore.innerHTML = `
           <div style="text-align:center;margin-bottom:16px;">
-            <div style="font-size:2.4rem;font-weight:800;color:${risk.color};">${risk.score}<span style="font-size:1rem;color:var(--muted);">/100</span></div>
-            <div style="font-size:0.92rem;font-weight:600;color:${risk.color};">${risk.level} Risk</div>
+            <div style="font-size:2.4rem;font-weight:800;color:${cachedRisk.color};">${cachedRisk.score}<span style="font-size:1rem;color:var(--muted);">/100</span></div>
+            <div style="font-size:0.92rem;font-weight:600;color:${cachedRisk.color};">${cachedRisk.level} Risk</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
               <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Lowest Dim.</div>
-              <div style="font-weight:600;color:var(--danger);">${risk.factors.minRisk}pts</div>
+              <div style="font-weight:600;color:var(--danger);">${cachedRisk.factors.minRisk}pts</div>
             </div>
             <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
               <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Variance</div>
-              <div style="font-weight:600;color:#fb923c;">${risk.factors.varianceRisk}pts</div>
+              <div style="font-weight:600;color:#fb923c;">${cachedRisk.factors.varianceRisk}pts</div>
             </div>
             <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
               <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Governance</div>
-              <div style="font-weight:600;color:var(--accent);">${risk.factors.govRisk}pts</div>
+              <div style="font-weight:600;color:var(--accent);">${cachedRisk.factors.govRisk}pts</div>
             </div>
             <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
               <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Data</div>
-              <div style="font-weight:600;color:var(--brand);">${risk.factors.dataRisk}pts</div>
+              <div style="font-weight:600;color:var(--brand);">${cachedRisk.factors.dataRisk}pts</div>
             </div>
           </div>
           <p style="color:var(--muted);font-size:0.82rem;margin-top:10px;">Risk factors: lowest dimension score (40%), score variance (25%), governance gaps (20%), data gaps (15%).</p>`;
@@ -3265,7 +3287,11 @@
       els.printBtn.addEventListener('click', () => exportToPDF());
     }
 
+    let _pdfExporting = false; // Prevent concurrent exports
+
     function exportToPDF() {
+      if (_pdfExporting) return; // Guard against double-clicks
+
       // Validate completeness
       const completion = getCompletion();
       if (completion.pct < 100) {
@@ -3274,9 +3300,11 @@
 
       // Prepare radar chart as image for PDF
       const canvas = els.radarChart;
-      const radarDataURL = canvas.toDataURL('image/png');
-      const radarImg = document.getElementById('reportRadarImage');
-      if (radarImg) radarImg.src = radarDataURL;
+      if (canvas) {
+        const radarDataURL = canvas.toDataURL('image/png');
+        const radarImg = document.getElementById('reportRadarImage');
+        if (radarImg) radarImg.src = radarDataURL;
+      }
 
       // Prepare analytics summary for PDF
       const analyticsSummary = document.getElementById('reportAnalyticsSummary');
@@ -3304,6 +3332,8 @@
       // Check if html2pdf is available, otherwise fallback to window.print()
       if (typeof html2pdf !== 'undefined') {
         const reportEl = document.getElementById('reportCard');
+        if (!reportEl) { window.print(); return; }
+
         const company = state.companyName.trim() || 'Organisation';
         const filename = `diShine_Digital_Health_Report_${company.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
 
@@ -3317,11 +3347,14 @@
         };
 
         // Temporarily show the report for export
+        _pdfExporting = true;
         reportEl.classList.add('pdf-exporting');
         html2pdf().set(opt).from(reportEl).save().then(() => {
           reportEl.classList.remove('pdf-exporting');
+          _pdfExporting = false;
         }).catch(() => {
           reportEl.classList.remove('pdf-exporting');
+          _pdfExporting = false;
           window.print();
         });
       } else {
