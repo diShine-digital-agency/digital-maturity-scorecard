@@ -4,6 +4,97 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [2.1.0] - 2026-04-09
+
+### Added
+
+**Statistical & Analytical Engine Enhancements**:
+- **Standard deviation** per dimension measuring internal scoring consistency (σ)
+- **Confidence scoring** combining completion ratio and consistency into a High/Medium/Low confidence level per dimension
+- **Dimension-level stage classification** (Optimised/Integrated/Developing/Emerging/Critical) with colour coding
+- **Per-dimension completion indicators** showing X/6 answered in each dimension header
+
+**Composite Strategic Indices**: Four weighted composite scores providing cross-cutting strategic views:
+- **Digital Foundation Index**: Data (60%) + Governance (40%) — core infrastructure strength
+- **Innovation Readiness Index**: AI (55%) + Experience (45%) — capacity for advanced capabilities
+- **Operational Excellence Index**: Governance (50%) + Performance (50%) — process maturity
+- **Customer Value Index**: Experience (40%) + Data (35%) + Performance (25%) — customer-facing capability
+
+**Digital Risk Score**: 0–100 risk assessment combining four weighted factors:
+- Lowest dimension score (40%), score variance (25%), governance gaps (20%), data gaps (15%)
+- Five risk levels: Critical (70+), High (50-69), Moderate (30-49), Low (15-29), Minimal (0-14)
+- Visual factor breakdown in insights section
+
+**Maturity DNA Fingerprint**: Compact alphanumeric representation of the maturity profile (e.g., `D28·A22·E35·G27·P19`)
+
+**Per-Question Contextual Answer Labels**: 150 unique descriptions (30 questions × 5 levels) providing question-specific interpretation for each maturity level, replacing generic labels
+
+**Industry & Company Size Context**:
+- **Industry selector** with 11 sectors (Retail, Finance, Healthcare, Manufacturing, Technology, Professional Services, Media, Public Sector, Hospitality, Energy, Other)
+- **Company size selector** with 6 options (1-10 to 5,000+)
+- Industry-specific and size-specific context paragraphs in the dynamic narrative
+
+**Enhanced Pattern Detection**: 6 new cross-dimensional patterns:
+- `aiExperienceGap`: AI advancing without mature CX to leverage it
+- `performanceAiGap`: AI investments without measurement to validate impact
+- `dataGovernanceGap`: Strong data infrastructure without proportionate governance
+- `foundationFirst`: Solid data/governance base ready for innovation
+- `innovationFirst`: Innovation outpacing foundations (fragility risk)
+- `measurementLast`: Performance consistently weakest dimension
+
+**Adjacent Capability Gap Detection**: Dependency-graph-based analysis identifying when downstream capabilities exceed their upstream foundations (e.g., Experience outpacing Data, AI outpacing Data)
+
+**Benchmark Radar Overlay**: Dashed-line benchmark polygon on the radar chart showing industry-average reference scores for visual comparison
+
+**Capability Heatmap**: Question-level scoring grid across all dimensions with colour-coded cells and legend
+
+**ROI Impact Estimation**: Per-dimension, per-tier-transition business impact estimates displayed in dimension micro-feedback
+
+**Composite Indices & Risk Visualisations**: Bar visualisations in sidebar and full detailed cards in insights section
+
+**PDF Export Enhancements**:
+- html2pdf.js integration with proper A4 configuration
+- Radar chart canvas-to-image conversion for PDF inclusion
+- Analytics summary in PDF (DNA, risk score, composite indices, industry/size)
+- Completeness validation warning before incomplete exports
+- Branded footer with diShine attribution
+
+**Algorithm Documentation**: New `docs/ALGORITHM.md` with comprehensive mathematical reference covering all formulas, statistical methods, composite index weights, risk factor calculations, pattern detection algorithms, dependency graphs, and the complete report generation pipeline
+
+### Fixed
+
+- **experienceDisconnect threshold**: Corrected data threshold from `< 2.0` to `< 2.5` to align with documented pattern detection rules and be consistent with other cross-dimensional thresholds
+
+### Improved
+
+- **Outlier pattern reporting** now returns specific dimension names (e.g., "AI & Automation significantly above the mean") instead of generic "One dimension is significantly above the mean"
+- **Dynamic narrative** now includes industry context, company size context, maturity DNA, and risk score summary
+- **Radar chart** shows benchmark overlay polygon for visual comparison against industry averages
+- **Pattern diagnosis** expanded from 13 to 19 detected patterns with more specific cross-dimensional relationships
+- **Cross-dimensional insights** expanded with 6 additional relationship rules and dependency-graph-based gap detection
+
+### Notes
+
+This release significantly expands the analytical depth of the scorecard while maintaining its single-file, zero-dependency architecture. The addition of composite indices, risk scoring, statistical measures, and benchmark data transforms the tool from a maturity diagnostic into a comprehensive digital strategy assessment platform. All new features are fully documented in `docs/ALGORITHM.md`.
+
+### Audit & Quality Fixes (post-release)
+
+**Duplicate Content Removed**: The Digital Health Report (PDF/print section) was duplicating the exact same findings and service recommendations that appear in the Dynamic Assessment Insights section. Report now shows a unique **dimension breakdown table** with progress bars and tier indicators instead.
+
+**Function Consolidation**: Merged `buildRoadmap` and `buildInsightRoadmap` into a single parameterised function to eliminate code duplication and ensure consistent roadmap content.
+
+**Performance**: Composite indices and risk score are now computed once per refresh cycle and passed to sub-functions, eliminating 3× redundant computation on every answer change.
+
+**Defensive Guards**: Added null/empty-array checks in `generateDynamicNarrative()` and `updateInsightsSection()` to prevent runtime errors when no questions have been answered.
+
+**PDF Export Hardened**: Fixed a scoping bug where `cachedIndices` was referenced outside its declaring function. Added canvas null check, reportEl null check, and double-click prevention guard.
+
+**Pattern Detection Precision**: Replaced exact floating-point equality (`===`) with epsilon-based comparison (`Math.abs(a - b) < 0.01`) in `governanceBottleneck` and `executionGap` pattern detection to prevent false negatives from floating-point arithmetic.
+
+**Documentation**: Updated `docs/SCORING_MODEL.md` with correct pattern count (19), complete v2.1.0 sections as first-class headings, expanded cross-references to `ALGORITHM.md`, and updated table of contents.
+
+---
+
 ## [2.0.0] - 2026-04-06
 
 ### Added

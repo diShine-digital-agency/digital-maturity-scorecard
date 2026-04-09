@@ -1,6 +1,8 @@
 # Scoring Model & Analytical Engine
 
-This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard**.
+This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v2.1.0**.
+
+For the full mathematical specification of all algorithms, formulas, and computations, see [`ALGORITHM.md`](ALGORITHM.md).
 
 ---
 
@@ -16,6 +18,16 @@ This document explains the complete scoring model, analytical engine, and insigh
 8. [Dynamic narrative generation](#dynamic-narrative-generation)
 9. [AI-powered strategic analysis](#ai-powered-strategic-analysis)
 10. [Report generation](#report-generation)
+11. [Gap analysis visualisation](#gap-analysis-visualisation)
+12. [Per-dimension micro-feedback](#per-dimension-micro-feedback)
+13. [Composite strategic indices](#composite-strategic-indices)
+14. [Digital risk score](#digital-risk-score)
+15. [Maturity DNA fingerprint](#maturity-dna-fingerprint)
+16. [Statistical measures](#statistical-measures)
+17. [Benchmark overlay & heatmap](#benchmark-overlay--heatmap)
+18. [Industry & company size context](#industry--company-size-context)
+19. [Data persistence](#data-persistence)
+20. [Technical notes](#technical-notes)
 
 ---
 
@@ -116,7 +128,7 @@ Each dimension has unique insight text for all five tiers, providing specific, a
 
 ## Pattern detection engine
 
-The analytical engine detects **13 patterns** from the score distribution:
+The analytical engine detects **19 patterns** from the score distribution. See [`ALGORITHM.md`](ALGORITHM.md#pattern-detection-algorithms) for all threshold formulas.
 
 ### Score distribution patterns
 
@@ -137,9 +149,15 @@ The analytical engine detects **13 patterns** from the score distribution:
 | Pattern | Condition | Meaning |
 | --- | --- | --- |
 | `dataAiGap` | Data < 2.5, AI higher | AI ambitions constrained by data foundation gaps |
-| `governanceBottleneck` | Governance is weakest, ≥2 others higher | Operational discipline limiting ability to scale capabilities |
-| `executionGap` | Performance is lowest | Can't measure or prove the value of other investments |
-| `experienceDisconnect` | Experience > 3.0, Data < 2.5 | Customer experience decisions based on assumptions rather than evidence |
+| `governanceBottleneck` | Governance ≈ min, ≥2 others higher | Operational discipline limiting ability to scale capabilities |
+| `executionGap` | Performance ≈ min, ≥2 others higher | Can't measure or prove the value of other investments |
+| `experienceDisconnect` | Experience ≥ 3.0, Data < 2.5 | Customer experience decisions based on assumptions rather than evidence |
+| `aiExperienceGap` | AI ≥ 3.0, Experience < 2.5 | AI advancing without mature CX to leverage it |
+| `performanceAiGap` | AI ≥ 3.0, Performance < 2.0 | AI investments without measurement to validate impact |
+| `dataGovernanceGap` | Data ≥ 3.0, Governance < 2.0 | Strong data infrastructure without proportionate governance |
+| `foundationFirst` | Data ≥ 3.0, Governance ≥ 3.0, AI or Experience < 2.5 | Solid base ready for innovation investment |
+| `innovationFirst` | AI or Experience ≥ 3.0, Data < 2.5, Governance < 2.5 | Innovation outpacing foundations (fragility risk) |
+| `measurementLast` | Performance lowest of all dimensions | Performance measurement consistently the weakest area |
 
 ---
 
@@ -297,9 +315,80 @@ This provides immediate, ongoing feedback during the assessment rather than forc
 Assessment state is stored in browser `localStorage` under the key `dishine_digital_maturity_scorecard`. The state object includes:
 - `companyName`: Organisation name
 - `primaryGoal`: Transformation ambition text
+- `industrySector`: Selected industry sector
+- `companySize`: Selected company size bracket
 - `answers`: Object mapping question IDs to scores (1–5)
 
 State is saved after every answer change and loaded on page refresh. The Reset function clears both the state object and the localStorage entry.
+
+---
+
+## Composite strategic indices
+
+Four weighted composite scores provide cross-cutting strategic views. Each index combines two or three dimension scores with specific weights reflecting their relative importance to that strategic area.
+
+| Index | Formula | Purpose |
+| --- | --- | --- |
+| Digital Foundation | Data (60%) + Governance (40%) | Core infrastructure and control strength |
+| Innovation Readiness | AI (55%) + Experience (45%) | Capacity for advanced capability deployment |
+| Operational Excellence | Governance (50%) + Performance (50%) | Process maturity and measurement discipline |
+| Customer Value | Experience (40%) + Data (35%) + Performance (25%) | Ability to understand, serve, and retain customers |
+
+If a dimension in a composite has not been scored, it is excluded from both numerator and denominator. For the full weighted average formulas, see [`ALGORITHM.md`](ALGORITHM.md#composite-indices).
+
+---
+
+## Digital risk score
+
+A 0–100 risk assessment combining four weighted factors:
+
+| Factor | Weight | Source |
+| --- | --- | --- |
+| Lowest dimension risk | 40% | `max(0, (3.0 − min_score) / 3.0) × 40` |
+| Score variance risk | 25% | `min(σ / 1.5, 1) × 25` |
+| Governance risk | 20% | `max(0, (3.0 − governance) / 3.0) × 20` |
+| Data risk | 15% | `max(0, (3.0 − data) / 3.0) × 15` |
+
+Classified into five levels: Critical (70+), High (50–69), Moderate (30–49), Low (15–29), Minimal (0–14). See [`ALGORITHM.md`](ALGORITHM.md#digital-risk-score) for full formulas.
+
+---
+
+## Maturity DNA fingerprint
+
+Compact alphanumeric representation of the maturity profile: `D{score}·A{score}·E{score}·G{score}·P{score}` where each score is the dimension average × 10, rounded to nearest integer. Example: `D28·A22·E35·G27·P19`. See [`ALGORITHM.md`](ALGORITHM.md#maturity-dna-fingerprint).
+
+---
+
+## Statistical measures
+
+Each dimension includes:
+- **Standard deviation (σ)**: Population standard deviation of answered question scores measuring internal consistency. Formula: `σ = √(Σ(xᵢ − μ)² / n)`
+- **Confidence score**: Combined metric of completion ratio (50%) and consistency (50%), classified as High (≥75)/Medium (45–74)/Low (<45)
+- **Dimension-level stage**: Six levels (Optimised/Integrated/Developing/Emerging/Critical/Not assessed) with colour coding
+
+See [`ALGORITHM.md`](ALGORITHM.md#statistical-measures) for full formulas and interpretation guidelines.
+
+---
+
+## Benchmark overlay & heatmap
+
+**Benchmark overlay**: The radar chart includes a dashed-line benchmark polygon showing industry-average mid-tier reference scores for visual comparison. Benchmark data for each dimension is defined at three tiers (low, mid, high).
+
+**Capability heatmap**: A question-level colour-coded grid across all five dimensions, with six cells per dimension row. Colour intensity maps directly to the 1–5 score. See [`ALGORITHM.md`](ALGORITHM.md#benchmark-overlay) for benchmark reference values.
+
+---
+
+## Industry & company size context
+
+**Industry selector**: 11 sectors (Retail, Finance, Healthcare, Manufacturing, Technology, Professional Services, Media, Public Sector, Hospitality, Energy, Other) with sector-specific narrative paragraphs injected into the dynamic analysis.
+
+**Company size selector**: 6 options (1–10, 11–50, 51–200, 201–1,000, 1,001–5,000, 5,000+) with size-appropriate interpretation of results.
+
+**Per-question contextual labels**: 150 unique descriptions (30 questions × 5 levels) replacing generic maturity labels with question-specific interpretations.
+
+**ROI impact estimation**: Per-dimension, per-tier-transition business impact estimates. See [`ALGORITHM.md`](ALGORITHM.md#roi-impact-estimation).
+
+**Adjacent capability gap detection**: Uses a dependency graph to identify when downstream capabilities exceed their upstream foundations by more than 1.0 points. See [`ALGORITHM.md`](ALGORITHM.md#adjacent-capability-gap-detection).
 
 ---
 
@@ -308,6 +397,7 @@ State is saved after every answer change and loaded on page refresh. The Reset f
 - The entire application runs client-side with zero external dependencies (except html2pdf.js for PDF export)
 - No data is transmitted to any server — all analysis is performed in the browser
 - The AI-powered analysis uses a sophisticated rule-based engine, not an external AI service
-- Pattern detection uses statistical analysis (mean, variance, min/max) of the score distribution
-- Cross-dimensional insights use domain-specific knowledge about how digital capabilities interact
+- Pattern detection uses statistical analysis (mean, variance, min/max, standard deviation) of the score distribution
+- Composite indices use weighted arithmetic means with automatic handling of missing dimensions
+- Cross-dimensional insights use a dependency graph and domain-specific knowledge about how digital capabilities interact
 - The engine is designed to produce genuinely unique, specific output for every possible combination of scores

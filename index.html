@@ -1069,6 +1069,13 @@
     .hide-print { display: block; }
     .show-print { display: none; }
 
+    /* v2.1.0: pdf-exporting class for html2pdf.js */
+    .pdf-exporting .show-print { display: block !important; }
+    .pdf-exporting {
+      background: #ffffff !important;
+      color: #101828 !important;
+    }
+
     /* ── PDF export light-theme overrides ────────────────────────── */
     .pdf-export-mode {
       --text: #101828;
@@ -1458,6 +1465,37 @@
               </div>
               <textarea id="primaryGoal" rows="3" placeholder="Example: Unify data, improve campaign performance, and introduce practical AI into marketing operations." style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;resize:vertical;"></textarea>
             </div>
+            <div class="dimension-card" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div>
+                <div class="question-head"><div class="question-title">Industry sector</div></div>
+                <select id="industrySector" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;cursor:pointer;">
+                  <option value="">Select industry…</option>
+                  <option value="retail">Retail & E-commerce</option>
+                  <option value="finance">Financial Services & Insurance</option>
+                  <option value="healthcare">Healthcare & Life Sciences</option>
+                  <option value="manufacturing">Manufacturing & Industrial</option>
+                  <option value="technology">Technology & SaaS</option>
+                  <option value="professional">Professional Services & Consulting</option>
+                  <option value="media">Media, Entertainment & Publishing</option>
+                  <option value="public">Public Sector & Education</option>
+                  <option value="hospitality">Hospitality, Travel & Leisure</option>
+                  <option value="energy">Energy, Utilities & Infrastructure</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <div class="question-head"><div class="question-title">Company size</div></div>
+                <select id="companySize" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,0.18);background:rgba(255,255,255,0.04);color:var(--text);font:inherit;cursor:pointer;">
+                  <option value="">Select size…</option>
+                  <option value="micro">1–10 employees</option>
+                  <option value="small">11–50 employees</option>
+                  <option value="medium">51–200 employees</option>
+                  <option value="large">201–1,000 employees</option>
+                  <option value="enterprise">1,001–5,000 employees</option>
+                  <option value="corporate">5,000+ employees</option>
+                </select>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1499,6 +1537,19 @@
             <canvas id="radarChart" width="520" height="520" aria-label="Digital maturity radar chart"></canvas>
           </div>
           <div class="dimension-list" id="dimensionList"></div>
+          <!-- Maturity DNA & Risk Score (v2.1.0) -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+            <div class="summary-card" style="text-align:center;">
+              <span>Maturity DNA</span>
+              <strong id="maturityDNA" style="font-size:0.82rem;letter-spacing:0.04em;font-family:monospace;">—</strong>
+            </div>
+            <div class="summary-card" style="text-align:center;">
+              <span>Risk Score</span>
+              <strong id="riskScoreDisplay" style="font-size:1.1rem;">—</strong>
+            </div>
+          </div>
+          <!-- Composite Indices (v2.1.0) -->
+          <div id="compositeIndices" style="margin-top:14px;"></div>
         </section>
 
         <section class="panel hide-print">
@@ -1551,14 +1602,14 @@
           <p class="insight" id="reportSummary">
             The assessment is ready to translate into a practical digital roadmap once inputs are completed.
           </p>
-          <ul class="report-list" id="keyFindings"></ul>
+          <div id="reportDimensionBreakdown"></div>
         </div>
         <div class="report-card">
           <h3>Strategic focus and recommended diShine support</h3>
           <p class="insight" id="goalSummary">
             Add your primary transformation ambition above to tailor the report narrative.
           </p>
-          <ul class="service-list" id="serviceRecommendations"></ul>
+          <div id="reportStrategicSummary"></div>
         </div>
       </div>
 
@@ -1567,8 +1618,16 @@
         <div class="priority-grid" id="roadmapGrid"></div>
       </div>
 
+      <!-- Radar chart image for PDF (v2.1.0) -->
+      <div class="report-card show-print" id="reportRadarContainer" style="text-align:center;">
+        <h3>Maturity Radar</h3>
+        <img id="reportRadarImage" style="max-width:400px;margin:0 auto;" alt="Maturity radar chart" />
+        <div id="reportAnalyticsSummary" style="margin-top:12px;font-size:0.85rem;color:#666;"></div>
+      </div>
+
       <p class="footnote">
         This scorecard is a directional decision-support tool designed to accelerate discovery and prioritisation. It is most effective when used alongside stakeholder interviews, analytics review, and operating-model analysis.
+        <br><strong style="color:var(--brand);">Prepared by diShine</strong> · diShine.it · Confidential
       </p>
     </section>
 
@@ -1615,6 +1674,33 @@
           <h3>90-Day Prioritised Roadmap</h3>
           <div class="insight-roadmap-grid" id="insightRoadmap">
             <p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Composite Indices & Risk (v2.1.0) -->
+      <div class="insights-grid">
+        <div class="insight-card">
+          <h3>Composite Strategic Indices</h3>
+          <div id="insightCompositeIndices">
+            <p class="insight-placeholder">Composite indices will appear once you begin scoring.</p>
+          </div>
+        </div>
+        <div class="insight-card">
+          <h3>Digital Risk Assessment</h3>
+          <div id="insightRiskScore">
+            <p class="insight-placeholder">Risk assessment will appear once you begin scoring.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question-Level Heatmap (v2.1.0) -->
+      <div class="insights-full">
+        <div class="insight-card">
+          <h3>Capability Heatmap</h3>
+          <p style="color:var(--muted);font-size:0.85rem;margin-bottom:12px;">Question-level scoring across all dimensions. Darker = higher maturity.</p>
+          <div id="insightHeatmap">
+            <p class="insight-placeholder">The heatmap will populate as you answer questions.</p>
           </div>
         </div>
       </div>
@@ -1816,6 +1902,8 @@
     const state = {
       companyName: '',
       primaryGoal: '',
+      industrySector: '',
+      companySize: '',
       answers: {}
     };
 
@@ -1823,6 +1911,8 @@
       questionContainer: document.getElementById('questionContainer'),
       companyName: document.getElementById('companyName'),
       primaryGoal: document.getElementById('primaryGoal'),
+      industrySector: document.getElementById('industrySector'),
+      companySize: document.getElementById('companySize'),
       completionPct: document.getElementById('completionPct'),
       overallScore: document.getElementById('overallScore'),
       overallStage: document.getElementById('overallStage'),
@@ -1834,9 +1924,9 @@
       ringScore: document.getElementById('ringScore'),
       scoreRing: document.getElementById('scoreRing'),
       reportSummary: document.getElementById('reportSummary'),
-      keyFindings: document.getElementById('keyFindings'),
+      reportDimensionBreakdown: document.getElementById('reportDimensionBreakdown'),
       goalSummary: document.getElementById('goalSummary'),
-      serviceRecommendations: document.getElementById('serviceRecommendations'),
+      reportStrategicSummary: document.getElementById('reportStrategicSummary'),
       roadmapGrid: document.getElementById('roadmapGrid'),
       resetBtn: document.getElementById('resetBtn'),
       printBtn: document.getElementById('printBtn'),
@@ -1850,7 +1940,14 @@
       aiCrossDimensional: document.getElementById('aiCrossDimensional'),
       aiQuestionGaps: document.getElementById('aiQuestionGaps'),
       aiPriorityMatrix: document.getElementById('aiPriorityMatrix'),
-      aiWhatIf: document.getElementById('aiWhatIf')
+      aiWhatIf: document.getElementById('aiWhatIf'),
+      // v2.1.0 elements
+      maturityDNA: document.getElementById('maturityDNA'),
+      riskScoreDisplay: document.getElementById('riskScoreDisplay'),
+      compositeIndices: document.getElementById('compositeIndices'),
+      insightCompositeIndices: document.getElementById('insightCompositeIndices'),
+      insightRiskScore: document.getElementById('insightRiskScore'),
+      insightHeatmap: document.getElementById('insightHeatmap')
     };
 
     // Short display names for radar chart (prevents label clipping)
@@ -1874,6 +1971,8 @@
         if (parsed && typeof parsed === 'object') {
           state.companyName = parsed.companyName || '';
           state.primaryGoal = parsed.primaryGoal || '';
+          state.industrySector = parsed.industrySector || '';
+          state.companySize = parsed.companySize || '';
           state.answers = parsed.answers || {};
         }
       } catch (err) {
@@ -1917,11 +2016,244 @@
         .sort((a, b) => a.avg - b.avg);
     }
 
+    // ── Statistical & analytical engine (v2.1.0) ───────────────────
+    function getDimensionStdDev(dim) {
+      const values = dim.questions.map(([id]) => Number(state.answers[id] || 0)).filter(Boolean);
+      if (values.length < 2) return 0;
+      const mean = values.reduce((s, v) => s + v, 0) / values.length;
+      const variance = values.reduce((s, v) => s + Math.pow(v - mean, 2), 0) / values.length;
+      return Math.sqrt(variance);
+    }
+
+    function getDimensionConfidence(dim) {
+      const values = dim.questions.map(([id]) => Number(state.answers[id] || 0)).filter(Boolean);
+      const answeredRatio = values.length / dim.questions.length;
+      if (values.length < 2) return { level: 'low', score: answeredRatio * 33, label: 'Low' };
+      const sd = getDimensionStdDev(dim);
+      const consistencyScore = Math.max(0, 1 - (sd / 2));
+      const confidenceScore = Math.round((answeredRatio * 0.5 + consistencyScore * 0.5) * 100);
+      if (confidenceScore >= 75) return { level: 'high', score: confidenceScore, label: 'High' };
+      if (confidenceScore >= 45) return { level: 'medium', score: confidenceScore, label: 'Medium' };
+      return { level: 'low', score: confidenceScore, label: 'Low' };
+    }
+
+    function getDimensionAnsweredCount(dim) {
+      return dim.questions.filter(([id]) => Number(state.answers[id] || 0) > 0).length;
+    }
+
+    function getMaturityDNA() {
+      const codes = { data: 'D', ai: 'A', experience: 'E', governance: 'G', performance: 'P' };
+      return dimensions.map(dim => {
+        const avg = getDimensionAverage(dim);
+        return `${codes[dim.key] || dim.key[0].toUpperCase()}${avg > 0 ? Math.round(avg * 10) : '-'}`;
+      }).join('·');
+    }
+
+    function getDimensionStage(score) {
+      if (score >= 4.0) return { label: 'Optimised', color: 'var(--good)', icon: '🟢' };
+      if (score >= 3.2) return { label: 'Integrated', color: 'var(--brand)', icon: '🔵' };
+      if (score >= 2.2) return { label: 'Developing', color: 'var(--accent)', icon: '🟡' };
+      if (score >= 1.5) return { label: 'Emerging', color: '#fb923c', icon: '🟠' };
+      if (score > 0) return { label: 'Critical', color: 'var(--danger)', icon: '🔴' };
+      return { label: 'Not assessed', color: 'var(--muted)', icon: '⚪' };
+    }
+
+    function computeCompositeIndices() {
+      const dimMap = {};
+      dimensions.forEach(dim => { dimMap[dim.key] = getDimensionAverage(dim); });
+      const scored = Object.values(dimMap).filter(v => v > 0);
+      if (scored.length === 0) return null;
+
+      const w = (a, b, wA, wB) => {
+        const va = dimMap[a] || 0, vb = dimMap[b] || 0;
+        if (va === 0 && vb === 0) return 0;
+        if (va === 0) return vb;
+        if (vb === 0) return va;
+        return (va * wA + vb * wB) / (wA + wB);
+      };
+
+      const w3 = (a, b, c, wA, wB, wC) => {
+        const va = dimMap[a] || 0, vb = dimMap[b] || 0, vc = dimMap[c] || 0;
+        const vals = [[va, wA], [vb, wB], [vc, wC]].filter(([v]) => v > 0);
+        if (vals.length === 0) return 0;
+        return vals.reduce((s, [v, w]) => s + v * w, 0) / vals.reduce((s, [, w]) => s + w, 0);
+      };
+
+      return {
+        digitalFoundation: { score: w('data', 'governance', 0.6, 0.4), label: 'Digital Foundation Index', desc: 'Strength of core data infrastructure and governance frameworks' },
+        innovationReadiness: { score: w('ai', 'experience', 0.55, 0.45), label: 'Innovation Readiness Index', desc: 'Capacity to deploy AI and deliver differentiated experiences' },
+        operationalExcellence: { score: w('governance', 'performance', 0.5, 0.5), label: 'Operational Excellence Index', desc: 'Process maturity, measurement discipline, and operational rigour' },
+        customerValue: { score: w3('experience', 'data', 'performance', 0.4, 0.35, 0.25), label: 'Customer Value Index', desc: 'Ability to understand, serve, and retain customers effectively' }
+      };
+    }
+
+    function computeRiskScore() {
+      const dimMap = {};
+      dimensions.forEach(dim => { dimMap[dim.key] = getDimensionAverage(dim); });
+      const scored = dimensions.filter(d => getDimensionAverage(d) > 0);
+      if (scored.length === 0) return null;
+
+      const avgs = scored.map(d => getDimensionAverage(d));
+      const min = Math.min(...avgs);
+      const max = Math.max(...avgs);
+      const mean = avgs.reduce((s, v) => s + v, 0) / avgs.length;
+      const variance = avgs.reduce((s, v) => s + Math.pow(v - mean, 2), 0) / avgs.length;
+      const sd = Math.sqrt(variance);
+
+      // Risk factors: low min (40%), high variance (25%), governance gaps (20%), data gaps (15%)
+      const minRisk = Math.max(0, (3.0 - min) / 3.0) * 40;
+      const varianceRisk = Math.min(sd / 1.5, 1) * 25;
+      const govRisk = dimMap.governance > 0 ? Math.max(0, (3.0 - dimMap.governance) / 3.0) * 20 : 10;
+      const dataRisk = dimMap.data > 0 ? Math.max(0, (3.0 - dimMap.data) / 3.0) * 15 : 8;
+
+      const totalRisk = Math.round(Math.min(100, minRisk + varianceRisk + govRisk + dataRisk));
+      let level, color;
+      if (totalRisk >= 70) { level = 'Critical'; color = 'var(--danger)'; }
+      else if (totalRisk >= 50) { level = 'High'; color = '#fb923c'; }
+      else if (totalRisk >= 30) { level = 'Moderate'; color = 'var(--accent)'; }
+      else if (totalRisk >= 15) { level = 'Low'; color = 'var(--brand)'; }
+      else { level = 'Minimal'; color = 'var(--good)'; }
+
+      return { score: totalRisk, level, color, factors: { minRisk: Math.round(minRisk), varianceRisk: Math.round(varianceRisk), govRisk: Math.round(govRisk), dataRisk: Math.round(dataRisk) } };
+    }
+
+    // Stage thresholds shared with getStage() — keep in sync
+    function getGapToNextStage(score) {
+      const thresholds = [1.5, 2.2, 2.7, 3.2, 3.7, 4.2, 4.7];
+      for (const t of thresholds) {
+        if (score < t) return { target: t, gap: +(t - score).toFixed(2), targetStage: getStage(t)[0] };
+      }
+      return { target: 5.0, gap: +(5.0 - score).toFixed(2), targetStage: 'Maximum maturity' };
+    }
+
+    // Benchmark reference data (typical ranges by maturity tier)
+    const benchmarkRanges = {
+      data: { low: 2.1, mid: 2.8, high: 3.5, label: 'Industry average: 2.6–3.0' },
+      ai: { low: 1.8, mid: 2.4, high: 3.2, label: 'Industry average: 2.2–2.7' },
+      experience: { low: 2.3, mid: 3.0, high: 3.7, label: 'Industry average: 2.8–3.2' },
+      governance: { low: 2.0, mid: 2.7, high: 3.4, label: 'Industry average: 2.5–2.9' },
+      performance: { low: 1.9, mid: 2.6, high: 3.3, label: 'Industry average: 2.4–2.8' }
+    };
+
+    // Dependency graph for adjacent capability detection
+    const dimensionDependencies = {
+      ai: ['data'],
+      experience: ['data', 'ai'],
+      performance: ['data', 'governance'],
+      governance: [],
+      data: []
+    };
+
+    function detectAdjacentGaps() {
+      const gaps = [];
+      const dimMap = {};
+      dimensions.forEach(dim => { dimMap[dim.key] = getDimensionAverage(dim); });
+
+      Object.entries(dimensionDependencies).forEach(([downstream, upstreams]) => {
+        const downScore = dimMap[downstream] || 0;
+        if (downScore === 0) return;
+        upstreams.forEach(upstream => {
+          const upScore = dimMap[upstream] || 0;
+          if (upScore === 0) return;
+          if (downScore > upScore + 1.0) {
+            const downName = dimensions.find(d => d.key === downstream)?.name || downstream;
+            const upName = dimensions.find(d => d.key === upstream)?.name || upstream;
+            gaps.push({
+              downstream: downName, upstream: upName,
+              downScore, upScore,
+              gap: +(downScore - upScore).toFixed(1),
+              severity: downScore - upScore > 1.5 ? 'high' : 'medium',
+              text: `${downName} (${downScore.toFixed(1)}) exceeds its foundation ${upName} (${upScore.toFixed(1)}) by ${(downScore - upScore).toFixed(1)} points. This creates fragility — ${downName.toLowerCase()} capabilities are built on an insufficient ${upName.toLowerCase()} base.`
+            });
+          }
+        });
+      });
+      return gaps;
+    }
+
+    // ROI impact estimation per dimension tier transition
+    const roiImpactEstimates = {
+      data: {
+        '1→2': 'Reduces analyst data-hunting time by 20–30%. Enables basic reporting accuracy.',
+        '2→3': 'Improves campaign attribution accuracy by 25–40%. Cuts data quality incidents by 50%.',
+        '3→4': 'Enables predictive analytics, reducing reactive decision-making by 30–50%. Unlocks customer segmentation.',
+        '4→5': 'Real-time data activation drives 15–25% improvement in campaign ROI and customer LTV.'
+      },
+      ai: {
+        '1→2': 'Identifies 3–5 automation candidates saving 10–20 hours/week of manual work.',
+        '2→3': 'Deployed automations reduce operational costs by 15–25% in targeted workflows.',
+        '3→4': 'AI-powered decisions improve speed-to-market by 30–40% and personalisation accuracy.',
+        '4→5': 'Autonomous optimisation drives 20–35% improvement in marketing efficiency and customer intelligence.'
+      },
+      experience: {
+        '1→2': 'Identifies top friction points responsible for 20–40% of customer drop-offs.',
+        '2→3': 'Cross-channel consistency reduces customer effort scores by 25–35%.',
+        '3→4': 'Behavioural personalisation increases conversion rates by 15–30% and customer satisfaction.',
+        '4→5': 'Predictive personalisation drives 20–40% improvement in customer lifetime value.'
+      },
+      governance: {
+        '1→2': 'Assigns clear ownership reducing initiative delays by 30–50%.',
+        '2→3': 'Streamlined approvals cut time-to-market by 25–40% for digital initiatives.',
+        '3→4': 'Automated compliance monitoring reduces risk incidents by 40–60%.',
+        '4→5': 'Adaptive governance enables 2–3× faster scaling of digital capabilities.'
+      },
+      performance: {
+        '1→2': 'Establishes trustworthy analytics eliminating conflicting data sources.',
+        '2→3': 'Structured testing programme improves conversion rates by 10–20% within 6 months.',
+        '3→4': 'Multi-touch attribution improves budget allocation efficiency by 20–35%.',
+        '4→5': 'Predictive performance models enable proactive optimisation, improving ROI by 25–40%.'
+      }
+    };
+
+    function getRoiImpact(dimKey, currentScore) {
+      const tier = Math.max(1, Math.min(4, Math.floor(currentScore)));
+      const transition = `${tier}→${tier + 1}`;
+      return roiImpactEstimates[dimKey]?.[transition] || null;
+    }
+
+    // Per-question contextual answer labels (v2.1.0)
+    const questionAnswerLabels = {
+      data_q1: { 1: 'No inventory — teams discover data by accident', 2: 'Partial awareness — key sources known but access is slow', 3: 'Documented inventory — most sources mapped with some access gaps', 4: 'Comprehensive catalog — all sources documented with clear access paths', 5: 'Automated catalog with real-time lineage and instant access' },
+      data_q2: { 1: 'Fully siloed — each tool has its own disconnected data', 2: 'Some manual integration — periodic exports between 1-2 systems', 3: 'Partial unification — 2-3 core systems connected but gaps remain', 4: 'Unified customer profile — most touchpoints connected and maintained', 5: 'Real-time unified CDP — all sources integrated with automated syncing' },
+      data_q3: { 1: 'No dashboard usage — decisions are gut-based', 2: 'Occasional reporting — some leaders check data monthly', 3: 'Regular reporting — dashboards exist but usage varies by team', 4: 'Data-informed culture — leaders actively use dashboards for decisions', 5: 'Data-driven operations — real-time data drives daily decisions at all levels' },
+      data_q4: { 1: 'No predictive capability — purely historical reporting', 2: 'Basic trend analysis — spreadsheet-based projections', 3: 'Some forecasting — limited predictive models in 1-2 areas', 4: 'Active predictive analytics — models deployed for key decisions', 5: 'Advanced ML models — automated predictions driving proactive actions' },
+      data_q5: { 1: 'No ownership — data quality is nobody\'s responsibility', 2: 'Informal ownership — some teams care but no standards', 3: 'Documented standards — basic quality rules but inconsistent enforcement', 4: 'Governed data — clear ownership, quality rules, and regular audits', 5: 'Automated governance — continuous quality monitoring with proactive alerts' },
+      data_q6: { 1: 'Cannot measure ROI — spend is unaccountable', 2: 'Last-click only — basic channel attribution', 3: 'Multi-channel tracking — some attribution models in place', 4: 'Multi-touch attribution — revenue connected to campaigns reliably', 5: 'Advanced attribution — incrementality testing, MMM, real-time optimisation' },
+      ai_q1: { 1: 'No AI use cases identified — just general interest', 2: 'Vague ideas — "we should use AI" without specifics', 3: 'Documented use cases — 2-3 specific problems identified', 4: 'Prioritised portfolio — use cases ranked by ROI with clear owners', 5: 'Strategic AI roadmap — use cases mapped to business objectives with metrics' },
+      ai_q2: { 1: 'No AI in production — experiments only or nothing', 2: 'Pilot stage — one tool being tested without clear metrics', 3: 'One production use — delivering some measurable value', 4: 'Multiple production AI — 2+ solutions delivering measurable impact', 5: 'AI embedded — multiple AI systems integrated across operations with clear ROI' },
+      ai_q3: { 1: 'No AI policies — tools used without guidelines', 2: 'Basic awareness — some verbal rules but nothing documented', 3: 'Documented policies — written guidelines exist but adoption varies', 4: 'Enforced governance — policies followed with regular compliance checks', 5: 'Mature AI governance — automated monitoring, bias checks, regular audits' },
+      ai_q4: { 1: 'No AI skills — teams unaware of practical applications', 2: 'Basic prompting — a few individuals experimenting', 3: 'Growing adoption — 20-30% using AI in workflows', 4: 'Widespread use — most teams using AI effectively with clear standards', 5: 'AI-fluent organisation — teams independently identify and deploy AI solutions' },
+      ai_q5: { 1: 'No automation — all tasks are manual', 2: 'Minor automation — 1-2 simple tasks automated', 3: 'Some reduction — 10-20% of repetitive tasks automated', 4: 'Significant automation — 25-40% reduction in manual work', 5: 'Highly automated — 50%+ manual task reduction with intelligent workflows' },
+      ai_q6: { 1: 'No evaluation criteria — vendor choices are ad hoc', 2: 'Basic comparison — features and price only', 3: 'Structured evaluation — integration and security considered', 4: 'Rigorous assessment — security, integration, and ROI validated pre-purchase', 5: 'Strategic procurement — AI tools evaluated against architecture roadmap and business outcomes' },
+      experience_q1: { 1: 'No journey mapping — customer paths unknown', 2: 'Assumed journeys — internal view without data validation', 3: 'Partial mapping — key journeys documented with some data', 4: 'Comprehensive maps — all key journeys mapped with drop-off data', 5: 'Real-time journey analytics — continuous monitoring and optimisation' },
+      experience_q2: { 1: 'Inconsistent everywhere — different answers per channel', 2: 'Partially consistent — 1-2 channels aligned', 3: 'Mostly consistent — major channels aligned but gaps remain', 4: 'Connected experience — consistent tone, data, and handoffs across channels', 5: 'Omnichannel excellence — seamless, context-aware experience across all touchpoints' },
+      experience_q3: { 1: 'No personalisation — everyone gets the same experience', 2: 'Basic segments — demographic-based audience lists', 3: 'Behavioural segments — some targeting based on actions', 4: 'Dynamic personalisation — content adapts based on real-time behaviour', 5: 'Predictive personalisation — AI-driven, anticipatory experiences at scale' },
+      experience_q4: { 1: 'No feedback collection — customer voice is absent', 2: 'Occasional surveys — ad hoc feedback with no process', 3: 'Regular collection — NPS/CSAT surveys with basic reporting', 4: 'Systematic VoC — feedback collected, analysed, and acted upon', 5: 'Closed-loop VoC — every insight triggers improvement with tracked outcomes' },
+      experience_q5: { 1: 'No testing — design decisions are opinion-based', 2: 'Rare testing — occasional A/B test without rigour', 3: 'Regular testing — monthly tests with hypothesis-driven approach', 4: 'Systematic optimisation — continuous testing driving measurable improvements', 5: 'Advanced experimentation — multivariate testing, ML-assisted optimisation' },
+      experience_q6: { 1: 'No segmentation — all customers treated equally', 2: 'Basic segments — high-level groupings without differentiation', 3: 'Value-based segments — high/low value identified', 4: 'Differentiated strategies — tailored experiences per segment', 5: 'Predictive LTV — AI-driven segment strategies maximising lifetime value' },
+      governance_q1: { 1: 'No ownership — initiatives drift without accountability', 2: 'Shared ownership — committees exist but no individual authority', 3: 'Named owners — most initiatives have assigned leads', 4: 'Empowered owners — individuals authorised to make decisions and held accountable', 5: 'Mature accountability — RACI frameworks, decision logs, and outcome tracking' },
+      governance_q2: { 1: 'No policies — compliance is accidental', 2: 'Outdated policies — documents exist but aren\'t followed', 3: 'Current policies — documented and partially adopted', 4: 'Enforced policies — regularly reviewed, trained on, and audited', 5: 'Adaptive governance — policies evolve with regulations, automated compliance monitoring' },
+      governance_q3: { 1: 'Severe bottlenecks — approvals take weeks', 2: 'Slow but functional — approvals in days with frequent delays', 3: 'Reasonable speed — most approvals within 48 hours', 4: 'Fast and governed — clear approval paths with defined SLAs', 5: 'Agile governance — tiered approvals, automated workflows, same-day for most items' },
+      governance_q4: { 1: 'No visibility — tool count and costs unknown', 2: 'Partial awareness — some tools tracked informally', 3: 'Basic inventory — tools listed with costs and renewal dates', 4: 'Managed portfolio — usage tracked, redundancies identified, integration mapped', 5: 'Optimised stack — continuous rationalisation, automated usage monitoring, ROI tracked' },
+      governance_q5: { 1: 'Minimal security — no assessments or incident plan', 2: 'Basic measures — firewall and antivirus but no formal program', 3: 'Structured security — annual assessments, basic incident response', 4: 'Mature security — regular pen-testing, trained staff, documented playbooks', 5: 'Advanced security — continuous monitoring, red team exercises, embedded in culture' },
+      governance_q6: { 1: 'No change management — tools are deployed and forgotten', 2: 'Basic training — one-off sessions with poor follow-through', 3: 'Structured rollout — training plans, champions, and follow-up', 4: 'Managed adoption — adoption metrics tracked, resistance addressed proactively', 5: 'Cultural integration — change management embedded in every initiative, continuous improvement' },
+      performance_q1: { 1: 'Vanity metrics only — impressions, followers, page views', 2: 'Some outcome metrics — basic revenue tracking alongside vanity', 3: 'Connected KPIs — metrics linked to business outcomes for key areas', 4: 'Outcome-driven — revenue, profit, and LTV drive all reporting', 5: 'Predictive KPIs — leading indicators and forecasting drive strategic decisions' },
+      performance_q2: { 1: 'No testing — no A/B tests or experiments', 2: 'Occasional tests — 1-2 per quarter without rigour', 3: 'Monthly testing — structured programme with hypothesis', 4: 'Continuous experimentation — 4+ tests/month driving decisions', 5: 'Test-everything culture — multivariate, incrementality, and automated testing' },
+      performance_q3: { 1: 'No channel visibility — budget allocation is guesswork', 2: 'Basic channel metrics — siloed reporting per channel', 3: 'Cross-channel comparison — can rank channels by efficiency', 4: 'Data-driven allocation — budget shifts based on performance data', 5: 'Real-time optimisation — automated budget allocation based on live performance' },
+      performance_q4: { 1: 'Broken tracking — data is unreliable or missing', 2: 'Basic tracking — analytics installed but not audited', 3: 'Mostly accurate — regular audits, some data quality issues', 4: 'Trusted analytics — comprehensive tracking, regular audits, team confidence', 5: 'Gold-standard measurement — complete data lineage, automated validation, zero trust issues' },
+      performance_q5: { 1: 'Zombie activities — underperforming work runs indefinitely', 2: 'Occasional review — some activities stopped ad hoc', 3: 'Regular reviews — quarterly performance assessments', 4: 'Structured process — clear criteria for improve/stop decisions', 5: 'Continuous optimisation — automated alerts and systematic kill/improve workflows' },
+      performance_q6: { 1: 'No alignment — teams can\'t connect work to business goals', 2: 'Vague connection — awareness of goals but no clear line of sight', 3: 'Partial alignment — key teams have targets tied to strategy', 4: 'Clear alignment — all teams have measurable targets connected to KPIs', 5: 'Full cascade — individual objectives linked to business outcomes with real-time tracking' }
+    };
+
     function renderQuestions() {
       els.questionContainer.innerHTML = dimensions.map((dim) => {
         const avg = getDimensionAverage(dim);
         const avgText = avg ? `${avg.toFixed(1)} / 5` : 'Not yet scored';
-        const answeredCount = dim.questions.filter(([id]) => Number(state.answers[id] || 0) > 0).length;
+        const answeredCount = getDimensionAnsweredCount(dim);
+        const totalQs = dim.questions.length;
+        const confidence = getDimensionConfidence(dim);
+        const sd = getDimensionStdDev(dim);
+        const dimStage = getDimensionStage(avg);
         // Per-dimension micro-feedback
         let microFeedback = '';
         if (answeredCount > 0 && avg > 0) {
@@ -1935,18 +2267,27 @@
             advancing: 'Solid foundations in place — focus on optimisation and scaling.',
             high: 'Mature and differentiated — maintain and innovate.'
           };
-          microFeedback = `<div class="dim-micro-feedback"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${tierColor};flex-shrink:0;"></span><strong>${avg.toFixed(1)}/5 — ${tierLabel}:</strong> ${microTexts[tier]}</div>`;
+          const roi = getRoiImpact(dim.key, avg);
+          const roiLine = roi ? `<br><span style="font-size:0.82rem;color:var(--muted);">📊 Improvement potential: ${roi}</span>` : '';
+          const confColor = confidence.level === 'high' ? 'var(--good)' : confidence.level === 'medium' ? 'var(--accent)' : 'var(--danger)';
+          microFeedback = `<div class="dim-micro-feedback">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${tierColor};flex-shrink:0;"></span>
+            <div><strong>${avg.toFixed(1)}/5 — ${tierLabel}</strong> · σ=${sd.toFixed(2)} · <span style="color:${confColor};">${confidence.label} confidence</span>
+            <br><span style="color:var(--muted);font-size:0.86rem;">${microTexts[tier]}</span>${roiLine}</div>
+          </div>`;
         }
         return `
           <article class="dimension-card">
             <div class="dimension-header">
               <div>
-                <h3>${dim.name}</h3>
+                <h3>${dim.name} <span style="font-size:0.78rem;color:var(--muted);font-weight:400;margin-left:6px;">${answeredCount}/${totalQs} answered</span></h3>
                 <p>${dim.description}</p>
               </div>
               <div class="score-pill">${avgText}</div>
             </div>
-            ${dim.questions.map(([id, title, hint]) => `
+            ${dim.questions.map(([id, title, hint]) => {
+              const labels = questionAnswerLabels[id] || {};
+              return `
               <div class="question">
                 <div class="question-head">
                   <div class="question-title">${title}</div>
@@ -1958,13 +2299,13 @@
                       <input type="radio" name="${id}" value="${level}" ${Number(state.answers[id]) === level ? 'checked' : ''} />
                       <span>
                         <strong>${level}</strong>
-                        <em>${maturityLevels[level].label}<br />${maturityLevels[level].text}</em>
+                        <em>${labels[level] || (maturityLevels[level].label + '<br />' + maturityLevels[level].text)}</em>
                       </span>
                     </label>
                   `).join('')}
                 </div>
-              </div>
-            `).join('')}
+              </div>`;
+            }).join('')}
             ${microFeedback}
           </article>
         `;
@@ -2061,6 +2402,26 @@
         });
       });
 
+      // ── Benchmark overlay polygon (v2.1.0) ─────────────────────────
+      const benchmarkScores = dimensions.map(dim => benchmarkRanges[dim.key]?.mid || 2.8);
+      ctx.beginPath();
+      benchmarkScores.forEach((score, i) => {
+        const r = (score / 5) * radius;
+        const angle = rotation + i * angleStep;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.08)';
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 4]);
+      ctx.fill();
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // ── Score polygon ──────────────────────────────────────────────
       const scores = dimensions.map(getDimensionAverage);
       ctx.beginPath();
       scores.forEach((score, i) => {
@@ -2198,26 +2559,33 @@
       return selected.map(item => `<li>${item}</li>`).join("");
     }
 
-    function buildRoadmap(priorityDims) {
+    function buildRoadmap(priorityDims, useInsightStyle) {
       const labels = [
-        ['Days 1–30', 'Stabilise the basics', 'quick'],
-        ['Days 31–60', 'Build the operating layer', 'next'],
-        ['Days 61–90', 'Scale what works', 'later']
+        { period: 'Days 1–30', theme: 'Stabilise the basics', key: 'quick' },
+        { period: 'Days 31–60', theme: 'Build the operating layer', key: 'next' },
+        { period: 'Days 61–90', theme: 'Scale what works', key: 'later' }
       ];
       const weakest = priorityDims[0] || dimensions[0];
-      const second = priorityDims[1] || dimensions[1];
-      const third = priorityDims[2] || dimensions[2];
-      const picks = [weakest, second, third];
+      const second  = priorityDims[1] || dimensions[1];
+      const third   = priorityDims[2] || dimensions[2];
+      const picks   = [weakest, second, third];
 
       return labels.map((meta, i) => {
         const dim = picks[i];
+        if (useInsightStyle) {
+          return `
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.14);border-radius:16px;padding:16px;">
+              <div style="display:inline-flex;margin-bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(79,209,197,0.12);color:#bffcf2;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${meta.period}</div>
+              <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme} — <span style="color:var(--brand);">${dim.name}</span></h4>
+              <p style="color:var(--text);margin:0;font-size:0.91rem;line-height:1.6;">${dim.roadmap[meta.key]}</p>
+            </div>`;
+        }
         return `
           <div class="priority">
-            <span>${meta[0]}</span>
-            <h4>${meta[1]} — ${dim.name}</h4>
-            <p>${dim.roadmap[meta[2]]}</p>
-          </div>
-        `;
+            <span>${meta.period}</span>
+            <h4>${meta.theme} — ${dim.name}</h4>
+            <p>${dim.roadmap[meta.key]}</p>
+          </div>`;
       }).join('');
     }
 
@@ -2236,20 +2604,34 @@
       const top2Avg = scored.length >= 4 ? (sorted[sorted.length - 1] + sorted[sorted.length - 2]) / 2 : 0;
       const bot2Avg = scored.length >= 4 ? (sorted[0] + sorted[1]) / 2 : 0;
 
+      // Identify outlier dimensions by name
+      const outlierHighDims = scored.filter(d => d.avg > mean + 1.5).map(d => d.name);
+      const outlierLowDims = scored.filter(d => d.avg < mean - 1.5).map(d => d.name);
+
       return {
         allLow: scored.length >= 3 && avgs.every(v => v < 2.0),
         allMid: scored.length >= 3 && avgs.every(v => v >= 2.0 && v <= 3.5),
         allHigh: scored.length >= 3 && avgs.every(v => v > 3.5),
         uniform: (max - min) < 0.8,
         polarized: (max - min) > 2.0,
-        oneOutlierHigh: scored.some(d => d.avg > mean + 1.5),
-        oneOutlierLow: scored.some(d => d.avg < mean - 1.5),
+        oneOutlierHigh: outlierHighDims.length > 0,
+        oneOutlierLow: outlierLowDims.length > 0,
+        outlierHighDims,
+        outlierLowDims,
         topHeavy: scored.length >= 4 && top2Avg > bot2Avg + 1.5,
         bottomHeavy: scored.length >= 4 && bot2Avg > top2Avg + 1.5,
         dataAiGap: (dimMap.data || 0) < 2.5 && (dimMap.ai || 0) > (dimMap.data || 0) + 0.5,
-        governanceBottleneck: dimMap.governance !== undefined && dimMap.governance === min && scored.filter(d => d.avg > dimMap.governance + 0.8).length >= 2,
-        executionGap: dimMap.performance !== undefined && dimMap.performance === min && scored.filter(d => d.key !== 'performance' && d.avg > dimMap.performance + 0.5).length >= 2,
-        experienceDisconnect: (dimMap.experience || 0) >= 3.0 && (dimMap.data || 0) < 2.0
+        governanceBottleneck: dimMap.governance !== undefined && Math.abs(dimMap.governance - min) < 0.01 && scored.filter(d => d.avg > dimMap.governance + 0.8).length >= 2,
+        executionGap: dimMap.performance !== undefined && Math.abs(dimMap.performance - min) < 0.01 && scored.filter(d => d.key !== 'performance' && d.avg > dimMap.performance + 0.5).length >= 2,
+        experienceDisconnect: (dimMap.experience || 0) >= 3.0 && (dimMap.data || 0) < 2.5,
+        // New patterns (v2.1.0)
+        aiExperienceGap: (dimMap.ai || 0) >= 3.0 && (dimMap.experience || 0) < 2.5,
+        performanceAiGap: (dimMap.ai || 0) >= 3.0 && (dimMap.performance || 0) < 2.0,
+        dataGovernanceGap: (dimMap.data || 0) >= 3.0 && (dimMap.governance || 0) < 2.0,
+        foundationFirst: (dimMap.data || 0) >= 3.0 && (dimMap.governance || 0) >= 3.0 && ((dimMap.ai || 0) < 2.5 || (dimMap.experience || 0) < 2.5),
+        innovationFirst: ((dimMap.ai || 0) >= 3.0 || (dimMap.experience || 0) >= 3.0) && (dimMap.data || 0) < 2.5 && (dimMap.governance || 0) < 2.5,
+        measurementLast: dimMap.performance !== undefined && avgs.every((v, i) => scored[i].key === 'performance' || v > dimMap.performance + 0.3),
+        mean, sd: Math.sqrt(avgs.reduce((s, v) => s + Math.pow(v - mean, 2), 0) / avgs.length), min, max
       };
     }
 
@@ -2286,6 +2668,27 @@
       if (patterns.experienceDisconnect) {
         insights.push({ title: 'Experience Without Evidence', text: 'Customer experience scores suggest strong journey design, but critically low data maturity means these experiences aren\'t informed by real customer behaviour. Great UX without data-driven personalisation is expensive guesswork.', severity: 'medium' });
       }
+      // New cross-dimensional insights (v2.1.0)
+      if (patterns.aiExperienceGap) {
+        insights.push({ title: 'AI Rich, Experience Poor', text: 'AI capabilities are advancing, but customer experience hasn\'t kept pace. AI-powered personalisation, journey orchestration, and predictive engagement remain untapped because the experience layer isn\'t mature enough to leverage AI outputs effectively.', severity: 'medium' });
+      }
+      if (patterns.performanceAiGap) {
+        insights.push({ title: 'AI Without Measurement', text: 'AI and automation investments are being made without the performance measurement infrastructure to evaluate their impact. Without robust KPIs and testing frameworks, there is no way to determine whether AI initiatives are delivering real business value.', severity: 'high' });
+      }
+      if (patterns.dataGovernanceGap) {
+        insights.push({ title: 'Data Capability Without Governance', text: 'Strong data infrastructure exists without proportionate governance controls. This creates risk around data quality degradation, compliance violations, and inconsistent data practices across teams. Governance must catch up to protect and sustain data investments.', severity: 'high' });
+      }
+      if (patterns.foundationFirst) {
+        insights.push({ title: 'Strong Foundations, Untapped Potential', text: 'Data and governance foundations are solid, but innovation capabilities (AI, Experience) haven\'t yet been built on top of them. This is actually a good position — the organisation can now deploy advanced capabilities with confidence that the base will support them.', severity: 'low' });
+      }
+      if (patterns.innovationFirst) {
+        insights.push({ title: 'Innovation Without Foundation', text: 'AI and experience capabilities are outpacing the data and governance infrastructure needed to sustain them. While this shows ambition, it creates fragility — advanced capabilities built on weak foundations tend to produce inconsistent results and create compliance risks.', severity: 'high' });
+      }
+      // Adjacent capability gaps from dependency graph
+      const adjacentGaps = detectAdjacentGaps();
+      adjacentGaps.forEach(gap => {
+        insights.push({ title: `${gap.downstream} Exceeds ${gap.upstream} Foundation`, text: gap.text, severity: gap.severity });
+      });
 
       return insights;
     }
@@ -2307,9 +2710,33 @@
         }));
     }
 
+    // Industry context data (v2.1.0)
+    const industryContext = {
+      retail: { name: 'Retail & E-commerce', priority: 'experience', context: 'In retail, customer experience and data-driven personalisation are the primary competitive differentiators. Organisations that lag in CX and data capabilities lose share rapidly to digital-native competitors.' },
+      finance: { name: 'Financial Services', priority: 'governance', context: 'Financial services face stringent regulatory requirements making governance and data maturity particularly critical. Compliance gaps create existential risk, while AI offers significant efficiency gains in underwriting, fraud detection, and customer service.' },
+      healthcare: { name: 'Healthcare', priority: 'data', context: 'Healthcare organisations manage sensitive data at scale. Data governance and interoperability are foundational, while AI applications in diagnostics and patient engagement are rapidly becoming standard of care.' },
+      manufacturing: { name: 'Manufacturing', priority: 'ai', context: 'Manufacturing is being transformed by AI-powered predictive maintenance, supply chain optimisation, and quality control. Organisations that lag in automation face escalating operational costs and quality challenges.' },
+      technology: { name: 'Technology & SaaS', priority: 'performance', context: 'Technology companies are expected to lead in digital maturity. Performance measurement and data-driven product development are table stakes, while AI integration and customer experience define market leaders.' },
+      professional: { name: 'Professional Services', priority: 'ai', context: 'Professional services firms are seeing AI transform knowledge work at unprecedented speed. Firms that adopt AI-augmented delivery, data-driven insights, and digital client experiences will capture disproportionate market share.' },
+      media: { name: 'Media & Entertainment', priority: 'experience', context: 'Content-driven businesses depend on understanding audience behaviour and delivering personalised experiences. Data and AI are essential for content recommendation, audience monetisation, and cross-platform engagement.' },
+      public: { name: 'Public Sector', priority: 'governance', context: 'Public sector organisations face unique challenges in governance, compliance, and change management. Digital maturity improvements directly impact citizen service quality and operational efficiency.' },
+      hospitality: { name: 'Hospitality & Travel', priority: 'experience', context: 'Hospitality thrives on customer experience excellence. Data-driven personalisation, dynamic pricing, and seamless omnichannel booking experiences are becoming essential competitive requirements.' },
+      energy: { name: 'Energy & Utilities', priority: 'data', context: 'Energy and utilities organisations manage complex operational data at scale. IoT, predictive analytics, and AI-driven grid management are transforming the sector, making data maturity foundational.' },
+      other: { name: 'Other', priority: null, context: '' }
+    };
+
+    const companySizeContext = {
+      micro: { name: '1–10', context: 'At this size, focus on foundational capabilities and quick wins. Complex governance frameworks are less relevant — prioritise data basics and simple automation.' },
+      small: { name: '11–50', context: 'Small teams benefit most from standardising core processes and adopting practical AI tools. Governance should be lightweight but clear.' },
+      medium: { name: '51–200', context: 'At this scale, cross-team coordination becomes critical. Governance structures, data standards, and measurement discipline are essential for avoiding growing pains.' },
+      large: { name: '201–1,000', context: 'Large organisations need robust governance, unified data infrastructure, and systematic AI adoption to avoid silos and duplicated effort across teams.' },
+      enterprise: { name: '1,001–5,000', context: 'Enterprise organisations face complexity in change management and data unification. Governance maturity and cross-functional integration are typically the biggest bottlenecks.' },
+      corporate: { name: '5,000+', context: 'Corporate-scale organisations require enterprise-grade governance, advanced data architecture, and sophisticated change management. AI and automation at scale are competitive necessities.' }
+    };
+
     // Build a fully dynamic, multi-paragraph narrative based on patterns
     function generateDynamicNarrative(overall, patterns, priorityDims, company) {
-      if (overall === 0) return '<p class="insight-placeholder">Complete the assessment to generate a personalised strategic narrative.</p>';
+      if (overall === 0 || !priorityDims || priorityDims.length === 0) return '<p class="insight-placeholder">Complete the assessment to generate a personalised strategic narrative.</p>';
       const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
       const weakest = priorityDims[0];
       let paragraphs = [];
@@ -2340,6 +2767,25 @@
         paragraphs.push(`Performance measurement is the weakest link, meaning the organisation cannot prove the value of its other digital investments. Without robust KPIs and testing discipline, budget decisions remain subjective and optimisation opportunities are missed.`);
       }
 
+      // v2.1.0: Industry context
+      const indCtx = industryContext[state.industrySector];
+      if (indCtx && indCtx.context) {
+        paragraphs.push(`<strong>Industry context (${indCtx.name}):</strong> ${indCtx.context}`);
+      }
+
+      // v2.1.0: Company size context
+      const sizeCtx = companySizeContext[state.companySize];
+      if (sizeCtx && sizeCtx.context) {
+        paragraphs.push(`<strong>Organisation size context (${sizeCtx.name} employees):</strong> ${sizeCtx.context}`);
+      }
+
+      // v2.1.0: Maturity DNA and composite summary
+      const dna = getMaturityDNA();
+      const risk = computeRiskScore();
+      if (risk) {
+        paragraphs.push(`<strong>Maturity fingerprint:</strong> <code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:6px;font-family:monospace;letter-spacing:0.04em;">${dna}</code> · Digital risk score: <strong style="color:${risk.color};">${risk.score}/100 (${risk.level})</strong>.`);
+      }
+
       return paragraphs.map(p => `<p>${p}</p>`).join('');
     }
 
@@ -2362,8 +2808,14 @@
         if (patterns.governanceBottleneck) detected.push({ icon: '🏛️', label: 'Governance Bottleneck', desc: 'Governance is weakest and constraining other dimensions.' });
         if (patterns.executionGap) detected.push({ icon: '📉', label: 'Execution Gap', desc: 'Performance measurement is weakest — can\'t prove value of investments.' });
         if (patterns.experienceDisconnect) detected.push({ icon: '🎭', label: 'Experience Disconnect', desc: 'Good CX design but no data foundation to personalise or prove it.' });
-        if (patterns.oneOutlierHigh) detected.push({ icon: '🌟', label: 'Standout Strength', desc: 'One dimension is significantly above the mean.' });
-        if (patterns.oneOutlierLow) detected.push({ icon: '⬇️', label: 'Outlier Weakness', desc: 'One dimension is significantly below the mean.' });
+        if (patterns.oneOutlierHigh) detected.push({ icon: '🌟', label: 'Standout Strength', desc: `${patterns.outlierHighDims.join(', ')} significantly above the mean — isolated excellence.` });
+        if (patterns.oneOutlierLow) detected.push({ icon: '⬇️', label: 'Outlier Weakness', desc: `${patterns.outlierLowDims.join(', ')} significantly below the mean — critical bottleneck.` });
+        if (patterns.aiExperienceGap) detected.push({ icon: '🤖', label: 'AI-Experience Gap', desc: 'AI advancing but customer experience hasn\'t matured to leverage it.' });
+        if (patterns.performanceAiGap) detected.push({ icon: '📊', label: 'AI Without Measurement', desc: 'AI investments lack performance measurement to validate impact.' });
+        if (patterns.dataGovernanceGap) detected.push({ icon: '🔓', label: 'Ungoverned Data', desc: 'Strong data infrastructure without proportionate governance controls.' });
+        if (patterns.foundationFirst) detected.push({ icon: '🏗️', label: 'Foundation First', desc: 'Solid data/governance base — ready to build innovation on top.' });
+        if (patterns.innovationFirst) detected.push({ icon: '🚀', label: 'Innovation First', desc: 'Innovation outpacing foundations — creates fragility risk.' });
+        if (patterns.measurementLast) detected.push({ icon: '📏', label: 'Measurement Last', desc: 'Performance is the weakest — common pattern limiting proof of value.' });
 
         if (detected.length === 0) {
           detected.push({ icon: '📋', label: 'Mixed Profile', desc: 'No single dominant pattern — a combination of strengths and gaps across dimensions.' });
@@ -2510,6 +2962,10 @@
       renderDimensionList();
       drawRadar();
 
+      // Update radar image for print/PDF (v2.1.0)
+      const radarImg = document.getElementById('reportRadarImage');
+      if (radarImg) radarImg.src = els.radarChart.toDataURL('image/png');
+
       const completion = getCompletion();
       const overall = getOverallAverage();
       const [stage, narrative] = getStage(overall);
@@ -2544,8 +3000,36 @@
           })();
       els.reportSummary.innerHTML = summary;
 
-      els.keyFindings.innerHTML = buildFindings(priorityDims, overall);
-      els.serviceRecommendations.innerHTML = buildServices(priorityDims);
+      // Report-specific dimension breakdown (unique — not duplicated from insights)
+      if (els.reportDimensionBreakdown) {
+        const dimRows = priorityDims
+          .filter(d => d.avg > 0)
+          .sort((a, b) => b.avg - a.avg)
+          .map(d => {
+            const tier = getInsightTier(d.avg);
+            const color = getTierColor(tier);
+            const label = getTierLabel(tier);
+            const pct = Math.round((d.avg / 5) * 100);
+            return `<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(148,163,184,0.08);">
+              <span style="min-width:160px;font-size:0.88rem;font-weight:600;">${d.name}</span>
+              <div style="flex:1;height:8px;border-radius:4px;background:rgba(148,163,184,0.1);overflow:hidden;"><div style="height:100%;width:${pct}%;background:${color};border-radius:4px;"></div></div>
+              <span style="min-width:40px;text-align:right;font-size:0.88rem;font-weight:700;color:${color};">${d.avg.toFixed(1)}</span>
+              <span style="min-width:70px;text-align:right;font-size:0.76rem;color:${color};">${label}</span>
+            </div>`;
+          });
+        els.reportDimensionBreakdown.innerHTML = dimRows.length > 0 ? dimRows.join('') : '';
+      }
+
+      // Report-specific strategic summary (unique — not duplicated from insights)
+      if (els.reportStrategicSummary) {
+        if (priorityDims.length > 0 && priorityDims[0].avg > 0) {
+          const services = buildServices(priorityDims);
+          els.reportStrategicSummary.innerHTML = `<ul class="service-list">${services}</ul>`;
+        } else {
+          els.reportStrategicSummary.innerHTML = '';
+        }
+      }
+
       els.roadmapGrid.innerHTML = buildRoadmap(priorityDims);
 
       const goal = state.primaryGoal.trim();
@@ -2557,41 +3041,55 @@
 
       // ── Update the dedicated insights section ──────────────────────
       const patterns = analyzePatterns(priorityDims, overall);
-      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns);
+
+      // Cache computed analytics once per refresh cycle (v2.1.0 audit fix)
+      const cachedRisk = computeRiskScore();
+      const cachedIndices = computeCompositeIndices();
+
+      updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns, cachedRisk, cachedIndices);
 
       // ── Update the AI Advisor section ──────────────────────────────
       updateAIAdvisor(completion, overall, priorityDims, patterns, company);
 
+      // ── Update v2.1.0 sidebar analytics ────────────────────────────
+      els.maturityDNA.textContent = overall > 0 ? getMaturityDNA() : '—';
+
+      if (cachedRisk) {
+        els.riskScoreDisplay.innerHTML = `<span style="color:${cachedRisk.color};">${cachedRisk.score}/100</span>`;
+      } else {
+        els.riskScoreDisplay.textContent = '—';
+      }
+
+      if (cachedIndices) {
+        els.compositeIndices.innerHTML = Object.values(cachedIndices).map(idx => {
+          const pct = Math.round((idx.score / 5) * 100);
+          const color = idx.score >= 3.5 ? 'var(--good)' : idx.score >= 2.5 ? 'var(--brand)' : idx.score >= 1.5 ? 'var(--accent)' : 'var(--danger)';
+          return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(148,163,184,0.08);">
+            <span style="font-size:0.82rem;min-width:140px;color:var(--muted);">${idx.label}</span>
+            <div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden;"><div style="height:100%;width:${pct}%;background:${color};border-radius:3px;transition:width 0.3s;"></div></div>
+            <span style="font-size:0.82rem;font-weight:600;color:${color};min-width:28px;text-align:right;">${idx.score.toFixed(1)}</span>
+          </div>`;
+        }).join('');
+      } else {
+        els.compositeIndices.innerHTML = '';
+      }
+
       saveState();
     }
 
-    function buildInsightRoadmap(priorityDims) {
-      const labels = [
-        { period: 'Days 1–30', theme: 'Stabilise the basics', key: 'quick' },
-        { period: 'Days 31–60', theme: 'Build the operating layer', key: 'next' },
-        { period: 'Days 61–90', theme: 'Scale what works', key: 'later' }
-      ];
-      const weakest = priorityDims[0] || dimensions[0];
-      const second  = priorityDims[1] || dimensions[1];
-      const third   = priorityDims[2] || dimensions[2];
-      const picks   = [weakest, second, third];
-
-      return labels.map((meta, i) => {
-        const dim = picks[i];
-        return `
-          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.14);border-radius:16px;padding:16px;">
-            <div style="display:inline-flex;margin-bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(79,209,197,0.12);color:#bffcf2;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${meta.period}</div>
-            <h4 style="margin:0 0 8px;font-size:0.98rem;">${meta.theme} — <span style="color:var(--brand);">${dim.name}</span></h4>
-            <p style="color:var(--text);margin:0;font-size:0.91rem;line-height:1.6;">${dim.roadmap[meta.key]}</p>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns) {
+    function updateInsightsSection(completion, overall, stage, narrative, priorityDims, company, patterns, cachedRisk, cachedIndices) {
       const answered = completion.answered;
       const total    = completion.total;
       const pct      = completion.pct;
+
+      // Defensive guard for empty priorityDims (v2.1.0 audit fix)
+      if (!priorityDims || priorityDims.length === 0) {
+        els.insightsSubtitle.textContent = 'Complete the scorecard above — insights update in real time as you answer.';
+        els.insightOverview.className = 'insight-placeholder';
+        els.insightOverview.innerHTML = 'Your overall maturity profile will appear here once you begin scoring the five dimensions.';
+        return;
+      }
+
       const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
       const weakest   = priorityDims[0];
 
@@ -2660,13 +3158,93 @@
       if (pct === 0) {
         els.insightRoadmap.innerHTML = '<p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>';
       } else {
-        els.insightRoadmap.innerHTML = buildInsightRoadmap(priorityDims);
+        els.insightRoadmap.innerHTML = buildRoadmap(priorityDims, true);
+      }
+
+      // ── v2.1.0: Composite Indices (uses cached values) ─────────────
+      if (!cachedIndices) {
+        els.insightCompositeIndices.innerHTML = '<p class="insight-placeholder">Composite indices will appear once you begin scoring.</p>';
+      } else {
+        els.insightCompositeIndices.innerHTML = Object.values(cachedIndices).map(idx => {
+          const pctBar = Math.round((idx.score / 5) * 100);
+          const color = idx.score >= 3.5 ? 'var(--good)' : idx.score >= 2.5 ? 'var(--brand)' : idx.score >= 1.5 ? 'var(--accent)' : 'var(--danger)';
+          return `<div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <strong style="font-size:0.88rem;">${idx.label}</strong>
+              <span style="font-size:0.88rem;font-weight:600;color:${color};">${idx.score.toFixed(1)} / 5</span>
+            </div>
+            <div style="height:8px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden;">
+              <div style="height:100%;width:${pctBar}%;background:${color};border-radius:4px;transition:width 0.3s;"></div>
+            </div>
+            <p style="color:var(--muted);font-size:0.82rem;margin:4px 0 0;">${idx.desc}</p>
+          </div>`;
+        }).join('');
+      }
+
+      // ── v2.1.0: Risk Score (uses cached values) ──────────────────
+      if (!cachedRisk) {
+        els.insightRiskScore.innerHTML = '<p class="insight-placeholder">Risk assessment will appear once you begin scoring.</p>';
+      } else {
+        const riskAngle = (cachedRisk.score / 100) * 180;
+        els.insightRiskScore.innerHTML = `
+          <div style="text-align:center;margin-bottom:16px;">
+            <div style="font-size:2.4rem;font-weight:800;color:${cachedRisk.color};">${cachedRisk.score}<span style="font-size:1rem;color:var(--muted);">/100</span></div>
+            <div style="font-size:0.92rem;font-weight:600;color:${cachedRisk.color};">${cachedRisk.level} Risk</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Lowest Dim.</div>
+              <div style="font-weight:600;color:var(--danger);">${cachedRisk.factors.minRisk}pts</div>
+            </div>
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Variance</div>
+              <div style="font-weight:600;color:#fb923c;">${cachedRisk.factors.varianceRisk}pts</div>
+            </div>
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Governance</div>
+              <div style="font-weight:600;color:var(--accent);">${cachedRisk.factors.govRisk}pts</div>
+            </div>
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Data</div>
+              <div style="font-weight:600;color:var(--brand);">${cachedRisk.factors.dataRisk}pts</div>
+            </div>
+          </div>
+          <p style="color:var(--muted);font-size:0.82rem;margin-top:10px;">Risk factors: lowest dimension score (40%), score variance (25%), governance gaps (20%), data gaps (15%).</p>`;
+      }
+
+      // ── v2.1.0: Capability Heatmap ─────────────────────────────────
+      const hasAnyAnswers = dimensions.some(dim => dim.questions.some(([id]) => Number(state.answers[id] || 0) > 0));
+      if (!hasAnyAnswers) {
+        els.insightHeatmap.innerHTML = '<p class="insight-placeholder">The heatmap will populate as you answer questions.</p>';
+      } else {
+        const heatmapColors = ['rgba(148,163,184,0.15)', 'rgba(251,113,133,0.7)', 'rgba(251,146,60,0.7)', 'rgba(250,204,21,0.7)', 'rgba(79,209,197,0.7)', 'rgba(74,222,128,0.8)'];
+        let heatmapHTML = '<div style="display:grid;grid-template-columns:140px repeat(6, 1fr);gap:3px;font-size:0.78rem;">';
+        heatmapHTML += '<div style="font-weight:600;color:var(--muted);padding:4px;">Dimension</div>';
+        for (let q = 1; q <= 6; q++) heatmapHTML += `<div style="text-align:center;font-weight:600;color:var(--muted);padding:4px;">Q${q}</div>`;
+        dimensions.forEach(dim => {
+          heatmapHTML += `<div style="padding:6px 4px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${dim.name}">${dim.name}</div>`;
+          dim.questions.forEach(([id]) => {
+            const score = Number(state.answers[id] || 0);
+            const bg = heatmapColors[score];
+            const label = score > 0 ? score : '—';
+            heatmapHTML += `<div style="background:${bg};text-align:center;padding:6px 4px;border-radius:6px;font-weight:600;color:${score > 0 ? '#fff' : 'var(--muted)'};">${label}</div>`;
+          });
+        });
+        heatmapHTML += '</div>';
+        heatmapHTML += '<div style="display:flex;gap:12px;margin-top:10px;justify-content:center;">';
+        ['Not answered', '1 — Critical', '2 — Weak', '3 — Developing', '4 — Advancing', '5 — Strong'].forEach((lbl, i) => {
+          heatmapHTML += `<div style="display:flex;align-items:center;gap:4px;font-size:0.74rem;color:var(--muted);"><span style="width:12px;height:12px;border-radius:3px;background:${heatmapColors[i]};"></span>${lbl}</div>`;
+        });
+        heatmapHTML += '</div>';
+        els.insightHeatmap.innerHTML = heatmapHTML;
       }
     }
 
     function loadInputs() {
       els.companyName.value = state.companyName;
       els.primaryGoal.value = state.primaryGoal;
+      els.industrySector.value = state.industrySector;
+      els.companySize.value = state.companySize;
     }
 
     function bindStaticEvents() {
@@ -2682,10 +3260,24 @@
         refresh();
       });
 
+      els.industrySector.addEventListener('change', (e) => {
+        state.industrySector = e.target.value;
+        saveState();
+        refresh();
+      });
+
+      els.companySize.addEventListener('change', (e) => {
+        state.companySize = e.target.value;
+        saveState();
+        refresh();
+      });
+
       els.resetBtn.addEventListener('click', () => {
         if (!confirm('Reset all answers and clear saved progress?')) return;
         state.companyName = '';
         state.primaryGoal = '';
+        state.industrySector = '';
+        state.companySize = '';
         state.answers = {};
         localStorage.removeItem('dishine_digital_maturity_scorecard');
         loadInputs();
@@ -2695,10 +3287,79 @@
       els.printBtn.addEventListener('click', () => exportToPDF());
     }
 
+    let _pdfExporting = false; // Prevent concurrent exports
+
     function exportToPDF() {
-      // Use native browser print dialog for reliable PDF export
-      // This works across all browsers and doesn't require external libraries
-      window.print();
+      if (_pdfExporting) return; // Guard against double-clicks
+
+      // Validate completeness
+      const completion = getCompletion();
+      if (completion.pct < 100) {
+        if (!confirm(`Assessment is ${completion.pct}% complete (${completion.answered}/${completion.total} questions). The report will be more accurate with all questions answered.\n\nProceed with export anyway?`)) return;
+      }
+
+      // Prepare radar chart as image for PDF
+      const canvas = els.radarChart;
+      if (canvas) {
+        const radarDataURL = canvas.toDataURL('image/png');
+        const radarImg = document.getElementById('reportRadarImage');
+        if (radarImg) radarImg.src = radarDataURL;
+      }
+
+      // Prepare analytics summary for PDF
+      const analyticsSummary = document.getElementById('reportAnalyticsSummary');
+      if (analyticsSummary) {
+        const dna = getMaturityDNA();
+        const risk = computeRiskScore();
+        const indices = computeCompositeIndices();
+        let summaryHTML = `<strong>Maturity DNA:</strong> ${dna}`;
+        if (risk) summaryHTML += ` · <strong>Risk Score:</strong> ${risk.score}/100 (${risk.level})`;
+        if (indices) {
+          summaryHTML += '<br>';
+          Object.values(indices).forEach(idx => {
+            summaryHTML += `${idx.label}: <strong>${idx.score.toFixed(1)}</strong> · `;
+          });
+        }
+        if (state.industrySector && industryContext[state.industrySector]) {
+          summaryHTML += `<br><strong>Industry:</strong> ${industryContext[state.industrySector].name}`;
+        }
+        if (state.companySize && companySizeContext[state.companySize]) {
+          summaryHTML += ` · <strong>Size:</strong> ${companySizeContext[state.companySize].name} employees`;
+        }
+        analyticsSummary.innerHTML = summaryHTML;
+      }
+
+      // Check if html2pdf is available, otherwise fallback to window.print()
+      if (typeof html2pdf !== 'undefined') {
+        const reportEl = document.getElementById('reportCard');
+        if (!reportEl) { window.print(); return; }
+
+        const company = state.companyName.trim() || 'Organisation';
+        const filename = `diShine_Digital_Health_Report_${company.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+
+        const opt = {
+          margin: [10, 10, 15, 10],
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        // Temporarily show the report for export
+        _pdfExporting = true;
+        reportEl.classList.add('pdf-exporting');
+        html2pdf().set(opt).from(reportEl).save().then(() => {
+          reportEl.classList.remove('pdf-exporting');
+          _pdfExporting = false;
+        }).catch(() => {
+          reportEl.classList.remove('pdf-exporting');
+          _pdfExporting = false;
+          window.print();
+        });
+      } else {
+        window.print();
+      }
     }
 
     loadState();
