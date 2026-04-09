@@ -1887,26 +1887,11 @@
         </div>
       </div>
 
-      <div class="insights-grid">
-        <div class="insight-card">
-          <h3 data-i18n="ui.recommendedFocus">Recommended Strategic Focus<span class="help-trigger" data-tooltip="tooltip.recommendedFocus" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
-          <ul id="insightServices">
-            <li class="insight-placeholder" data-i18n="ui.recommendedFocusPlaceholder">Recommended focus areas will appear based on your lowest-scoring dimensions.</li>
-          </ul>
-        </div>
+      <div class="insights-full">
         <div class="insight-card">
           <h3 data-i18n="ui.gapAnalysis">Dimension Gap Analysis<span class="help-trigger" data-tooltip="tooltip.gapAnalysis" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
           <div id="insightGapAnalysis">
             <p class="insight-placeholder" data-i18n="ui.gapAnalysisPlaceholder">Per-dimension gap analysis will appear once you start answering.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="insights-full">
-        <div class="insight-card">
-          <h3 data-i18n="ui.roadmapTitle">90-Day Prioritised Roadmap<span class="help-trigger" data-tooltip="tooltip.roadmap" onclick="toggleTooltip(this)" onmouseenter="showTooltip(this)" onmouseleave="scheduleHideTooltip(this)">?</span></h3>
-          <div class="insight-roadmap-grid" id="insightRoadmap">
-            <p class="insight-placeholder" style="grid-column:1/-1;" data-i18n="ui.roadmapPlaceholder">Your personalised roadmap will be generated once you complete the assessment.</p>
           </div>
         </div>
       </div>
@@ -2166,6 +2151,16 @@ const TRANSLATIONS = {
 
     "ui.coreAdvantage":             "Core Advantage",
     "ui.criticalConstraint":        "Critical Constraint",
+    "ui.findingImbalance":          "\u26a0 Maturity Imbalance Detected",
+    "ui.findingImbalanceText":      "Your significant strengths in {strongDim} are being undermined by critical gaps in {weakDim}. This imbalance creates a ceiling effect. Advanced capabilities in one area cannot deliver full value when foundational elements in another are missing. Closing this gap should be the highest strategic priority.",
+    "ui.trajectoryInnovation":      "Strategic Trajectory. Innovation & Leadership",
+    "ui.trajectoryInnovationText":  "Your advanced maturity positions you to drive industry-leading innovation. Focus on emerging capabilities, ecosystem partnerships, and scaling AI-powered personalisation to maintain competitive distance.",
+    "ui.trajectoryIntegration":     "Strategic Trajectory. Integration & Scalability",
+    "ui.trajectoryIntegrationText": "Your solid foundations need to be connected into a unified operating model. Focus on cross-functional workflows, automated handoffs, and scaling what works beyond individual teams.",
+    "ui.trajectoryProfessional":    "Strategic Trajectory. Professionalisation & Standards",
+    "ui.trajectoryProfessionalText":"Ad-hoc practices need to be systematised. Invest in clear standards, documented processes, training, and measurement discipline to build a reliable digital operating model.",
+    "ui.trajectoryStabilise":       "Strategic Trajectory. Stabilisation & Quick Wins",
+    "ui.trajectoryStabiliseText":   "Start with the basics: fix data quality, assign clear ownership, define core KPIs, and deliver 2-3 visible quick wins that build momentum and organisational confidence in digital investment.",
     "ui.completeRemaining":         "Complete the remaining questions for a fully calibrated profile.",
     "ui.dimensionBreakdown":        "Dimension breakdown",
     "ui.scoresSoFar":               "Scores so far",
@@ -2358,6 +2353,13 @@ const TRANSLATIONS = {
     "report.detectedPatterns":      "Detected Score Patterns",
     "report.crossDimIntel":         "Cross-Dimensional Intelligence",
     "report.questionGaps":          "Question-Level Gap Analysis",
+    "report.priorityMatrix":        "Strategic Priority Matrix",
+    "report.matrixQuickWins":       "Quick Wins (High Impact, Lower Effort)",
+    "report.matrixStrategic":       "Strategic Priorities (High Impact, Higher Effort)",
+    "report.matrixOptimise":        "Optimise (Moderate Impact, Moderate Effort)",
+    "report.matrixMaintain":        "Maintain (Lower Impact, Lower Effort)",
+    "report.whatIfScenarios":       "What-If Scenarios",
+    "report.whatIfDesc":            "Impact of improving each dimension by 1.0 points",
     "report.compositeIndices":      "Composite Strategic Indices",
     "report.completion":            "Completion",
     "report.maturityDNA":           "Maturity DNA",
@@ -2497,6 +2499,16 @@ const TRANSLATIONS = {
 
     "ui.coreAdvantage":             "Avantage cl\u00e9",
     "ui.criticalConstraint":        "Contrainte critique",
+    "ui.findingImbalance":          "\u26a0 D\u00e9s\u00e9quilibre de maturit\u00e9 d\u00e9tect\u00e9",
+    "ui.findingImbalanceText":      "Vos forces significatives en {strongDim} sont compromises par des lacunes critiques en {weakDim}. Ce d\u00e9s\u00e9quilibre cr\u00e9e un effet plafond. Les capacit\u00e9s avanc\u00e9es dans un domaine ne peuvent pas offrir toute leur valeur lorsque les \u00e9l\u00e9ments fondamentaux d\u2019un autre sont manquants. Combler cet \u00e9cart devrait \u00eatre la plus haute priorit\u00e9 strat\u00e9gique.",
+    "ui.trajectoryInnovation":      "Trajectoire strat\u00e9gique. Innovation et leadership",
+    "ui.trajectoryInnovationText":  "Votre maturit\u00e9 avanc\u00e9e vous positionne pour impulser l\u2019innovation de pointe. Concentrez-vous sur les capacit\u00e9s \u00e9mergentes, les partenariats d\u2019\u00e9cosyst\u00e8me et la mise \u00e0 l\u2019\u00e9chelle de la personnalisation aliment\u00e9e par l\u2019IA pour maintenir l\u2019avance concurrentielle.",
+    "ui.trajectoryIntegration":     "Trajectoire strat\u00e9gique. Int\u00e9gration et scalabilit\u00e9",
+    "ui.trajectoryIntegrationText": "Vos bases solides doivent \u00eatre reli\u00e9es en un mod\u00e8le op\u00e9rationnel unifi\u00e9. Concentrez-vous sur les flux transversaux, les transferts automatis\u00e9s et la mise \u00e0 l\u2019\u00e9chelle de ce qui fonctionne au-del\u00e0 des \u00e9quipes individuelles.",
+    "ui.trajectoryProfessional":    "Trajectoire strat\u00e9gique. Professionnalisation et standards",
+    "ui.trajectoryProfessionalText":"Les pratiques ad-hoc doivent \u00eatre syst\u00e9matis\u00e9es. Investissez dans des standards clairs, des processus document\u00e9s, la formation et la discipline de mesure pour b\u00e2tir un mod\u00e8le op\u00e9rationnel digital fiable.",
+    "ui.trajectoryStabilise":       "Trajectoire strat\u00e9gique. Stabilisation et victoires rapides",
+    "ui.trajectoryStabiliseText":   "Commencez par les bases : corrigez la qualit\u00e9 des donn\u00e9es, assignez des responsabilit\u00e9s claires, d\u00e9finissez les KPI essentiels et obtenez 2 \u00e0 3 victoires rapides visibles qui cr\u00e9ent l\u2019\u00e9lan et la confiance organisationnelle dans l\u2019investissement digital.",
     "ui.completeRemaining":         "Compl\u00e9tez les questions restantes pour un profil enti\u00e8rement calibr\u00e9.",
     "ui.dimensionBreakdown":        "D\u00e9tail par dimension",
     "ui.scoresSoFar":               "Scores actuels",
@@ -2689,6 +2701,13 @@ const TRANSLATIONS = {
     "report.detectedPatterns":      "Tendances détectées dans les scores",
     "report.crossDimIntel":         "Intelligence inter-dimensionnelle",
     "report.questionGaps":          "Analyse des écarts par question",
+    "report.priorityMatrix":        "Matrice de priorités stratégiques",
+    "report.matrixQuickWins":       "Victoires rapides (Impact élevé, Effort moindre)",
+    "report.matrixStrategic":       "Priorités stratégiques (Impact élevé, Effort soutenu)",
+    "report.matrixOptimise":        "Optimiser (Impact modéré, Effort modéré)",
+    "report.matrixMaintain":        "Maintenir (Impact moindre, Effort moindre)",
+    "report.whatIfScenarios":       "Scénarios What-If",
+    "report.whatIfDesc":            "Impact de l\u2019amélioration de chaque dimension de 1,0 point",
     "report.compositeIndices":      "Indices stratégiques composites",
     "report.completion":            "Complétion",
     "report.maturityDNA":           "ADN de maturité",
@@ -2828,6 +2847,16 @@ const TRANSLATIONS = {
 
     "ui.coreAdvantage":             "Vantaggio chiave",
     "ui.criticalConstraint":        "Vincolo critico",
+    "ui.findingImbalance":          "\u26a0 Squilibrio di maturit\u00e0 rilevato",
+    "ui.findingImbalanceText":      "I tuoi punti di forza significativi in {strongDim} sono compromessi da lacune critiche in {weakDim}. Questo squilibrio crea un effetto tetto. Le capacit\u00e0 avanzate in un\u2019area non possono offrire il pieno valore quando gli elementi fondamentali di un\u2019altra mancano. Colmare questo divario dovrebbe essere la massima priorit\u00e0 strategica.",
+    "ui.trajectoryInnovation":      "Traiettoria strategica. Innovazione e leadership",
+    "ui.trajectoryInnovationText":  "La tua maturit\u00e0 avanzata ti posiziona per guidare l\u2019innovazione di settore. Concentrati sulle capacit\u00e0 emergenti, le partnership ecosistemiche e la scalabilit\u00e0 della personalizzazione basata sull\u2019IA per mantenere il vantaggio competitivo.",
+    "ui.trajectoryIntegration":     "Traiettoria strategica. Integrazione e scalabilit\u00e0",
+    "ui.trajectoryIntegrationText": "Le tue basi solide devono essere collegate in un modello operativo unificato. Concentrati sui flussi interfunzionali, i passaggi automatizzati e la scalabilit\u00e0 di ci\u00f2 che funziona oltre i singoli team.",
+    "ui.trajectoryProfessional":    "Traiettoria strategica. Professionalizzazione e standard",
+    "ui.trajectoryProfessionalText":"Le pratiche ad-hoc devono essere sistematizzate. Investi in standard chiari, processi documentati, formazione e disciplina di misurazione per costruire un modello operativo digitale affidabile.",
+    "ui.trajectoryStabilise":       "Traiettoria strategica. Stabilizzazione e vittorie rapide",
+    "ui.trajectoryStabiliseText":   "Parti dalle basi: correggi la qualit\u00e0 dei dati, assegna responsabilit\u00e0 chiare, definisci i KPI essenziali e ottieni 2-3 vittorie rapide visibili che creino slancio e fiducia organizzativa nell\u2019investimento digitale.",
     "ui.completeRemaining":         "Completa le domande rimanenti per un profilo completamente calibrato.",
     "ui.dimensionBreakdown":        "Dettaglio per dimensione",
     "ui.scoresSoFar":               "Punteggi attuali",
@@ -3020,6 +3049,13 @@ const TRANSLATIONS = {
     "report.detectedPatterns":      "Tendenze rilevate nei punteggi",
     "report.crossDimIntel":         "Intelligence inter-dimensionale",
     "report.questionGaps":          "Analisi dei gap per domanda",
+    "report.priorityMatrix":        "Matrice di priorità strategiche",
+    "report.matrixQuickWins":       "Vittorie rapide (Impatto elevato, Sforzo minore)",
+    "report.matrixStrategic":       "Priorità strategiche (Impatto elevato, Sforzo sostenuto)",
+    "report.matrixOptimise":        "Ottimizzare (Impatto moderato, Sforzo moderato)",
+    "report.matrixMaintain":        "Mantenere (Impatto minore, Sforzo minore)",
+    "report.whatIfScenarios":       "Scenari What-If",
+    "report.whatIfDesc":            "Impatto del miglioramento di ogni dimensione di 1,0 punto",
     "report.compositeIndices":      "Indici strategici compositi",
     "report.completion":            "Completamento",
     "report.maturityDNA":           "DNA di maturità",
@@ -3607,8 +3643,6 @@ const QUESTION_TRANSLATIONS = {
       insightsSubtitle: document.getElementById('insightsSubtitle'),
       insightOverview: document.getElementById('insightOverview'),
       insightFindings: document.getElementById('insightFindings'),
-      insightServices: document.getElementById('insightServices'),
-      insightRoadmap: document.getElementById('insightRoadmap'),
       insightGapAnalysis: document.getElementById('insightGapAnalysis'),
       aiPatternDiagnosis: document.getElementById('aiPatternDiagnosis'),
       aiCrossDimensional: document.getElementById('aiCrossDimensional'),
@@ -4235,15 +4269,15 @@ const QUESTION_TRANSLATIONS = {
       // Dynamic Strategic Implication based on Score + Imbalance
       const variance = strongest.avg - weakest.avg;
       if (variance > 1.5 && strongest.avg > 3.5 && weakest.avg < 2.5) {
-        findings.push(`<li><strong>⚠ Maturity Imbalance Detected:</strong> Your significant strengths in <strong>${getDimName(strongest)}</strong> are being undermined by critical gaps in <strong>${getDimName(weakest)}</strong>. This imbalance creates a ceiling effect. Advanced capabilities in one area cannot deliver full value when foundational elements in another are missing. Closing this gap should be the highest strategic priority.</li>`);
+        findings.push(`<li><strong>${t('ui.findingImbalance')}:</strong> ${t('ui.findingImbalanceText').replace('{strongDim}', '<strong>' + getDimName(strongest) + '</strong>').replace('{weakDim}', '<strong>' + getDimName(weakest) + '</strong>')}</li>`);
       } else if (overallScore >= 4.0) {
-        findings.push(`<li><strong>Strategic Trajectory. Innovation & Leadership:</strong> Your advanced maturity positions you to drive industry-leading innovation. Focus on emerging capabilities, ecosystem partnerships, and scaling AI-powered personalisation to maintain competitive distance.</li>`);
+        findings.push(`<li><strong>${t('ui.trajectoryInnovation')}:</strong> ${t('ui.trajectoryInnovationText')}</li>`);
       } else if (overallScore >= 3.0) {
-        findings.push(`<li><strong>Strategic Trajectory. Integration & Scalability:</strong> Your solid foundations need to be connected into a unified operating model. Focus on cross-functional workflows, automated handoffs, and scaling what works beyond individual teams.</li>`);
+        findings.push(`<li><strong>${t('ui.trajectoryIntegration')}:</strong> ${t('ui.trajectoryIntegrationText')}</li>`);
       } else if (overallScore >= 2.0) {
-        findings.push(`<li><strong>Strategic Trajectory. Professionalisation & Standards:</strong> Ad-hoc practices need to be systematised. Invest in clear standards, documented processes, training, and measurement discipline to build a reliable digital operating model.</li>`);
+        findings.push(`<li><strong>${t('ui.trajectoryProfessional')}:</strong> ${t('ui.trajectoryProfessionalText')}</li>`);
       } else {
-        findings.push(`<li><strong>Strategic Trajectory. Stabilisation & Quick Wins:</strong> Start with the basics: fix data quality, assign clear ownership, define core KPIs, and deliver 2-3 visible quick wins that build momentum and organisational confidence in digital investment.</li>`);
+        findings.push(`<li><strong>${t('ui.trajectoryStabilise')}:</strong> ${t('ui.trajectoryStabiliseText')}</li>`);
       }
       
       return findings.join('');
@@ -4843,13 +4877,6 @@ const QUESTION_TRANSLATIONS = {
         els.insightFindings.innerHTML = buildFindings(priorityDims, overall);
       }
 
-      // Strategic focus / services
-      if (pct === 0) {
-        els.insightServices.innerHTML = `<li class="insight-placeholder">${t('ui.recommendedFocusPlaceholder')}</li>`;
-      } else {
-        els.insightServices.innerHTML = buildServices(priorityDims);
-      }
-
       // Per-dimension gap analysis. Now uses 5-tier labels
       if (els.insightGapAnalysis) {
         if (pct === 0) {
@@ -4870,13 +4897,6 @@ const QUESTION_TRANSLATIONS = {
             }).join('');
           els.insightGapAnalysis.innerHTML = gapItems || '<p class="insight-placeholder">No data yet.</p>';
         }
-      }
-
-      // Roadmap
-      if (pct === 0) {
-        els.insightRoadmap.innerHTML = `<p class="insight-placeholder" style="grid-column:1/-1;">${t('ui.roadmapPlaceholder')}</p>`;
-      } else {
-        els.insightRoadmap.innerHTML = buildRoadmap(priorityDims, true);
       }
 
       // ── v2.1.0: Composite Indices (uses cached values) ─────────────
@@ -5129,6 +5149,36 @@ const QUESTION_TRANSLATIONS = {
       // Question-level gaps
       const questionGaps = scored.flatMap(d => analyzeQuestionGaps(d));
 
+      // Priority Matrix quadrants
+      const priorityMatrix = scored.length >= 2 ? {
+        quickWins: scored.filter(d => d.avg >= 1.5 && d.avg < 3.0).map(d => ({ name: getDimName(d), avg: d.avg })),
+        strategic: scored.filter(d => d.avg < 1.5).map(d => ({ name: getDimName(d), avg: d.avg })),
+        optimise: scored.filter(d => d.avg >= 3.0 && d.avg < 4.0).map(d => ({ name: getDimName(d), avg: d.avg })),
+        maintain: scored.filter(d => d.avg >= 4.0).map(d => ({ name: getDimName(d), avg: d.avg }))
+      } : null;
+
+      // What-If scenarios
+      let whatIfScenarios = null;
+      if (scored.length >= 2 && priorityDims[0]) {
+        const wk = priorityDims[0];
+        const imp = Math.min(wk.avg + 1.0, 5.0);
+        const scoredDims = dimensions.filter(d => getDimensionAverage(d) > 0);
+        const curAvgs = scoredDims.map(d => getDimensionAverage(d));
+        const newAvgs = curAvgs.map((avg, i) => scoredDims[i].key === wk.key ? imp : avg);
+        const newOvr = newAvgs.reduce((s, v) => s + v, 0) / newAvgs.length;
+        const [newSt] = getStage(newOvr);
+        const [curSt] = getStage(overall);
+        whatIfScenarios = [{ dim: getDimName(wk), from: wk.avg, to: imp, currentOverall: overall, newOverall: newOvr, currentStage: curSt, newStage: newSt }];
+        if (priorityDims.length > 1 && priorityDims[1].key !== wk.key) {
+          const s2 = priorityDims[1];
+          const s2imp = Math.min(s2.avg + 1.0, 5.0);
+          const s2Avgs = curAvgs.map((avg, i) => scoredDims[i].key === s2.key ? s2imp : avg);
+          const s2Ovr = s2Avgs.reduce((s, v) => s + v, 0) / s2Avgs.length;
+          const [s2St] = getStage(s2Ovr);
+          whatIfScenarios.push({ dim: getDimName(s2), from: s2.avg, to: s2imp, currentOverall: overall, newOverall: s2Ovr, currentStage: curSt, newStage: s2St });
+        }
+      }
+
       // Industry and size context
       const indCtx = industryContext[state.industrySector];
       const sizeCtx = companySizeContext[state.companySize];
@@ -5136,7 +5186,7 @@ const QUESTION_TRANSLATIONS = {
       return {
         company, date, completion, overall, stageName, stageDesc, dimScores, findings,
         services, roadmap, narrative, dna, risk, indices, patternList, crossInsights,
-        questionGaps, industry: indCtx, companySize: sizeCtx, goal: state.primaryGoal
+        questionGaps, priorityMatrix, whatIfScenarios, industry: indCtx, companySize: sizeCtx, goal: state.primaryGoal
       };
     }
 
@@ -5447,6 +5497,37 @@ const QUESTION_TRANSLATIONS = {
           });
         }
 
+        // Strategic Priority Matrix
+        if (data.priorityMatrix) {
+          sectionTitle(t('report.priorityMatrix'));
+          const quadrants = [
+            { key: 'quickWins', label: t('report.matrixQuickWins') },
+            { key: 'strategic', label: t('report.matrixStrategic') },
+            { key: 'optimise', label: t('report.matrixOptimise') },
+            { key: 'maintain', label: t('report.matrixMaintain') }
+          ];
+          quadrants.forEach(q => {
+            const items = data.priorityMatrix[q.key];
+            subHeading(q.label);
+            if (items.length > 0) {
+              bodyText(items.map(d => `${d.name} (${d.avg.toFixed(1)})`).join(', '));
+            } else {
+              bodyText(t('ui.matrixNone'));
+            }
+          });
+        }
+
+        // What-If Scenarios
+        if (data.whatIfScenarios && data.whatIfScenarios.length > 0) {
+          sectionTitle(t('report.whatIfScenarios'));
+          bodyText(t('report.whatIfDesc'));
+          data.whatIfScenarios.forEach(s => {
+            checkPage(8);
+            subHeading(`${s.dim}: ${s.from.toFixed(1)} \u2192 ${s.to.toFixed(1)}`);
+            bodyText(`${t('ui.aiOverallScore')}: ${s.currentOverall.toFixed(1)} \u2192 ${s.newOverall.toFixed(1)} | ${t('ui.aiMaturityStage')}: ${s.currentStage} \u2192 ${s.newStage}`);
+          });
+        }
+
         // Add footer to all pages
         const totalPages = doc.internal.getNumberOfPages();
         for (let i = 1; i <= totalPages; i++) {
@@ -5570,8 +5651,42 @@ const QUESTION_TRANSLATIONS = {
         });
       }
 
+      if (data.priorityMatrix) {
+        lines.push(`## ${t('report.priorityMatrix')}`);
+        lines.push('');
+        const quadrants = [
+          { key: 'quickWins', label: t('report.matrixQuickWins') },
+          { key: 'strategic', label: t('report.matrixStrategic') },
+          { key: 'optimise', label: t('report.matrixOptimise') },
+          { key: 'maintain', label: t('report.matrixMaintain') }
+        ];
+        quadrants.forEach(q => {
+          const items = data.priorityMatrix[q.key];
+          lines.push(`### ${q.label}`);
+          if (items.length > 0) {
+            items.forEach(d => lines.push(`- **${d.name}** (${d.avg.toFixed(1)})`));
+          } else {
+            lines.push(`_${t('ui.matrixNone')}_`);
+          }
+          lines.push('');
+        });
+      }
+
+      if (data.whatIfScenarios && data.whatIfScenarios.length > 0) {
+        lines.push(`## ${t('report.whatIfScenarios')}`);
+        lines.push('');
+        lines.push(`_${t('report.whatIfDesc')}_`);
+        lines.push('');
+        lines.push(`| ${t('ui.aiScenario')} | ${t('ui.aiOverallScore')} | ${t('ui.aiMaturityStage')} |`);
+        lines.push('| --- | --- | --- |');
+        data.whatIfScenarios.forEach(s => {
+          lines.push(`| ${s.dim} ${s.from.toFixed(1)} \u2192 ${s.to.toFixed(1)} | ${s.currentOverall.toFixed(1)} \u2192 ${s.newOverall.toFixed(1)} | ${s.currentStage} \u2192 ${s.newStage} |`);
+        });
+        lines.push('');
+      }
+
       lines.push('---');
-      lines.push('*Prepared by [diShine](https://dishine.it) · Confidential*');
+      lines.push('*Prepared by [diShine](https://dishine.it) \u00B7 Confidential*');
 
       const content = lines.join('\n');
       const filename = `diShine_Digital_Health_Report_${sanitizeFilename(data.company)}_${new Date().toISOString().slice(0, 10)}.md`;
@@ -5703,6 +5818,40 @@ const QUESTION_TRANSLATIONS = {
         Object.entries(grouped).forEach(([dim, gaps]) => {
           lines.push(`  ${dim}`);
           gaps.forEach(g => lines.push(`    - ${g.title} -- Score: ${g.score}/5`));
+          lines.push('');
+        });
+      }
+
+      if (data.priorityMatrix) {
+        lines.push(t('report.priorityMatrix').toUpperCase());
+        lines.push(sep2);
+        const quadrants = [
+          { key: 'quickWins', label: t('report.matrixQuickWins') },
+          { key: 'strategic', label: t('report.matrixStrategic') },
+          { key: 'optimise', label: t('report.matrixOptimise') },
+          { key: 'maintain', label: t('report.matrixMaintain') }
+        ];
+        quadrants.forEach(q => {
+          const items = data.priorityMatrix[q.key];
+          lines.push(`  ${q.label}`);
+          if (items.length > 0) {
+            items.forEach(d => lines.push(`    - ${d.name} (${d.avg.toFixed(1)})`));
+          } else {
+            lines.push(`    ${t('ui.matrixNone')}`);
+          }
+          lines.push('');
+        });
+      }
+
+      if (data.whatIfScenarios && data.whatIfScenarios.length > 0) {
+        lines.push(t('report.whatIfScenarios').toUpperCase());
+        lines.push(sep2);
+        lines.push(`  ${t('report.whatIfDesc')}`);
+        lines.push('');
+        data.whatIfScenarios.forEach(s => {
+          lines.push(`  ${s.dim}: ${s.from.toFixed(1)} -> ${s.to.toFixed(1)}`);
+          lines.push(`    ${t('ui.aiOverallScore')}: ${s.currentOverall.toFixed(1)} -> ${s.newOverall.toFixed(1)}`);
+          lines.push(`    ${t('ui.aiMaturityStage')}: ${s.currentStage} -> ${s.newStage}`);
           lines.push('');
         });
       }
