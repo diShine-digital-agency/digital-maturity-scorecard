@@ -1069,15 +1069,11 @@
     .hide-print { display: block; }
     .show-print { display: none; }
 
-    /* v2.1.0: pdf-exporting class for html2pdf.js */
-    .pdf-exporting .show-print { display: block !important; }
-    .pdf-exporting {
-      background: #ffffff !important;
-      color: #101828 !important;
-    }
-
-    /* ── PDF export light-theme overrides ────────────────────────── */
+    /* ── PDF export light-theme overrides (v2.1.1) ─────────────── */
     .pdf-export-mode {
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --panel-soft: #ffffff;
       --text: #101828;
       --muted: #475467;
       --brand: #0d7377;
@@ -1085,9 +1081,13 @@
       --line: rgba(16, 24, 40, 0.12);
       --shadow: none;
       --accent: #b87400;
+      --danger: #e11d48;
+      --good: #059669;
       background: #ffffff;
+      color: #101828;
       font-family: var(--font);
     }
+    .pdf-export-mode .show-print { display: block !important; }
     .pdf-export-mode .report,
     .pdf-export-mode .insights-section {
       background: #ffffff !important;
@@ -1109,9 +1109,18 @@
     }
     .pdf-export-mode .score-ring::after {
       background: #f0faf9 !important;
+      border-color: rgba(16, 24, 40, 0.08) !important;
     }
-    .pdf-export-mode .priority span,
-    .pdf-export-mode .insights-badge,
+    .pdf-export-mode .priority span {
+      background: #e6f7f6 !important;
+      border-color: #4fd1c5 !important;
+      color: #0d7377 !important;
+    }
+    .pdf-export-mode .insights-badge {
+      background: #e6f7f6 !important;
+      border-color: #4fd1c5 !important;
+      color: #0d7377 !important;
+    }
     .pdf-export-mode .score-pill {
       background: #e6f7f6 !important;
       border-color: #4fd1c5 !important;
@@ -1134,9 +1143,24 @@
     .pdf-export-mode .ai-badge {
       background: #eef0ff !important;
       border-color: #7c8cff !important;
+      color: #4338ca !important;
     }
     .pdf-export-mode .ai-advisor-header {
       border-color: rgba(16, 24, 40, 0.12) !important;
+    }
+    .pdf-export-mode .ai-card .ai-cross-insight {
+      background: rgba(79, 100, 255, 0.06) !important;
+    }
+    .pdf-export-mode .ai-priority-quadrant {
+      background: #f9fafb !important;
+      border-color: rgba(16, 24, 40, 0.1) !important;
+    }
+    .pdf-export-mode .ai-whatif-table th,
+    .pdf-export-mode .ai-whatif-table td {
+      border-color: rgba(16, 24, 40, 0.1) !important;
+    }
+    .pdf-export-mode .footnote strong {
+      color: #0d7377 !important;
     }
 
     @media (max-width: 1100px) {
@@ -1564,7 +1588,7 @@
             <button class="btn-secondary" type="button" onclick="document.getElementById('insightsSection').scrollIntoView({behavior:'smooth'})">View Insights &#8595;</button>
           </div>
           <p class="footnote">
-            The export uses print-optimised styling. Choose <strong>Save as PDF</strong> in your browser print dialog to create a shareable file.
+            Exports the complete report (Health Report, Insights, and AI Analysis) as a branded PDF with light-theme styling.
           </p>
         </section>
       </aside>
@@ -3313,53 +3337,74 @@
         const risk = computeRiskScore();
         const indices = computeCompositeIndices();
         let summaryHTML = `<strong>Maturity DNA:</strong> ${dna}`;
-        if (risk) summaryHTML += ` · <strong>Risk Score:</strong> ${risk.score}/100 (${risk.level})`;
+        if (risk) summaryHTML += ` &middot; <strong>Risk Score:</strong> ${risk.score}/100 (${risk.level})`;
         if (indices) {
           summaryHTML += '<br>';
           Object.values(indices).forEach(idx => {
-            summaryHTML += `${idx.label}: <strong>${idx.score.toFixed(1)}</strong> · `;
+            summaryHTML += `${idx.label}: <strong>${idx.score.toFixed(1)}</strong> &middot; `;
           });
         }
         if (state.industrySector && industryContext[state.industrySector]) {
           summaryHTML += `<br><strong>Industry:</strong> ${industryContext[state.industrySector].name}`;
         }
         if (state.companySize && companySizeContext[state.companySize]) {
-          summaryHTML += ` · <strong>Size:</strong> ${companySizeContext[state.companySize].name} employees`;
+          summaryHTML += ` &middot; <strong>Size:</strong> ${companySizeContext[state.companySize].name} employees`;
         }
         analyticsSummary.innerHTML = summaryHTML;
       }
 
       // Check if html2pdf is available, otherwise fallback to window.print()
-      if (typeof html2pdf !== 'undefined') {
-        const reportEl = document.getElementById('reportCard');
-        if (!reportEl) { window.print(); return; }
+      if (typeof html2pdf === 'undefined') { window.print(); return; }
 
-        const company = state.companyName.trim() || 'Organisation';
-        const filename = `diShine_Digital_Health_Report_${company.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+      const reportEl = document.getElementById('reportCard');
+      const insightsEl = document.getElementById('insightsSection');
+      const aiEl = document.getElementById('aiAdvisorSection');
+      if (!reportEl) { window.print(); return; }
 
-        const opt = {
-          margin: [10, 10, 15, 10],
-          filename: filename,
-          image: { type: 'jpeg', quality: 0.95 },
-          html2canvas: { scale: 2, useCORS: true, logging: false },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
+      _pdfExporting = true;
 
-        // Temporarily show the report for export
-        _pdfExporting = true;
-        reportEl.classList.add('pdf-exporting');
-        html2pdf().set(opt).from(reportEl).save().then(() => {
-          reportEl.classList.remove('pdf-exporting');
-          _pdfExporting = false;
+      // Create a temporary wrapper with light-theme export styling
+      const wrapper = document.createElement('div');
+      wrapper.className = 'pdf-export-mode';
+      // Insert wrapper into DOM before the report section
+      const parentEl = reportEl.parentNode;
+      parentEl.insertBefore(wrapper, reportEl);
+
+      // Move all export sections into the wrapper (preserves live content & event listeners)
+      wrapper.appendChild(reportEl);
+      if (insightsEl) wrapper.appendChild(insightsEl);
+      if (aiEl) wrapper.appendChild(aiEl);
+
+      const company = state.companyName.trim() || 'Organisation';
+      const filename = `diShine_Digital_Health_Report_${company.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+
+      const opt = {
+        margin: [10, 10, 15, 10],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      function cleanup() {
+        // Move sections back to their original parent (order: report, insights, ai)
+        if (reportEl) parentEl.insertBefore(reportEl, wrapper);
+        if (insightsEl) parentEl.insertBefore(insightsEl, wrapper);
+        if (aiEl) parentEl.insertBefore(aiEl, wrapper);
+        parentEl.removeChild(wrapper);
+        _pdfExporting = false;
+      }
+
+      // Allow one animation frame for the CSS export-mode class to take effect
+      requestAnimationFrame(() => {
+        html2pdf().set(opt).from(wrapper).save().then(() => {
+          cleanup();
         }).catch(() => {
-          reportEl.classList.remove('pdf-exporting');
-          _pdfExporting = false;
+          cleanup();
           window.print();
         });
-      } else {
-        window.print();
-      }
+      });
     }
 
     loadState();
