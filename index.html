@@ -1530,6 +1530,19 @@
             <canvas id="radarChart" width="520" height="520" aria-label="Digital maturity radar chart"></canvas>
           </div>
           <div class="dimension-list" id="dimensionList"></div>
+          <!-- Maturity DNA & Risk Score (v2.1.0) -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+            <div class="summary-card" style="text-align:center;">
+              <span>Maturity DNA</span>
+              <strong id="maturityDNA" style="font-size:0.82rem;letter-spacing:0.04em;font-family:monospace;">—</strong>
+            </div>
+            <div class="summary-card" style="text-align:center;">
+              <span>Risk Score</span>
+              <strong id="riskScoreDisplay" style="font-size:1.1rem;">—</strong>
+            </div>
+          </div>
+          <!-- Composite Indices (v2.1.0) -->
+          <div id="compositeIndices" style="margin-top:14px;"></div>
         </section>
 
         <section class="panel hide-print">
@@ -1646,6 +1659,33 @@
           <h3>90-Day Prioritised Roadmap</h3>
           <div class="insight-roadmap-grid" id="insightRoadmap">
             <p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Composite Indices & Risk (v2.1.0) -->
+      <div class="insights-grid">
+        <div class="insight-card">
+          <h3>Composite Strategic Indices</h3>
+          <div id="insightCompositeIndices">
+            <p class="insight-placeholder">Composite indices will appear once you begin scoring.</p>
+          </div>
+        </div>
+        <div class="insight-card">
+          <h3>Digital Risk Assessment</h3>
+          <div id="insightRiskScore">
+            <p class="insight-placeholder">Risk assessment will appear once you begin scoring.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question-Level Heatmap (v2.1.0) -->
+      <div class="insights-full">
+        <div class="insight-card">
+          <h3>Capability Heatmap</h3>
+          <p style="color:var(--muted);font-size:0.85rem;margin-bottom:12px;">Question-level scoring across all dimensions. Darker = higher maturity.</p>
+          <div id="insightHeatmap">
+            <p class="insight-placeholder">The heatmap will populate as you answer questions.</p>
           </div>
         </div>
       </div>
@@ -1885,7 +1925,14 @@
       aiCrossDimensional: document.getElementById('aiCrossDimensional'),
       aiQuestionGaps: document.getElementById('aiQuestionGaps'),
       aiPriorityMatrix: document.getElementById('aiPriorityMatrix'),
-      aiWhatIf: document.getElementById('aiWhatIf')
+      aiWhatIf: document.getElementById('aiWhatIf'),
+      // v2.1.0 elements
+      maturityDNA: document.getElementById('maturityDNA'),
+      riskScoreDisplay: document.getElementById('riskScoreDisplay'),
+      compositeIndices: document.getElementById('compositeIndices'),
+      insightCompositeIndices: document.getElementById('insightCompositeIndices'),
+      insightRiskScore: document.getElementById('insightRiskScore'),
+      insightHeatmap: document.getElementById('insightHeatmap')
     };
 
     // Short display names for radar chart (prevents label clipping)
@@ -2339,6 +2386,26 @@
         });
       });
 
+      // ── Benchmark overlay polygon (v2.1.0) ─────────────────────────
+      const benchmarkScores = dimensions.map(dim => benchmarkRanges[dim.key]?.mid || 2.8);
+      ctx.beginPath();
+      benchmarkScores.forEach((score, i) => {
+        const r = (score / 5) * radius;
+        const angle = rotation + i * angleStep;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(148, 163, 184, 0.08)';
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 4]);
+      ctx.fill();
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // ── Score polygon ──────────────────────────────────────────────
       const scores = dimensions.map(getDimensionAverage);
       ctx.beginPath();
       scores.forEach((score, i) => {
@@ -2620,6 +2687,30 @@
         }));
     }
 
+    // Industry context data (v2.1.0)
+    const industryContext = {
+      retail: { name: 'Retail & E-commerce', priority: 'experience', context: 'In retail, customer experience and data-driven personalisation are the primary competitive differentiators. Organisations that lag in CX and data capabilities lose share rapidly to digital-native competitors.' },
+      finance: { name: 'Financial Services', priority: 'governance', context: 'Financial services face stringent regulatory requirements making governance and data maturity particularly critical. Compliance gaps create existential risk, while AI offers significant efficiency gains in underwriting, fraud detection, and customer service.' },
+      healthcare: { name: 'Healthcare', priority: 'data', context: 'Healthcare organisations manage sensitive data at scale. Data governance and interoperability are foundational, while AI applications in diagnostics and patient engagement are rapidly becoming standard of care.' },
+      manufacturing: { name: 'Manufacturing', priority: 'ai', context: 'Manufacturing is being transformed by AI-powered predictive maintenance, supply chain optimisation, and quality control. Organisations that lag in automation face escalating operational costs and quality challenges.' },
+      technology: { name: 'Technology & SaaS', priority: 'performance', context: 'Technology companies are expected to lead in digital maturity. Performance measurement and data-driven product development are table stakes, while AI integration and customer experience define market leaders.' },
+      professional: { name: 'Professional Services', priority: 'ai', context: 'Professional services firms are seeing AI transform knowledge work at unprecedented speed. Firms that adopt AI-augmented delivery, data-driven insights, and digital client experiences will capture disproportionate market share.' },
+      media: { name: 'Media & Entertainment', priority: 'experience', context: 'Content-driven businesses depend on understanding audience behaviour and delivering personalised experiences. Data and AI are essential for content recommendation, audience monetisation, and cross-platform engagement.' },
+      public: { name: 'Public Sector', priority: 'governance', context: 'Public sector organisations face unique challenges in governance, compliance, and change management. Digital maturity improvements directly impact citizen service quality and operational efficiency.' },
+      hospitality: { name: 'Hospitality & Travel', priority: 'experience', context: 'Hospitality thrives on customer experience excellence. Data-driven personalisation, dynamic pricing, and seamless omnichannel booking experiences are becoming essential competitive requirements.' },
+      energy: { name: 'Energy & Utilities', priority: 'data', context: 'Energy and utilities organisations manage complex operational data at scale. IoT, predictive analytics, and AI-driven grid management are transforming the sector, making data maturity foundational.' },
+      other: { name: 'Other', priority: null, context: '' }
+    };
+
+    const companySizeContext = {
+      micro: { name: '1–10', context: 'At this size, focus on foundational capabilities and quick wins. Complex governance frameworks are less relevant — prioritise data basics and simple automation.' },
+      small: { name: '11–50', context: 'Small teams benefit most from standardising core processes and adopting practical AI tools. Governance should be lightweight but clear.' },
+      medium: { name: '51–200', context: 'At this scale, cross-team coordination becomes critical. Governance structures, data standards, and measurement discipline are essential for avoiding growing pains.' },
+      large: { name: '201–1,000', context: 'Large organisations need robust governance, unified data infrastructure, and systematic AI adoption to avoid silos and duplicated effort across teams.' },
+      enterprise: { name: '1,001–5,000', context: 'Enterprise organisations face complexity in change management and data unification. Governance maturity and cross-functional integration are typically the biggest bottlenecks.' },
+      corporate: { name: '5,000+', context: 'Corporate-scale organisations require enterprise-grade governance, advanced data architecture, and sophisticated change management. AI and automation at scale are competitive necessities.' }
+    };
+
     // Build a fully dynamic, multi-paragraph narrative based on patterns
     function generateDynamicNarrative(overall, patterns, priorityDims, company) {
       if (overall === 0) return '<p class="insight-placeholder">Complete the assessment to generate a personalised strategic narrative.</p>';
@@ -2651,6 +2742,25 @@
       }
       if (patterns.executionGap) {
         paragraphs.push(`Performance measurement is the weakest link, meaning the organisation cannot prove the value of its other digital investments. Without robust KPIs and testing discipline, budget decisions remain subjective and optimisation opportunities are missed.`);
+      }
+
+      // v2.1.0: Industry context
+      const indCtx = industryContext[state.industrySector];
+      if (indCtx && indCtx.context) {
+        paragraphs.push(`<strong>Industry context (${indCtx.name}):</strong> ${indCtx.context}`);
+      }
+
+      // v2.1.0: Company size context
+      const sizeCtx = companySizeContext[state.companySize];
+      if (sizeCtx && sizeCtx.context) {
+        paragraphs.push(`<strong>Organisation size context (${sizeCtx.name} employees):</strong> ${sizeCtx.context}`);
+      }
+
+      // v2.1.0: Maturity DNA and composite summary
+      const dna = getMaturityDNA();
+      const risk = computeRiskScore();
+      if (risk) {
+        paragraphs.push(`<strong>Maturity fingerprint:</strong> <code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:6px;font-family:monospace;letter-spacing:0.04em;">${dna}</code> · Digital risk score: <strong style="color:${risk.color};">${risk.score}/100 (${risk.level})</strong>.`);
       }
 
       return paragraphs.map(p => `<p>${p}</p>`).join('');
@@ -2881,6 +2991,31 @@
       // ── Update the AI Advisor section ──────────────────────────────
       updateAIAdvisor(completion, overall, priorityDims, patterns, company);
 
+      // ── Update v2.1.0 sidebar analytics ────────────────────────────
+      els.maturityDNA.textContent = overall > 0 ? getMaturityDNA() : '—';
+
+      const risk = computeRiskScore();
+      if (risk) {
+        els.riskScoreDisplay.innerHTML = `<span style="color:${risk.color};">${risk.score}/100</span>`;
+      } else {
+        els.riskScoreDisplay.textContent = '—';
+      }
+
+      const indices = computeCompositeIndices();
+      if (indices) {
+        els.compositeIndices.innerHTML = Object.values(indices).map(idx => {
+          const pct = Math.round((idx.score / 5) * 100);
+          const color = idx.score >= 3.5 ? 'var(--good)' : idx.score >= 2.5 ? 'var(--brand)' : idx.score >= 1.5 ? 'var(--accent)' : 'var(--danger)';
+          return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(148,163,184,0.08);">
+            <span style="font-size:0.82rem;min-width:140px;color:var(--muted);">${idx.label}</span>
+            <div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden;"><div style="height:100%;width:${pct}%;background:${color};border-radius:3px;transition:width 0.3s;"></div></div>
+            <span style="font-size:0.82rem;font-weight:600;color:${color};min-width:28px;text-align:right;">${idx.score.toFixed(1)}</span>
+          </div>`;
+        }).join('');
+      } else {
+        els.compositeIndices.innerHTML = '';
+      }
+
       saveState();
     }
 
@@ -2980,6 +3115,86 @@
         els.insightRoadmap.innerHTML = '<p class="insight-placeholder" style="grid-column:1/-1;">Your personalised roadmap will be generated once you complete the assessment.</p>';
       } else {
         els.insightRoadmap.innerHTML = buildInsightRoadmap(priorityDims);
+      }
+
+      // ── v2.1.0: Composite Indices ──────────────────────────────────
+      const indices = computeCompositeIndices();
+      if (!indices) {
+        els.insightCompositeIndices.innerHTML = '<p class="insight-placeholder">Composite indices will appear once you begin scoring.</p>';
+      } else {
+        els.insightCompositeIndices.innerHTML = Object.values(indices).map(idx => {
+          const pctBar = Math.round((idx.score / 5) * 100);
+          const color = idx.score >= 3.5 ? 'var(--good)' : idx.score >= 2.5 ? 'var(--brand)' : idx.score >= 1.5 ? 'var(--accent)' : 'var(--danger)';
+          return `<div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <strong style="font-size:0.88rem;">${idx.label}</strong>
+              <span style="font-size:0.88rem;font-weight:600;color:${color};">${idx.score.toFixed(1)} / 5</span>
+            </div>
+            <div style="height:8px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden;">
+              <div style="height:100%;width:${pctBar}%;background:${color};border-radius:4px;transition:width 0.3s;"></div>
+            </div>
+            <p style="color:var(--muted);font-size:0.82rem;margin:4px 0 0;">${idx.desc}</p>
+          </div>`;
+        }).join('');
+      }
+
+      // ── v2.1.0: Risk Score ─────────────────────────────────────────
+      const risk = computeRiskScore();
+      if (!risk) {
+        els.insightRiskScore.innerHTML = '<p class="insight-placeholder">Risk assessment will appear once you begin scoring.</p>';
+      } else {
+        const riskAngle = (risk.score / 100) * 180;
+        els.insightRiskScore.innerHTML = `
+          <div style="text-align:center;margin-bottom:16px;">
+            <div style="font-size:2.4rem;font-weight:800;color:${risk.color};">${risk.score}<span style="font-size:1rem;color:var(--muted);">/100</span></div>
+            <div style="font-size:0.92rem;font-weight:600;color:${risk.color};">${risk.level} Risk</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Lowest Dim.</div>
+              <div style="font-weight:600;color:var(--danger);">${risk.factors.minRisk}pts</div>
+            </div>
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Variance</div>
+              <div style="font-weight:600;color:#fb923c;">${risk.factors.varianceRisk}pts</div>
+            </div>
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Governance</div>
+              <div style="font-weight:600;color:var(--accent);">${risk.factors.govRisk}pts</div>
+            </div>
+            <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.04);text-align:center;">
+              <div style="font-size:0.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;">Data</div>
+              <div style="font-weight:600;color:var(--brand);">${risk.factors.dataRisk}pts</div>
+            </div>
+          </div>
+          <p style="color:var(--muted);font-size:0.82rem;margin-top:10px;">Risk factors: lowest dimension score (40%), score variance (25%), governance gaps (20%), data gaps (15%).</p>`;
+      }
+
+      // ── v2.1.0: Capability Heatmap ─────────────────────────────────
+      const hasAnyAnswers = dimensions.some(dim => dim.questions.some(([id]) => Number(state.answers[id] || 0) > 0));
+      if (!hasAnyAnswers) {
+        els.insightHeatmap.innerHTML = '<p class="insight-placeholder">The heatmap will populate as you answer questions.</p>';
+      } else {
+        const heatmapColors = ['rgba(148,163,184,0.15)', 'rgba(251,113,133,0.7)', 'rgba(251,146,60,0.7)', 'rgba(250,204,21,0.7)', 'rgba(79,209,197,0.7)', 'rgba(74,222,128,0.8)'];
+        let heatmapHTML = '<div style="display:grid;grid-template-columns:140px repeat(6, 1fr);gap:3px;font-size:0.78rem;">';
+        heatmapHTML += '<div style="font-weight:600;color:var(--muted);padding:4px;">Dimension</div>';
+        for (let q = 1; q <= 6; q++) heatmapHTML += `<div style="text-align:center;font-weight:600;color:var(--muted);padding:4px;">Q${q}</div>`;
+        dimensions.forEach(dim => {
+          heatmapHTML += `<div style="padding:6px 4px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${dim.name}">${dim.name}</div>`;
+          dim.questions.forEach(([id]) => {
+            const score = Number(state.answers[id] || 0);
+            const bg = heatmapColors[score];
+            const label = score > 0 ? score : '—';
+            heatmapHTML += `<div style="background:${bg};text-align:center;padding:6px 4px;border-radius:6px;font-weight:600;color:${score > 0 ? '#fff' : 'var(--muted)'};">${label}</div>`;
+          });
+        });
+        heatmapHTML += '</div>';
+        heatmapHTML += '<div style="display:flex;gap:12px;margin-top:10px;justify-content:center;">';
+        ['Not answered', '1 — Critical', '2 — Weak', '3 — Developing', '4 — Advancing', '5 — Strong'].forEach((lbl, i) => {
+          heatmapHTML += `<div style="display:flex;align-items:center;gap:4px;font-size:0.74rem;color:var(--muted);"><span style="width:12px;height:12px;border-radius:3px;background:${heatmapColors[i]};"></span>${lbl}</div>`;
+        });
+        heatmapHTML += '</div>';
+        els.insightHeatmap.innerHTML = heatmapHTML;
       }
     }
 
