@@ -1069,6 +1069,75 @@
     .hide-print { display: block; }
     .show-print { display: none; }
 
+    /* ── Report Download Section ────────────────────────────────── */
+    .report-download-section {
+      margin-top: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 32px;
+      text-align: center;
+    }
+    .download-header h2 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+    }
+    .download-header p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: 0 0 24px;
+    }
+    .download-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      text-align: left;
+      min-width: 220px;
+    }
+    .btn-download:hover {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px rgba(13, 115, 119, 0.12);
+    }
+    .btn-download:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-download strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+    .btn-download small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 2px;
+    }
+    .download-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .btn-download-pdf:hover { border-color: #e11d48; box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.12); }
+    .btn-download-md:hover { border-color: #4f64ff; box-shadow: 0 0 0 2px rgba(79, 100, 255, 0.12); }
+    .btn-download-txt:hover { border-color: #059669; box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.12); }
+    .download-footnote {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin: 18px 0 0;
+    }
+
     /* ── PDF export light-theme overrides (v2.1.1) ─────────────── */
     .pdf-export-mode {
       --bg: #ffffff;
@@ -1521,7 +1590,7 @@
       .show-print { display: block; }
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
   <main class="app">
@@ -1696,16 +1765,12 @@
           <div class="section-title">
             <div>
               <h2>Report actions</h2>
-              <p>Use the one-page report in workshops, discovery calls, and client handovers.</p>
+              <p>Explore insights and download the full report below.</p>
             </div>
           </div>
           <div class="controls">
-            <button class="btn-primary" id="printBtn" type="button">Export Digital Health Report</button>
             <button class="btn-secondary" type="button" onclick="document.getElementById('insightsSection').scrollIntoView({behavior:'smooth'})">View Insights &#8595;</button>
           </div>
-          <p class="footnote">
-            Exports the complete report (Health Report, Insights, and AI Analysis) as a branded PDF with light-theme styling.
-          </p>
         </section>
       </aside>
     </div>
@@ -1895,6 +1960,38 @@
         </div>
       </div>
     </section>
+
+    <!-- ── Report Download Section ───────────────────────────────────── -->
+    <section class="report-download-section hide-print" id="reportDownloadSection">
+      <div class="download-header">
+        <h2>&#128195; Download Your Report</h2>
+        <p>Export your complete Digital Health Report, Dynamic Assessment Insights, and AI-Powered Strategic Analysis in your preferred format.</p>
+      </div>
+      <div class="download-buttons">
+        <button class="btn-download btn-download-pdf" id="downloadPdfBtn" type="button">
+          <span class="download-icon">&#128196;</span>
+          <span>
+            <strong>Download PDF</strong>
+            <small>Formatted report for print &amp; sharing</small>
+          </span>
+        </button>
+        <button class="btn-download btn-download-md" id="downloadMdBtn" type="button">
+          <span class="download-icon">&#128221;</span>
+          <span>
+            <strong>Download Markdown</strong>
+            <small>.md file for docs, wikis &amp; repos</small>
+          </span>
+        </button>
+        <button class="btn-download btn-download-txt" id="downloadTxtBtn" type="button">
+          <span class="download-icon">&#128462;</span>
+          <span>
+            <strong>Download Text</strong>
+            <small>Plain text for emails &amp; notes</small>
+          </span>
+        </button>
+      </div>
+      <p class="download-footnote">All exports include the full assessment — Health Report, Dynamic Insights, and AI Analysis. No data leaves your browser.</p>
+    </section>
   </main>
 
   <script>
@@ -2069,7 +2166,9 @@
       reportStrategicSummary: document.getElementById('reportStrategicSummary'),
       roadmapGrid: document.getElementById('roadmapGrid'),
       resetBtn: document.getElementById('resetBtn'),
-      printBtn: document.getElementById('printBtn'),
+      downloadPdfBtn: document.getElementById('downloadPdfBtn'),
+      downloadMdBtn: document.getElementById('downloadMdBtn'),
+      downloadTxtBtn: document.getElementById('downloadTxtBtn'),
       insightsSubtitle: document.getElementById('insightsSubtitle'),
       insightOverview: document.getElementById('insightOverview'),
       insightFindings: document.getElementById('insightFindings'),
@@ -3454,120 +3553,685 @@
         refresh();
       });
 
-      els.printBtn.addEventListener('click', () => exportToPDF());
+      els.downloadPdfBtn.addEventListener('click', () => exportToPDF());
+      els.downloadMdBtn.addEventListener('click', () => exportToMarkdown());
+      els.downloadTxtBtn.addEventListener('click', () => exportToText());
     }
 
-    let _pdfExporting = false; // Prevent concurrent exports
+    /* ── Report data extraction (used by all export formats) ────── */
+    function getReportData() {
+      const company = state.companyName.trim() || 'Organisation';
+      const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      const completion = getCompletion();
+      const overall = getOverallAverage();
+      const [stageName, stageDesc] = overall > 0 ? getStage(overall) : ['Not assessed', ''];
+      const priorityDims = getPriorityDimensions();
+      const dna = getMaturityDNA();
+      const risk = computeRiskScore();
+      const indices = computeCompositeIndices();
+      const patterns = analyzePatterns(priorityDims, overall);
+
+      // Dimension scores
+      const dimScores = dimensions.map(dim => {
+        const avg = getDimensionAverage(dim);
+        const tier = getInsightTier(avg);
+        const tierLabel = getTierLabel(tier);
+        const stage = getDimensionStage(avg);
+        const confidence = getDimensionConfidence(dim);
+        const answered = getDimensionAnsweredCount(dim);
+        return { key: dim.key, name: dim.name, avg, tier, tierLabel, stageLabel: stage.label, confidence: confidence.label, answered, total: dim.questions.length };
+      });
+
+      // Findings (plain text)
+      const strongest = [...priorityDims].sort((a, b) => b.avg - a.avg)[0];
+      const weakest = priorityDims[0];
+      const findings = [];
+      if (strongest && strongest.avg > 0) {
+        const tier = getInsightTier(strongest.avg);
+        const model = insightModels[strongest.key] || {};
+        const text = model[tier] || '';
+        findings.push({ title: `Core Advantage — ${strongest.name} (${strongest.avg.toFixed(1)}/5)`, text: stripHTML(text) });
+      }
+      if (weakest && weakest.avg > 0 && weakest.key !== strongest.key) {
+        const tier = getInsightTier(weakest.avg);
+        const model = insightModels[weakest.key] || {};
+        const text = model[tier] || '';
+        findings.push({ title: `Critical Constraint — ${weakest.name} (${weakest.avg.toFixed(1)}/5)`, text: stripHTML(text) });
+      }
+
+      // Services
+      const services = [];
+      const weakDims = priorityDims.slice(0, 2);
+      weakDims.forEach(dim => services.push(...dim.services.slice(0, 2)));
+      if (priorityDims.length > 2) services.push(priorityDims[2].services[0]);
+
+      // Roadmap
+      const roadmapLabels = [
+        { period: 'Days 1–30', theme: 'Stabilise the basics', key: 'quick' },
+        { period: 'Days 31–60', theme: 'Build the operating layer', key: 'next' },
+        { period: 'Days 61–90', theme: 'Scale what works', key: 'later' }
+      ];
+      const roadmap = roadmapLabels.map((meta, i) => {
+        const dim = priorityDims[i] || dimensions[i];
+        return { period: meta.period, theme: meta.theme, dimension: dim.name, text: dim.roadmap[meta.key] };
+      });
+
+      // Narrative (plain text)
+      const narrative = stripHTML(generateDynamicNarrative(overall, patterns, priorityDims, company));
+
+      // AI analysis
+      const scored = priorityDims.filter(d => d.avg > 0);
+      const patternList = [];
+      const patternLabels = {
+        allLow: 'All Low — foundational investment needed',
+        allMid: 'All Moderate — plateau risk',
+        allHigh: 'All Strong — optimise and innovate',
+        uniform: 'Uniform Scores — balanced but no standout',
+        polarized: 'Polarized — ceiling effect likely',
+        dataAiGap: 'Data-AI Gap — data too low for AI',
+        governanceBottleneck: 'Governance Bottleneck',
+        executionGap: 'Execution Gap — can\'t prove value',
+        experienceDisconnect: 'Experience Disconnect',
+        aiExperienceGap: 'AI-Experience Gap',
+        performanceAiGap: 'AI Without Measurement',
+        dataGovernanceGap: 'Ungoverned Data',
+        foundationFirst: 'Foundation First — ready for innovation',
+        innovationFirst: 'Innovation First — fragility risk',
+        measurementLast: 'Measurement Last'
+      };
+      Object.entries(patternLabels).forEach(([key, label]) => {
+        if (patterns[key]) patternList.push(label);
+      });
+      if (patternList.length === 0 && scored.length > 0) patternList.push('Mixed Profile — combination of strengths and gaps');
+
+      // Cross-dimensional insights
+      const crossInsights = scored.length >= 2 ? generateCrossDimensionalInsights(priorityDims, patterns) : [];
+
+      // Question-level gaps
+      const questionGaps = scored.flatMap(d => analyzeQuestionGaps(d));
+
+      // Industry and size context
+      const indCtx = industryContext[state.industrySector];
+      const sizeCtx = companySizeContext[state.companySize];
+
+      return {
+        company, date, completion, overall, stageName, stageDesc, dimScores, findings,
+        services, roadmap, narrative, dna, risk, indices, patternList, crossInsights,
+        questionGaps, industry: indCtx, companySize: sizeCtx, goal: state.primaryGoal
+      };
+    }
+
+    function stripHTML(html) {
+      if (!html) return '';
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    }
+
+    function sanitizeFilename(name) {
+      return name.replace(/[^a-zA-Z0-9]/g, '_');
+    }
+
+    function downloadBlob(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    /* ── PDF Export (jsPDF) ─────────────────────────────────────── */
+    let _exporting = false;
 
     function exportToPDF() {
-      if (_pdfExporting) return; // Guard against double-clicks
+      if (_exporting) return;
 
-      // Validate completeness
       const completion = getCompletion();
       if (completion.pct < 100) {
         if (!confirm(`Assessment is ${completion.pct}% complete (${completion.answered}/${completion.total} questions). The report will be more accurate with all questions answered.\n\nProceed with export anyway?`)) return;
       }
 
-      // Prepare radar chart as image for PDF
-      const canvas = els.radarChart;
-      if (canvas) {
-        const radarDataURL = canvas.toDataURL('image/png');
-        const radarImg = document.getElementById('reportRadarImage');
-        if (radarImg) radarImg.src = radarDataURL;
+      // Check jsPDF availability
+      const JsPDF = (typeof jspdf !== 'undefined' && jspdf.jsPDF) ? jspdf.jsPDF : (typeof jsPDF !== 'undefined' ? jsPDF : null);
+      if (!JsPDF) {
+        alert('PDF library failed to load. Please check your internet connection and try again, or use the Markdown or Text download instead.');
+        return;
       }
 
-      // Prepare analytics summary for PDF
-      const analyticsSummary = document.getElementById('reportAnalyticsSummary');
-      if (analyticsSummary) {
-        const dna = getMaturityDNA();
-        const risk = computeRiskScore();
-        const indices = computeCompositeIndices();
-        let summaryHTML = `<strong>Maturity DNA:</strong> ${dna}`;
-        if (risk) summaryHTML += ` &middot; <strong>Risk Score:</strong> ${risk.score}/100 (${risk.level})`;
-        if (indices) {
-          summaryHTML += '<br>';
-          Object.values(indices).forEach(idx => {
-            summaryHTML += `${idx.label}: <strong>${idx.score.toFixed(1)}</strong> &middot; `;
+      _exporting = true;
+      els.downloadPdfBtn.disabled = true;
+
+      try {
+        const data = getReportData();
+        const doc = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageW = 210;
+        const pageH = 297;
+        const marginL = 18;
+        const marginR = 18;
+        const contentW = pageW - marginL - marginR;
+        let y = 20;
+
+        function checkPage(needed) {
+          if (y + needed > pageH - 20) {
+            doc.addPage();
+            y = 20;
+          }
+        }
+
+        function addFooter(pageNum) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7.5);
+          doc.setTextColor(140, 140, 140);
+          doc.text(`Prepared by diShine \u00B7 dishine.it \u00B7 Confidential`, marginL, pageH - 10);
+          doc.text(`Page ${pageNum}`, pageW - marginR, pageH - 10, { align: 'right' });
+        }
+
+        function sectionTitle(text) {
+          checkPage(16);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(14);
+          doc.setTextColor(13, 115, 119);
+          doc.text(text, marginL, y);
+          y += 4;
+          doc.setDrawColor(13, 115, 119);
+          doc.setLineWidth(0.5);
+          doc.line(marginL, y, marginL + contentW, y);
+          y += 8;
+        }
+
+        function subHeading(text) {
+          checkPage(12);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(10.5);
+          doc.setTextColor(13, 115, 119);
+          doc.text(text, marginL, y);
+          y += 6;
+        }
+
+        function bodyText(text, indent) {
+          const x = marginL + (indent || 0);
+          const w = contentW - (indent || 0);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9);
+          doc.setTextColor(50, 50, 50);
+          const lines = doc.splitTextToSize(text, w);
+          lines.forEach(line => {
+            checkPage(5);
+            doc.text(line, x, y);
+            y += 4.2;
+          });
+          y += 2;
+        }
+
+        // ─── PAGE 1: Cover & Summary ──────────────────────
+        // Header bar
+        doc.setFillColor(13, 115, 119);
+        doc.rect(0, 0, pageW, 38, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(18);
+        doc.setTextColor(255, 255, 255);
+        doc.text('Digital Health Report', marginL, 18);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.text(`Prepared for ${data.company}`, marginL, 26);
+        doc.setFontSize(8);
+        doc.text(data.date, marginL, 32);
+        doc.text('diShine Digital Strategy Diagnostic', pageW - marginR, 32, { align: 'right' });
+        y = 48;
+
+        // Overall score box
+        doc.setFillColor(240, 250, 249);
+        doc.setDrawColor(13, 115, 119);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(marginL, y, contentW, 28, 3, 3, 'FD');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(28);
+        doc.setTextColor(13, 115, 119);
+        doc.text(data.overall.toFixed(1), marginL + 12, y + 18);
+        doc.setFontSize(12);
+        doc.setTextColor(80, 80, 80);
+        doc.text('/ 5', marginL + 32, y + 18);
+        doc.setFontSize(11);
+        doc.setTextColor(13, 115, 119);
+        doc.text(data.stageName, marginL + 52, y + 12);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(80, 80, 80);
+        const stageLines = doc.splitTextToSize(data.stageDesc, contentW - 60);
+        doc.text(stageLines.slice(0, 2), marginL + 52, y + 18);
+        y += 36;
+
+        // Completion & analytics
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(100, 100, 100);
+        let metaLine = `Completion: ${data.completion.pct}% (${data.completion.answered}/${data.completion.total})`;
+        metaLine += `  \u00B7  Maturity DNA: ${data.dna}`;
+        if (data.risk) metaLine += `  \u00B7  Risk: ${data.risk.score}/100 (${data.risk.level})`;
+        doc.text(metaLine, marginL, y);
+        y += 4;
+        if (data.industry && data.industry.name && data.industry.name !== 'Other') {
+          let ctxLine = `Industry: ${data.industry.name}`;
+          if (data.companySize) ctxLine += `  \u00B7  Size: ${data.companySize.name} employees`;
+          doc.text(ctxLine, marginL, y);
+          y += 4;
+        }
+        y += 4;
+
+        // Dimension scores table
+        sectionTitle('Dimension Scores');
+        doc.setFillColor(240, 250, 249);
+        doc.rect(marginL, y, contentW, 7, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.setTextColor(13, 115, 119);
+        doc.text('Dimension', marginL + 2, y + 5);
+        doc.text('Score', marginL + 78, y + 5);
+        doc.text('Stage', marginL + 98, y + 5);
+        doc.text('Confidence', marginL + 130, y + 5);
+        doc.text('Answered', marginL + 158, y + 5);
+        y += 9;
+
+        data.dimScores.forEach(dim => {
+          checkPage(7);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(8.5);
+          doc.setTextColor(50, 50, 50);
+          doc.text(dim.name, marginL + 2, y + 4);
+          doc.setFont('helvetica', 'bold');
+          doc.text(dim.avg > 0 ? dim.avg.toFixed(1) : '-', marginL + 78, y + 4);
+          doc.setFont('helvetica', 'normal');
+          doc.text(dim.stageLabel, marginL + 98, y + 4);
+          doc.text(dim.confidence, marginL + 130, y + 4);
+          doc.text(`${dim.answered}/${dim.total}`, marginL + 158, y + 4);
+          // Score bar
+          const barW = 30;
+          const barH = 3;
+          const barX = marginL + 78;
+          const barY = y + 5.5;
+          doc.setFillColor(230, 230, 230);
+          doc.rect(barX, barY, barW, barH, 'F');
+          if (dim.avg > 0) {
+            const fillW = (dim.avg / 5) * barW;
+            const colors = { 'Optimised': [5, 150, 105], 'Integrated': [13, 115, 119], 'Developing': [184, 116, 0], 'Emerging': [251, 146, 60], 'Critical': [225, 29, 72] };
+            const c = colors[dim.stageLabel] || [100, 100, 100];
+            doc.setFillColor(c[0], c[1], c[2]);
+            doc.rect(barX, barY, fillW, barH, 'F');
+          }
+          y += 11;
+        });
+        y += 4;
+
+        // Composite Indices
+        if (data.indices) {
+          sectionTitle('Composite Strategic Indices');
+          Object.values(data.indices).forEach(idx => {
+            checkPage(8);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8.5);
+            doc.setTextColor(79, 100, 255);
+            doc.text(`${idx.label}: ${idx.score.toFixed(1)}/5`, marginL + 2, y);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7.5);
+            doc.setTextColor(100, 100, 100);
+            doc.text(idx.desc, marginL + 2, y + 4);
+            y += 10;
+          });
+          y += 2;
+        }
+
+        // Key Findings
+        if (data.findings.length > 0) {
+          sectionTitle('Key Findings');
+          data.findings.forEach(f => {
+            subHeading(f.title);
+            bodyText(f.text);
           });
         }
-        if (state.industrySector && industryContext[state.industrySector]) {
-          summaryHTML += `<br><strong>Industry:</strong> ${industryContext[state.industrySector].name}`;
+
+        // Services
+        if (data.services.length > 0) {
+          sectionTitle('Recommended Services');
+          data.services.forEach(s => {
+            checkPage(5);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(50, 50, 50);
+            doc.text(`\u2022  ${s}`, marginL + 2, y);
+            y += 5;
+          });
+          y += 4;
         }
-        if (state.companySize && companySizeContext[state.companySize]) {
-          summaryHTML += ` &middot; <strong>Size:</strong> ${companySizeContext[state.companySize].name} employees`;
-        }
-        analyticsSummary.innerHTML = summaryHTML;
-      }
 
-      // Check if html2pdf is available, otherwise fallback to window.print()
-      if (typeof html2pdf === 'undefined') { window.print(); return; }
-
-      const reportEl = document.getElementById('reportCard');
-      const insightsEl = document.getElementById('insightsSection');
-      const aiEl = document.getElementById('aiAdvisorSection');
-      if (!reportEl) { window.print(); return; }
-
-      _pdfExporting = true;
-
-      // Create a temporary wrapper with light-theme export styling
-      const wrapper = document.createElement('div');
-      wrapper.className = 'pdf-export-mode';
-      wrapper.style.cssText = 'background:#ffffff;color:#101828;width:100%;padding:0;';
-      // Insert wrapper into DOM before the report section
-      const parentEl = reportEl.parentNode;
-      parentEl.insertBefore(wrapper, reportEl);
-
-      // Move all export sections into the wrapper (preserves live content & event listeners)
-      wrapper.appendChild(reportEl);
-      if (insightsEl) wrapper.appendChild(insightsEl);
-      if (aiEl) wrapper.appendChild(aiEl);
-
-      const company = state.companyName.trim() || 'Organisation';
-      const filename = `diShine_Digital_Health_Report_${company.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
-
-      const opt = {
-        margin: [10, 10, 15, 10],
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.92 },
-        html2canvas: {
-          scale: 1.5,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff',
-          windowWidth: 1200
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['.report-card', '.insight-card', '.priority', '.ai-card', '.ai-cross-insight'] }
-      };
-
-      function cleanup() {
-        // Move sections back to their original parent (order: report, insights, ai)
-        try {
-          if (reportEl && wrapper.parentNode) parentEl.insertBefore(reportEl, wrapper);
-          if (insightsEl && wrapper.parentNode) parentEl.insertBefore(insightsEl, wrapper);
-          if (aiEl && wrapper.parentNode) parentEl.insertBefore(aiEl, wrapper);
-          if (wrapper.parentNode) parentEl.removeChild(wrapper);
-        } catch (e) {
-          console.warn('PDF export cleanup error:', e);
-        } finally {
-          _pdfExporting = false;
-        }
-      }
-
-      // Give the browser time to apply CSS and reflow the wrapper
-      setTimeout(() => {
-        // Timeout guard: if html2pdf hangs, unlock after 45s
-        const exportTimeout = setTimeout(() => { cleanup(); }, 45000);
-        html2pdf().set(opt).from(wrapper).save().then(() => {
-          clearTimeout(exportTimeout);
-          cleanup();
-        }).catch((err) => {
-          console.warn('PDF export error:', err);
-          clearTimeout(exportTimeout);
-          cleanup();
-          window.print();
+        // 90-day Roadmap
+        sectionTitle('90-Day Improvement Roadmap');
+        data.roadmap.forEach(r => {
+          subHeading(`${r.period}: ${r.theme} \u2014 ${r.dimension}`);
+          bodyText(r.text);
         });
-      }, 200);
+
+        // Dynamic Narrative
+        if (data.narrative) {
+          sectionTitle('Strategic Narrative');
+          bodyText(data.narrative);
+        }
+
+        // Detected Patterns
+        if (data.patternList.length > 0) {
+          sectionTitle('Detected Score Patterns');
+          data.patternList.forEach(p => {
+            checkPage(5);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(50, 50, 50);
+            doc.text(`\u2022  ${p}`, marginL + 2, y);
+            y += 5;
+          });
+          y += 4;
+        }
+
+        // Cross-Dimensional Insights
+        if (data.crossInsights.length > 0) {
+          sectionTitle('Cross-Dimensional Intelligence');
+          data.crossInsights.forEach(ci => {
+            subHeading(`[${ci.severity.toUpperCase()}] ${ci.title}`);
+            bodyText(stripHTML(ci.text));
+          });
+        }
+
+        // Question-Level Gaps
+        if (data.questionGaps.length > 0) {
+          sectionTitle('Question-Level Gap Analysis');
+          const grouped = {};
+          data.questionGaps.forEach(g => {
+            if (!grouped[g.dimName]) grouped[g.dimName] = [];
+            grouped[g.dimName].push(g);
+          });
+          Object.entries(grouped).forEach(([dim, gaps]) => {
+            subHeading(dim);
+            gaps.forEach(g => {
+              checkPage(5);
+              doc.setFont('helvetica', 'normal');
+              doc.setFontSize(8.5);
+              doc.setTextColor(50, 50, 50);
+              doc.text(`\u2022  ${g.title} \u2014 Score: ${g.score}/5`, marginL + 4, y);
+              y += 5;
+            });
+            y += 2;
+          });
+        }
+
+        // Add footer to all pages
+        const totalPages = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          addFooter(i);
+        }
+
+        const filename = `diShine_Digital_Health_Report_${sanitizeFilename(data.company)}_${new Date().toISOString().slice(0, 10)}.pdf`;
+        doc.save(filename);
+      } catch (err) {
+        console.error('PDF export error:', err);
+        alert('PDF export failed: ' + err.message + '\n\nTry the Markdown or Text download instead.');
+      } finally {
+        _exporting = false;
+        els.downloadPdfBtn.disabled = false;
+      }
+    }
+
+    /* ── Markdown Export ────────────────────────────────────────── */
+    function exportToMarkdown() {
+      const data = getReportData();
+      const lines = [];
+
+      lines.push(`# Digital Health Report — ${data.company}`);
+      lines.push(`**Date:** ${data.date}  `);
+      lines.push(`**Assessment model:** 5-dimension digital maturity scorecard  `);
+      lines.push(`**Completion:** ${data.completion.pct}% (${data.completion.answered}/${data.completion.total} questions)  `);
+      if (data.industry && data.industry.name !== 'Other') lines.push(`**Industry:** ${data.industry.name}  `);
+      if (data.companySize) lines.push(`**Organisation size:** ${data.companySize.name} employees  `);
+      lines.push('');
+
+      lines.push('---');
+      lines.push('');
+      lines.push('## Overall Maturity');
+      lines.push(`**Score:** ${data.overall.toFixed(1)} / 5  `);
+      lines.push(`**Stage:** ${data.stageName}  `);
+      lines.push(`**Maturity DNA:** \`${data.dna}\`  `);
+      if (data.risk) lines.push(`**Digital Risk Score:** ${data.risk.score}/100 (${data.risk.level})  `);
+      lines.push('');
+      if (data.stageDesc) { lines.push(`> ${data.stageDesc}`); lines.push(''); }
+
+      lines.push('## Dimension Scores');
+      lines.push('');
+      lines.push('| Dimension | Score | Stage | Confidence | Answered |');
+      lines.push('| --- | --- | --- | --- | --- |');
+      data.dimScores.forEach(d => {
+        lines.push(`| ${d.name} | ${d.avg > 0 ? d.avg.toFixed(1) : '-'} / 5 | ${d.stageLabel} | ${d.confidence} | ${d.answered}/${d.total} |`);
+      });
+      lines.push('');
+
+      if (data.indices) {
+        lines.push('## Composite Strategic Indices');
+        lines.push('');
+        Object.values(data.indices).forEach(idx => {
+          lines.push(`- **${idx.label}:** ${idx.score.toFixed(1)} / 5 — ${idx.desc}`);
+        });
+        lines.push('');
+      }
+
+      if (data.findings.length > 0) {
+        lines.push('## Key Findings');
+        lines.push('');
+        data.findings.forEach(f => {
+          lines.push(`### ${f.title}`);
+          lines.push(f.text);
+          lines.push('');
+        });
+      }
+
+      if (data.services.length > 0) {
+        lines.push('## Recommended Services');
+        lines.push('');
+        data.services.forEach(s => lines.push(`- ${s}`));
+        lines.push('');
+      }
+
+      lines.push('## 90-Day Improvement Roadmap');
+      lines.push('');
+      data.roadmap.forEach(r => {
+        lines.push(`### ${r.period}: ${r.theme} — ${r.dimension}`);
+        lines.push(r.text);
+        lines.push('');
+      });
+
+      if (data.narrative) {
+        lines.push('## Strategic Narrative');
+        lines.push('');
+        lines.push(data.narrative);
+        lines.push('');
+      }
+
+      if (data.patternList.length > 0) {
+        lines.push('## Detected Score Patterns');
+        lines.push('');
+        data.patternList.forEach(p => lines.push(`- ${p}`));
+        lines.push('');
+      }
+
+      if (data.crossInsights.length > 0) {
+        lines.push('## Cross-Dimensional Intelligence');
+        lines.push('');
+        data.crossInsights.forEach(ci => {
+          lines.push(`### [${ci.severity.toUpperCase()}] ${ci.title}`);
+          lines.push(stripHTML(ci.text));
+          lines.push('');
+        });
+      }
+
+      if (data.questionGaps.length > 0) {
+        lines.push('## Question-Level Gap Analysis');
+        lines.push('');
+        const grouped = {};
+        data.questionGaps.forEach(g => {
+          if (!grouped[g.dimName]) grouped[g.dimName] = [];
+          grouped[g.dimName].push(g);
+        });
+        Object.entries(grouped).forEach(([dim, gaps]) => {
+          lines.push(`### ${dim}`);
+          gaps.forEach(g => lines.push(`- ${g.title} — Score: ${g.score}/5`));
+          lines.push('');
+        });
+      }
+
+      lines.push('---');
+      lines.push('*Prepared by [diShine](https://dishine.it) · Confidential*');
+
+      const content = lines.join('\n');
+      const filename = `diShine_Digital_Health_Report_${sanitizeFilename(data.company)}_${new Date().toISOString().slice(0, 10)}.md`;
+      downloadBlob(content, filename, 'text/markdown;charset=utf-8');
+    }
+
+    /* ── Plain Text Export ──────────────────────────────────────── */
+    function exportToText() {
+      const data = getReportData();
+      const w = 72;
+      const sep = '='.repeat(w);
+      const sep2 = '-'.repeat(w);
+      const lines = [];
+
+      function wrap(text, indent) {
+        indent = indent || 0;
+        const prefix = ' '.repeat(indent);
+        const maxLen = w - indent;
+        const words = text.split(/\s+/);
+        let line = prefix;
+        const result = [];
+        words.forEach(word => {
+          if (line.length + word.length + 1 > w) {
+            result.push(line);
+            line = prefix + word;
+          } else {
+            line += (line.trim().length > 0 ? ' ' : '') + word;
+          }
+        });
+        if (line.trim()) result.push(line);
+        return result;
+      }
+
+      lines.push(sep);
+      lines.push(`  DIGITAL HEALTH REPORT`);
+      lines.push(`  Prepared for: ${data.company}`);
+      lines.push(`  Date: ${data.date}`);
+      lines.push(`  Assessment: 5-dimension digital maturity scorecard`);
+      lines.push(`  Completion: ${data.completion.pct}% (${data.completion.answered}/${data.completion.total})`);
+      if (data.industry && data.industry.name !== 'Other') lines.push(`  Industry: ${data.industry.name}`);
+      if (data.companySize) lines.push(`  Organisation size: ${data.companySize.name} employees`);
+      lines.push(sep);
+      lines.push('');
+
+      lines.push('OVERALL MATURITY');
+      lines.push(sep2);
+      lines.push(`  Score:        ${data.overall.toFixed(1)} / 5`);
+      lines.push(`  Stage:        ${data.stageName}`);
+      lines.push(`  Maturity DNA: ${data.dna}`);
+      if (data.risk) lines.push(`  Risk Score:   ${data.risk.score}/100 (${data.risk.level})`);
+      lines.push('');
+      if (data.stageDesc) { wrap(data.stageDesc, 2).forEach(l => lines.push(l)); lines.push(''); }
+
+      lines.push('DIMENSION SCORES');
+      lines.push(sep2);
+      data.dimScores.forEach(d => {
+        const score = d.avg > 0 ? d.avg.toFixed(1) : '  -';
+        lines.push(`  ${d.name.padEnd(28)} ${score} / 5   ${d.stageLabel.padEnd(14)} ${d.confidence.padEnd(8)} ${d.answered}/${d.total}`);
+      });
+      lines.push('');
+
+      if (data.indices) {
+        lines.push('COMPOSITE STRATEGIC INDICES');
+        lines.push(sep2);
+        Object.values(data.indices).forEach(idx => {
+          lines.push(`  ${idx.label}: ${idx.score.toFixed(1)} / 5`);
+          wrap(idx.desc, 4).forEach(l => lines.push(l));
+        });
+        lines.push('');
+      }
+
+      if (data.findings.length > 0) {
+        lines.push('KEY FINDINGS');
+        lines.push(sep2);
+        data.findings.forEach(f => {
+          lines.push(`  ${f.title}`);
+          wrap(f.text, 4).forEach(l => lines.push(l));
+          lines.push('');
+        });
+      }
+
+      if (data.services.length > 0) {
+        lines.push('RECOMMENDED SERVICES');
+        lines.push(sep2);
+        data.services.forEach(s => lines.push(`  - ${s}`));
+        lines.push('');
+      }
+
+      lines.push('90-DAY IMPROVEMENT ROADMAP');
+      lines.push(sep2);
+      data.roadmap.forEach(r => {
+        lines.push(`  ${r.period}: ${r.theme} -- ${r.dimension}`);
+        wrap(r.text, 4).forEach(l => lines.push(l));
+        lines.push('');
+      });
+
+      if (data.narrative) {
+        lines.push('STRATEGIC NARRATIVE');
+        lines.push(sep2);
+        wrap(data.narrative, 2).forEach(l => lines.push(l));
+        lines.push('');
+      }
+
+      if (data.patternList.length > 0) {
+        lines.push('DETECTED SCORE PATTERNS');
+        lines.push(sep2);
+        data.patternList.forEach(p => lines.push(`  - ${p}`));
+        lines.push('');
+      }
+
+      if (data.crossInsights.length > 0) {
+        lines.push('CROSS-DIMENSIONAL INTELLIGENCE');
+        lines.push(sep2);
+        data.crossInsights.forEach(ci => {
+          lines.push(`  [${ci.severity.toUpperCase()}] ${ci.title}`);
+          wrap(stripHTML(ci.text), 4).forEach(l => lines.push(l));
+          lines.push('');
+        });
+      }
+
+      if (data.questionGaps.length > 0) {
+        lines.push('QUESTION-LEVEL GAP ANALYSIS');
+        lines.push(sep2);
+        const grouped = {};
+        data.questionGaps.forEach(g => {
+          if (!grouped[g.dimName]) grouped[g.dimName] = [];
+          grouped[g.dimName].push(g);
+        });
+        Object.entries(grouped).forEach(([dim, gaps]) => {
+          lines.push(`  ${dim}`);
+          gaps.forEach(g => lines.push(`    - ${g.title} -- Score: ${g.score}/5`));
+          lines.push('');
+        });
+      }
+
+      lines.push(sep);
+      lines.push('  Prepared by diShine | dishine.it | Confidential');
+      lines.push(sep);
+
+      const content = lines.join('\n');
+      const filename = `diShine_Digital_Health_Report_${sanitizeFilename(data.company)}_${new Date().toISOString().slice(0, 10)}.txt`;
+      downloadBlob(content, filename, 'text/plain;charset=utf-8');
     }
 
     loadState();
