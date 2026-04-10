@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [3.1.1] - 2026-04-10
+
+### Fixed
+
+- **Hero introductory text**: Removed duplicated sentences and replaced with clear, grammar-checked copy including a disclaimer about indicative results. Updated EN, FR, and IT translations.
+- **Footer tool links**: ALIGN Framework and Prompt Workshop links now point to their respective diShine blog articles and open in a new tab.
+- **Sticky sidebar centring**: On desktop, the live maturity sidebar now dynamically positions itself so the radar chart is centred in the viewport while scrolling through the questionnaire, preventing the graph from being cut off.
+
+---
+
 ## [3.1.0] - 2026-04-10
 
 ### Added
