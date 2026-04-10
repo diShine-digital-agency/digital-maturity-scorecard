@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [3.1.0] - 2026-04-10
+
+### Added
+
+- **Red WIP translation label**: Replaced the subtle yellow banner with a bold red pill badge positioned next to the language switcher, clearly advising users to use the English version while translations are in progress. Fully responsive — repositions on mobile without overlapping other UI elements.
+- **diShine logo image in footer**: Added the official diShine brand image in the footer with a link to [dishine.it](https://dishine.it), replacing the previous inline SVG wordmark.
+- **Version display in footer**: Footer now shows "Digital Maturity Scorecard v3.1.0".
+
+### Fixed
+
+- **Help tooltip z-index**: Increased the `z-index` of information popups (?) from `1000` to `100000`, ensuring they always appear above all other elements including the language switcher and WIP banner.
+
+---
+
 ## [3.0.2] - 2026-04-10
 
 ### Fixed
