@@ -1261,13 +1261,6 @@
         padding: 5px 9px;
         font-size: 0.72rem;
       }
-      /* WIP banner: below lang switcher on mobile */
-      .wip-banner {
-        top: 82px;
-        right: 12px;
-        font-size: 0.62rem;
-        padding: 4px 10px;
-      }
       /* Hero card: full width, less spacing */
       .hero-card {
         padding: 18px;
@@ -1673,27 +1666,6 @@
     .footer-tool-link .ftl-desc { font-size: 0.74rem; color: var(--muted); line-height: 1.45; display: block; }
     .footer-explore { margin-top: 6px; font-size: 0.78rem; }
     .footer-explore a { font-weight: 600; }
-    /* ── WIP Translation Banner ─────────────────────────────── */
-    .wip-banner {
-      position: fixed;
-      top: 52px;
-      right: 130px;
-      z-index: 1001;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #e74c3c;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 600;
-      line-height: 1.3;
-      padding: 5px 14px;
-      border-radius: 999px;
-      box-shadow: 0 2px 12px rgba(231,76,60,0.45);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .wip-banner strong { font-weight: 800; }
     /* ── Footer brand block ─────────────────────────────────── */
     .footer-brand {
       display: flex;
@@ -1720,18 +1692,13 @@
     .footer-github a { font-weight: 600; }
     .footer-github p { margin: 4px 0 0; font-size: 0.76rem; color: rgba(153, 171, 200, 0.65); }
     @media print {
-      .lang-switcher, .app-footer, .wip-banner { display: none; }
+      .lang-switcher, .app-footer { display: none; }
       body { padding-top: 0; }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <!-- WIP Translation Banner -->
-  <div class="wip-banner hide-print" id="wipBanner">
-    ⚠ <strong>Translations</strong> are a work in progress
-  </div>
-
   <!-- Language Switcher -->
   <div class="lang-switcher hide-print" id="langSwitcher">
     <button class="lang-btn active" data-lang="en" type="button">EN</button>
@@ -1749,6 +1716,7 @@
           <strong>Governance</strong>, and <strong>Performance</strong>. As you answer, the scorecard builds a live radar view,
           calculates your maturity profile, and generates a concise roadmap with next steps linked to practical agency services.
         </p>
+        <p style="margin-top:0.5rem;"><strong><a href="#appFooter" data-i18n="ui.heroDetailsLink" style="color:var(--accent);text-decoration:underline;">For more details, click here</a></strong></p>
         <div class="hero-metrics">
           <div class="metric">
             <strong data-i18n="ui.metric1Title">30 evidence-based prompts</strong>
@@ -2198,6 +2166,7 @@ const TRANSLATIONS = {
     "ui.eyebrow":                   "Digital strategy diagnostic by diShine",
     "ui.title":                     "Digital Maturity Scorecard",
     "ui.heroDesc":                  "Assess your organisation across Data, AI, Experience, Governance, and Performance. As you answer, the scorecard builds a live radar view, calculates your maturity profile, and generates a concise roadmap with next steps linked to practical agency services.",
+    "ui.heroDetailsLink":           "For more details, click here",
     "ui.metric1Title":              "30 evidence-based prompts",
     "ui.metric1Desc":               "Focused on operational readiness and real pain points, not abstract opinions.",
     "ui.metric2Title":              "5-point maturity scale",
@@ -2557,6 +2526,7 @@ const TRANSLATIONS = {
     "ui.eyebrow":                   "Diagnostic de strat\u00e9gie digitale par diShine",
     "ui.title":                     "Scorecard de Maturit\u00e9 Digitale",
     "ui.heroDesc":                  "\u00c9valuez votre organisation sur cinq axes : donn\u00e9es, IA, Exp\u00e9rience, Gouvernance et Performance. Au fil de vos r\u00e9ponses, le tableau de bord construit un radar en temps r\u00e9el, calcule votre profil de maturit\u00e9 et g\u00e9n\u00e8re une feuille de route concr\u00e8te avec des actions rattach\u00e9es \u00e0 des services op\u00e9rationnels.",
+    "ui.heroDetailsLink":           "Pour plus de d\u00e9tails, cliquez ici",
     "ui.metric1Title":              "30 questions bas\u00e9es sur des donn\u00e9es concr\u00e8tes",
     "ui.metric1Desc":               "Ax\u00e9es sur la pr\u00e9paration op\u00e9rationnelle et les vrais points de friction. Pas des opinions abstraites.",
     "ui.metric2Title":              "\u00c9chelle de maturit\u00e9 \u00e0 5 niveaux",
@@ -2916,6 +2886,7 @@ const TRANSLATIONS = {
     "ui.eyebrow":                   "Diagnostica di strategia digitale di diShine",
     "ui.title":                     "Scorecard di Maturit\u00e0 Digitale",
     "ui.heroDesc":                  "Valuta la tua organizzazione su cinque assi: Dati, IA, Esperienza, Governance e Performance. Man mano che rispondi, la scorecard costruisce una vista radar in tempo reale, calcola il tuo profilo di maturit\u00e0 e genera una roadmap concisa con i prossimi passi collegati a servizi operativi concreti.",
+    "ui.heroDetailsLink":           "Per maggiori dettagli, clicca qui",
     "ui.metric1Title":              "30 domande basate su evidenze",
     "ui.metric1Desc":               "Focalizzate sulla prontezza operativa e sui punti critici reali. Non su opinioni astratte.",
     "ui.metric2Title":              "Scala di maturit\u00e0 a 5 livelli",
