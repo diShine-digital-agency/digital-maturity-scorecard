@@ -8,7 +8,7 @@ The format is inspired by **Keep a Changelog**, and this project uses a simple s
 
 ### Added
 
-- **Red WIP translation label**: Replaced the subtle yellow banner with a bold red pill badge positioned next to the language switcher, clearly advising users to use the English version while translations are in progress. Fully responsive — repositions on mobile without overlapping other UI elements.
+- **Red WIP translation label**: Replaced the subtle yellow banner with a bold red pill badge positioned next to the language switcher, informing users that translations are a work in progress. Fully responsive — repositions on mobile without overlapping other UI elements.
 - **diShine logo image in footer**: Added the official diShine brand image in the footer with a link to [dishine.it](https://dishine.it), replacing the previous inline SVG wordmark.
 - **Version display in footer**: Footer now shows "Digital Maturity Scorecard v3.1.0".
 
