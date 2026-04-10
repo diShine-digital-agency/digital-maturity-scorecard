@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://digital-map.dishine.it/sitemap.xml
+
+# diShine Digital Maturity Scorecard
+# https://dishine.it | https://kescoda.com
