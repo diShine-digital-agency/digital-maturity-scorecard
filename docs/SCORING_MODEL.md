@@ -1,6 +1,6 @@
 # Scoring Model & Analytical Engine
 
-This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.0.1**.
+This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.0.2**.
 
 For the full mathematical specification of all algorithms, formulas, and computations, see [`ALGORITHM.md`](ALGORITHM.md).
 

@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+## [3.0.2] - 2026-04-10
+
+### Fixed
+
+- **Answer labels translation**: Multiple-choice answer labels (e.g., "No inventory…", "Partial awareness…") now fully translate when switching between English, French, and Italian
+- **ROI impact estimates translation**: The "📊" second-line insight text in each dimension's feedback now translates correctly into FR/IT
+- **Roadmap box text translation**: The 90-day roadmap priority text (quick wins, next 60 days, 90-day horizon) now translates into FR/IT
+- **AI key insight models translation**: The full narrative paragraphs in Key Findings (core advantage, critical constraint) now translate into FR/IT
+- **Composite Strategic Indices translation**: Labels and descriptions for the 4 composite indices (Digital Foundation, Innovation Readiness, Operational Excellence, Customer Value) now translate
+- **Heatmap subtitle translation**: "Question-level scoring across all dimensions. Darker = higher maturity." now uses i18n and translates
+- **Pattern Diagnosis translation**: All 18 pattern labels and descriptions (All Low, Polarized, Data-AI Gap, etc.) now translate into FR/IT
+- **Cross-Dimensional Intelligence translation**: All 14 cross-dimensional insight titles and full text bodies now translate
+- **Dynamic narrative translation**: The AI-generated narrative paragraphs (allLow, allHigh, polarized, etc.) now translate with dynamic placeholders
+- **Industry and company size context translation**: Industry context and organisation size context paragraphs now translate with localised names
+- **Adjacent gap text translation**: Foundation gap warnings now translate into FR/IT
+- **Question-Level Gap Analysis**: Uses translated question titles and now shows the **full question text** instead of truncating with "…"
+- **Tooltip hidden by score ring**: Help information popup (?) now appears above the maturity score ring (z-index increased to 1000)
+- **Tooltip flicker on first click**: Fixed race condition between mouseenter and click events that caused the tooltip to open and immediately close on first interaction
+- **Maturity fingerprint and risk score labels**: Now translate in the dynamic narrative section
+
+### Added
+
+- **Heatmap clickable hint**: Added translated explanatory text below the heatmap: "Click any scored cell to jump directly to that question in the assessment above." (EN/FR/IT)
+- **Favicon**: Added inline SVG favicon matching the diShine brand mark
+- **Extended i18n data**: Added ~100KB of structured translation data covering 30×5 answer labels, 5×5 insight models, 5×3 roadmap texts, 18 pattern diagnoses, 14 cross-dimensional insights, 9 narrative templates, 5×4 ROI estimates, 11 industry contexts, 6 company size contexts, 4 composite index labels, and adjacent gap templates — all in French and Italian
+- **i18n helper functions**: Added 14 helper functions (getInsightModel, getRoadmapText, getPatternLabel, getCrossDimTitle, getNarrativeText, getLocalRoi, getLocalIndustry, getLocalSize, etc.) for clean, maintainable translation lookups
+
+---
+
 ## [3.0.1] - 2026-04-09
 
 ### Changed
