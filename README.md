@@ -1,4 +1,4 @@
-# 🌟 Digital Maturity Scorecard: pattern-based maturity intelligence & pre-assessment
+# 📊 Digital Maturity Scorecard: pattern-based maturity intelligence & pre-assessment
 
 <div align="center">
   
@@ -336,3 +336,14 @@ This project is intentionally framework-free so that it remains easy to audit, f
 ## Contact
 
 For digital strategy, maturity diagnostics, analytics architecture, AI enablement, or custom advisory tooling, visit [diShine](https://dishine.it).
+
+---
+
+## About diShine
+
+[diShine](https://dishine.it) is a creative tech agency based in Milan. We create digital strategies, design process and build tools for clients, help businesses with AI strategy and MarTech architecture, and open-source some things we wish existed.
+
+- Web: [dishine.it](https://dishine.it)
+- GitHub: [github.com/diShine-digital-agency](https://github.com/diShine-digital-agency)
+- Contact: kevin@dishine.it
+
