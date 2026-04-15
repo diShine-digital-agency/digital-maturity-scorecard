@@ -17,6 +17,8 @@
 
 **digital-maturity-scorecard** is a single-file interactive assessment that helps organisations evaluate their digital maturity across **Data**, **AI**, **Experience**, **Governance**, and **Performance**. It is designed for CMOs, CDOs, digital transformation leads, consultants, and agency prospects who need a fast but credible view of capability gaps and next-step priorities.
 
+### Try the scorecard live: click [here](https://digital-map.dishine.it/).
+
 Built by [diShine Digital Agency](https://dishine.it). Read more on the [diShine blog](https://dishine.it/blog/digital-maturity-assessment-scorecard-tool/).
 
 </div>
