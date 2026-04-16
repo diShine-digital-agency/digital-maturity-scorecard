@@ -42,23 +42,23 @@ The tool combines a structured thirty-question scorecard, a live radar chart wit
 | Repository purpose | Interactive digital maturity assessment with AI-powered analytical engine for agencies, consultants, and transformation teams |
 | Stack | Single-file HTML, CSS, and vanilla JavaScript |
 | Dependencies | None (jsPDF for PDF export) |
-| Languages | English, French, Italian — full tri-lingual interface with native-quality translations |
+| Languages | English, French, Italian: full tri-lingual interface with native-quality translations |
 | Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, downloadable reports (PDF, Markdown, plain text) |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
-| AI model | On-device intelligent engine — no API, no installation, no data leaves the browser |
+| AI model | On-device intelligent engine: no API, no installation, no data leaves the browser |
 | Primary value | Turns a discovery conversation into a structured diagnostic with genuinely unique, contextual insights |
 
 ## Why this tool creates real value
 
 Many maturity assessments stop at scoring. This repository is intentionally built to go further. It translates raw answers into a practical advisory output that can be used in discovery calls, internal planning workshops, client diagnostics, and post-audit recommendations.
 
-The intelligent analytical engine detects patterns across all five dimensions, identifies cross-dimensional constraints (e.g., how data gaps limit AI potential, or how governance bottlenecks block scaling), and generates genuinely unique narratives for every possible score profile. This means no two assessments produce the same generic output — the insights are always specific to the organisation's actual profile.
+The intelligent analytical engine detects patterns across all five dimensions, identifies cross-dimensional constraints (e.g., how data gaps limit AI potential, or how governance bottlenecks block scaling), and generates genuinely unique narratives for every possible score profile. This means no two assessments produce the same generic output, the insights are always specific to the organisation's actual profile.
 
 | Value area | What the tool delivers |
 | --- | --- |
 | Diagnostic clarity | Exposes where digital capability is uneven, not just where it is weak overall |
 | Pattern intelligence | Detects 19 distinct score patterns and explains what they mean strategically |
-| Cross-dimensional analysis | Identifies how dimensions interact — data limits AI, governance limits scaling, performance limits proof |
+| Cross-dimensional analysis | Identifies how dimensions interact: data limits AI, governance limits scaling, performance limits proof |
 | Composite indices | Four strategic indices (Digital Foundation, Innovation Readiness, Operational Excellence, Customer Value) for cross-cutting analysis |
 | Digital risk scoring | 0-100 risk assessment with factor breakdown showing governance, data, variance, and floor risks |
 | AI-powered analysis | On-device intelligent engine provides unique, contextual insights with zero external dependencies |
@@ -125,14 +125,14 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Five-tier insight model | Each dimension has five insight tiers (critical/low/mid/advancing/high) with unique, actionable guidance |
 | Pattern detection engine | Detects 19 distinct score patterns including uniform, polarized, outlier, and cross-dimensional relationships |
 | Cross-dimensional intelligence | Analyses how dimensions interact and constrain each other with severity-rated insights and dependency-graph-based gap detection |
-| AI-powered strategic analysis | On-device analytical engine providing pattern diagnosis, cross-dimensional intelligence, question-level gaps, priority matrix, and what-if scenarios — no API, no installation |
+| AI-powered strategic analysis | On-device analytical engine providing pattern diagnosis, cross-dimensional intelligence, question-level gaps, priority matrix, and what-if scenarios. No API, no installation |
 | Per-question contextual labels | 150 unique answer descriptions (30 questions × 5 levels) providing question-specific interpretation |
 | Internationalisation (i18n) | Full tri-lingual support (EN/FR/IT) with language switcher, 250+ translation keys per language, and language preference persistence |
 | Help tooltips | Contextual (?) icons on insight sections, Digital Health Report headers, and AI-Powered Strategic Analysis cards explaining what the metric is, why it matters, and how it is calculated |
 | Incomplete assessment warnings | Smart banners in insights and download sections when the assessment is partially complete (1–99%) |
 | Industry and company size context | 11 industry sectors and 6 company sizes with contextual narrative adaptation |
 | Per-dimension micro-feedback | Real-time status bar showing tier, standard deviation, confidence level, and ROI improvement potential |
-| Capability heatmap | Question-level colour-coded grid across all dimensions with legend — clickable cells navigate to the corresponding question |
+| Capability heatmap | Question-level colour-coded grid across all dimensions with legend. Clickable cells navigate to the corresponding question |
 | ROI impact estimation | Per-dimension, per-tier-transition business value estimates |
 | Benchmark overlay | Industry-average reference polygon on the radar chart for visual comparison |
 | Question-level gap analysis | Surfaces the specific weakest capabilities within each dimension, not just dimension averages |
@@ -140,10 +140,10 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | What-if scenario modelling | Shows the impact of improving the weakest dimension by 1 point on overall score and maturity stage |
 | Tailored report | Generates key findings, strategic implications, and service recommendations |
 | Ninety-day roadmap | Builds prioritised actions from the lowest-scoring dimensions |
-| Footer | Credits (diShine, Kevin Escoda), disclaimer, and MIT license explanation — fully translated |
+| Footer | Credits (diShine, Kevin Escoda), disclaimer, and MIT license explanation, fully translated |
 | Empty initial state | Answers start empty on first visit with 0% completion and placeholder insight text |
 | Local persistence | Saves progress and language preference in browser storage so the user can resume later |
-| PDF export | Generates a formatted PDF report built directly from assessment data via jsPDF — no DOM capture, guaranteed non-blank output |
+| PDF export | Generates a formatted PDF report built directly from assessment data via jsPDF (no DOM capture, guaranteed non-blank output) |
 | Markdown export | Downloads the complete report as a `.md` file for docs, wikis, and repositories |
 | Plain text export | Downloads the complete report as a `.txt` file for emails and notes |
 | Print-ready output | Optimised print CSS for browser-based PDF generation |
@@ -153,14 +153,14 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 
 In a real discovery or consulting context, the scorecard helps convert a broad digital conversation into a more structured assessment. As the user scores each prompt, the tool identifies where maturity is concentrated, where execution is blocked, and where the greatest leverage for improvement is likely to be found.
 
-The live radar chart makes imbalance immediately visible. The intelligent analytical engine detects score patterns (e.g., uniform low scores vs polarized scores vs single bottlenecks), analyses cross-dimensional relationships (e.g., how data gaps constrain AI potential), and generates genuinely unique narratives for every score profile. The AI-powered strategic analysis section provides pattern diagnosis, cross-dimensional intelligence, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with zero external dependencies.
+The live radar chart makes imbalance immediately visible. The intelligent analytical engine detects score patterns (e.g., uniform low scores vs polarized scores vs single bottlenecks), analyses cross-dimensional relationships (e.g., how data gaps constrain AI potential), and generates genuinely unique narratives for every score profile. The AI-powered strategic analysis section provides pattern diagnosis, cross-dimensional intelligence, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling, all running entirely in the browser with zero external dependencies.
 
 The report layer then interprets the scores through a maturity-stage narrative and produces downloadable reports in three formats (PDF, Markdown, and plain text) that can support proposals, workshops, strategic reviews, or internal planning sessions.
 
 | Practical output | Advisory use |
 | --- | --- |
 | Pattern diagnosis | Shows whether the organisation has uniform gaps, polarized strengths, bottleneck dimensions, or specific constraint patterns |
-| Cross-dimensional intelligence | Identifies how dimensions interact — data limits AI, governance blocks scaling, performance limits proof of value |
+| Cross-dimensional intelligence | Identifies how dimensions interact: data limits AI, governance blocks scaling, performance limits proof of value |
 | Question-level gap analysis | Surfaces the specific capabilities that are weakest within each dimension |
 | Strongest dimension | Shows where the organisation already has capability to build on |
 | Weakest dimension | Identifies the most likely operational bottleneck |
@@ -188,13 +188,13 @@ This project is intentionally minimal.
 
 ## How to use the scorecard
 
-Start by selecting your preferred language using the **EN/FR/IT switcher** in the top-right corner — the entire interface updates instantly. Then enter the organisation name, the primary transformation ambition, your industry sector, and company size. Complete the thirty assessment prompts using the five-level maturity scale — each question shows **contextual answer descriptions** specific to that capability area, fully translated in all three languages. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
+Start by selecting your preferred language using the **EN/FR/IT switcher** in the top-right corner, the entire interface updates instantly. Then enter the organisation name, the primary transformation ambition, your industry sector, and company size. Complete the thirty assessment prompts using the five-level maturity scale, each question shows **contextual answer descriptions** specific to that capability area, fully translated in all three languages. The tool will calculate the maturity profile automatically and refresh the right-hand summary in real time.
 
 As you answer questions, each dimension shows **real-time micro-feedback** with a colour-coded tier status, standard deviation, confidence level, and ROI improvement potential. The sidebar displays **Maturity DNA**, **Digital Risk Score**, and **Composite Strategic Indices** updated live, along with a **Download Report** button for quick access to the export section. The **Dynamic Assessment Insights** section updates with real-time guidance including overall maturity snapshot, key findings, composite indices, risk assessment, a capability heatmap, and gap analysis. Each insight section title includes a **help tooltip** (?) that explains what the metric means and how it is calculated. If the assessment is partially complete, **warning banners** appear in the insights and download sections encouraging completion before generating reports.
 
-The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis (19 patterns), cross-dimensional intelligence with dependency-graph analysis, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling — all running entirely in the browser with no external dependencies.
+The **AI-Powered Strategic Analysis** section provides pattern-based diagnosis (19 patterns), cross-dimensional intelligence with dependency-graph analysis, question-level gap analysis, a strategic priority matrix, and what-if scenario modelling, all running entirely in the browser with no external dependencies.
 
-When the assessment is complete, review the live radar chart (with benchmark overlay), the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To download a shareable output, scroll to the **Download Your Report** section at the bottom and choose your preferred format — **PDF** for print-ready sharing, **Markdown** for documentation and wikis, or **plain text** for emails and notes.
+When the assessment is complete, review the live radar chart (with benchmark overlay), the overall maturity stage, the strongest and weakest dimensions, and the recommended service areas. To download a shareable output, scroll to the **Download Your Report** section at the bottom and choose your preferred format (*PDF** for print-ready sharing, **Markdown** for documentation and wikis, or **plain text** for emails and notes).
 
 | Step | User action | Tool output |
 | --- | --- | --- |
