@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by **Keep a Changelog**, and this project uses a simple semantic versioning approach.
 
+> **Note:** As of v3.2.0, active development runs on the hosted platform at [digital-map.dishine.it](https://digital-map.dishine.it). Features requiring backend services (AI report commentary, email delivery) are available exclusively there. This repository continues to reflect the open-source assessment framework.
+
+---
+
+## [3.2.0] - 2026-04-22
+
+### Added
+
+**Report Sharing — "Send report & email me a copy"** *(hosted platform only)*
+
+An optional report-sharing flow has been added to the report page on [digital-map.dishine.it](https://digital-map.dishine.it). This feature is separate from the existing local download options (PDF, Markdown, plain text), which remain free and require no contact information.
+
+**How the flow works:**
+
+- On the report page, a primary CTA button **"Send report & email me a copy"** opens a modal form.
+- The user fills in: **Full name** (required), **Work email** (required), **Phone** (required), and an optional free-text **message**.
+- A mandatory **consent checkbox** must be checked before submission: *"I agree to be contacted by diShine about my results."* The form cannot be submitted without explicit consent.
+- On submit, the full AI-enriched report — including pattern diagnosis, cross-dimensional intelligence, and all analytical sections — is packaged server-side and emailed to both the user and the diShine team.
+- diShine may follow up to discuss the results with the user.
+- If the consent box is not checked, no data is transmitted. Downloads remain available without any contact information.
+
+**Backend:** The submission triggers a Supabase edge function (`generate-ai-commentary`) that packages the assessment data with server-side AI-generated commentary before sending.
+
+### Changed
+
+- **Canonical URL**: [digital-map.dishine.it](https://digital-map.dishine.it) is now the official hosted address for the tool. All documentation updated accordingly.
+- **README**: Updated to clearly distinguish between the open-source local version and the hosted platform, with prominent notice that active development runs on the hosted platform.
+
+---
+
 ## [3.1.1] - 2026-04-10
 
 ### Fixed

@@ -6,10 +6,14 @@
 
 ***Transform. Automate. Shine!***
 
-[![Website](https://img.shields.io/badge/Website-dishine.it-blue)](https://dishine.it/blog/digital-maturity-assessment-scorecard-tool/)
+[![Live Tool](https://img.shields.io/badge/Live%20Tool-digital--map.dishine.it-blue)](https://digital-map.dishine.it/)
+[![Blog Article](https://img.shields.io/badge/Blog-dishine.it-lightblue)](https://dishine.it/blog/digital-maturity-assessment-scorecard-tool/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-diShine-blue)](https://linkedin.com/company/100682596)
 [![Location](https://img.shields.io/badge/Location-Milan%2C%20Italy-green)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+
+> **🌐 The canonical, always-up-to-date version of this tool is live at [digital-map.dishine.it](https://digital-map.dishine.it/).**  
+> This repository is the open-source reference codebase. Active development and the latest features — including AI-powered report generation and email delivery — are available exclusively on the hosted platform. The repo is kept for transparency, forking, and self-hosting.
 
 <p align="center">
   <img src="docs/images/digital_maturity_03_maturity_profile_scene.webp" alt="Digital Maturity" width="80%">
@@ -40,13 +44,16 @@ The tool combines a structured thirty-question scorecard, a live radar chart wit
 | Attribute | Details |
 | --- | --- |
 | Repository purpose | Interactive digital maturity assessment with AI-powered analytical engine for agencies, consultants, and transformation teams |
-| Stack | Single-file HTML, CSS, and vanilla JavaScript |
-| Dependencies | None (jsPDF for PDF export) |
+| Canonical live site | [digital-map.dishine.it](https://digital-map.dishine.it/) — hosted, always current, full feature set |
+| Stack (open-source) | Single-file HTML, CSS, and vanilla JavaScript |
+| Stack (hosted) | React + Vite + TypeScript, Supabase backend, AI-powered report generation |
+| Dependencies | None for local use (jsPDF for PDF export); hosted version uses Supabase edge functions |
 | Languages | English, French, Italian: full tri-lingual interface with native-quality translations |
-| Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, downloadable reports (PDF, Markdown, plain text) |
+| Output | Live maturity profile, radar chart with benchmark overlay, composite indices, digital risk score, heatmap, pattern-based diagnosis, cross-dimensional intelligence, AI-powered strategic analysis, per-dimension gap analysis, tailored recommendations, downloadable reports (PDF, Markdown, plain text), optional email delivery of full report |
 | Assessment dimensions | Data, AI, Experience, Governance, Performance |
-| AI model | On-device intelligent engine: no API, no installation, no data leaves the browser |
+| AI model | On-device intelligent engine: no API, no installation, no data leaves the browser (local); server-side AI commentary generation available on hosted version |
 | Primary value | Turns a discovery conversation into a structured diagnostic with genuinely unique, contextual insights |
+| Report sharing | Optional: submit your results to diShine and receive a copy of the full AI-enriched report by email |
 
 ## Why this tool creates real value
 
@@ -86,7 +93,9 @@ The scorecard has been designed for organisations that need a pragmatic way to u
 
 ## Quick start
 
-Want to try the scorecard live, without installation? [Click here](https://digital-map.dishine.it)
+**Easiest option — no setup required:** use the hosted tool at [digital-map.dishine.it](https://digital-map.dishine.it). It runs the latest version with all features enabled, including AI-powered report generation and optional email delivery of your results.
+
+If you want to run or customise the open-source version locally, the steps below apply. Note that the local version does not include the hosted AI commentary layer or the email delivery feature.
 
 Because the project is dependency-free, adoption is immediate. You can open it locally, host it on any static platform, or embed it into a wider discovery workflow.
 
@@ -148,6 +157,7 @@ The scorecard is designed to feel polished while remaining easy to deploy and ma
 | Plain text export | Downloads the complete report as a `.txt` file for emails and notes |
 | Print-ready output | Optimised print CSS for browser-based PDF generation |
 | Responsive interface | Works across desktop and mobile screen sizes |
+| Report sharing (hosted) | Optional "Send to diShine" flow on [digital-map.dishine.it](https://digital-map.dishine.it/): enter name, work email, and phone, check the consent box, and the full AI-enriched report is delivered to both your inbox and diShine. The diShine team may follow up to discuss your results. All downloads (PDF, Markdown, plain text) remain available without providing any contact information. |
 
 ## What the tool does in practice
 
@@ -205,7 +215,8 @@ When the assessment is complete, review the live radar chart (with benchmark ove
 | 5 | Select company size | Adds size-appropriate interpretation of results |
 | 6 | Score assessment prompts | Updates dimension averages, statistical measures, composite indices, risk score, and dynamic insights in real time |
 | 7 | Review live insights | Identifies patterns, cross-dimensional constraints, risk factors, and dimension-specific guidance with benchmark comparison. Use (?) tooltips for metric explanations |
-| 8 | Download report | Exports the complete assessment as PDF, Markdown, or plain text |
+| 8 | Download report | Exports the complete assessment as PDF, Markdown, or plain text — no contact information required |
+| 9 | Send report to diShine *(optional, hosted version only)* | Click **"Send report & email me a copy"** on the report page. A modal opens asking for your name, work email, phone number, and an optional message. Check the consent box ("I agree to be contacted by diShine about my results") and submit. The full AI-enriched report is emailed to you and shared with diShine, who may follow up. Your contact details are only transmitted if you check the consent box and click submit. |
 
 ## Assessment dimensions
 
@@ -329,9 +340,43 @@ Framework by [diShine](https://dishine.it) | Kevin Escoda. Used internally for c
 
 This repository is released under the **MIT License**. See the `LICENSE` file for full terms. A brief explanation of the MIT license is also displayed in the application footer.
 
+## Report sharing (hosted version)
+
+The hosted tool at [digital-map.dishine.it](https://digital-map.dishine.it) includes an optional report-sharing step that is not present in the open-source single-file version.
+
+### How it works
+
+After completing the assessment, the report page offers three standard download buttons (PDF, Markdown, plain text) that require no account and no contact details.
+
+A separate **"Send report & email me a copy"** button opens a modal with the following fields:
+
+| Field | Required | Purpose |
+| --- | --- | --- |
+| Full name | Yes | Identifies who is sharing the report |
+| Work email | Yes | Where your copy of the report is delivered |
+| Phone | Yes | Allows diShine to reach you if you wish to discuss results |
+| Message | No | Optional context or question for the diShine team |
+| Consent checkbox | Yes (must be checked to submit) | "I agree to be contacted by diShine about my results" |
+
+### What happens on submission
+
+1. The full report — including AI-generated commentary and all analytical sections — is packaged server-side.
+2. A copy is emailed to the address you provided.
+3. The report and your contact details are shared with the diShine team, who may follow up to discuss your results.
+
+### Privacy
+
+- Downloads (PDF, Markdown, plain text) are fully local and transmit nothing.
+- The "Send to diShine" flow only transmits your contact details if you **check the consent box and click submit**.
+- If the consent box is not checked, the form cannot be submitted. No data is sent to diShine without explicit opt-in.
+
+---
+
 ## Maintainer notes
 
-This project is intentionally framework-free so that it remains easy to audit, fork, and customise for client engagements. Reports are downloadable in three formats (PDF, Markdown, plain text) directly from the browser. If you want a future version with CRM capture, multi-user analytics, or backend persistence, that can be added as a later iteration.
+The open-source version in this repository is intentionally framework-free so that it remains easy to audit, fork, and customise for client engagements. Reports are downloadable in three formats (PDF, Markdown, plain text) directly from the browser.
+
+**Active development** — including the React/Vite rewrite, Supabase backend, AI report commentary, and email delivery — happens on the hosted platform at [digital-map.dishine.it](https://digital-map.dishine.it). This repository reflects the underlying assessment framework and serves as the open-source reference. If you need CRM capture, multi-user analytics, or backend persistence for your own deployment, the hosted platform is the faster path.
 
 ## Contact
 

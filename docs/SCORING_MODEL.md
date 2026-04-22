@@ -1,6 +1,8 @@
 # Scoring Model & Analytical Engine
 
-This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.0.2**.
+> **Live tool:** [digital-map.dishine.it](https://digital-map.dishine.it) — the canonical hosted version with full feature set, including AI-powered report commentary and optional email delivery.
+
+This document explains the complete scoring model, analytical engine, and insight generation mechanisms used in the **Digital Maturity Scorecard v3.2.0**.
 
 For the full mathematical specification of all algorithms, formulas, and computations, see [`ALGORITHM.md`](ALGORITHM.md).
 
@@ -473,3 +475,33 @@ Warnings are hidden at 0% to avoid alarming users before they start, and hidden 
 - Full tri-lingual support (English, French, Italian) with 250+ translation keys per language, covering all UI text, questions, answer labels, insight content, tooltips, and footer
 - Help tooltips on insight section titles, Digital Health Report headers, and AI-Powered Strategic Analysis cards explain what the metric is, why it matters, and how it is calculated
 - Completion-based warnings prevent premature interpretation of partial assessment results
+
+---
+
+## Report sharing (hosted version)
+
+The hosted tool at [digital-map.dishine.it](https://digital-map.dishine.it) includes an optional **"Send report & email me a copy"** feature that extends the local export model with server-side AI commentary and email delivery.
+
+### Feature overview
+
+| Property | Detail |
+| --- | --- |
+| Availability | Hosted platform only ([digital-map.dishine.it](https://digital-map.dishine.it)) |
+| Trigger | User clicks "Send report & email me a copy" on the report page |
+| Required fields | Full name, work email, phone |
+| Optional field | Free-text message |
+| Consent | Mandatory checkbox — submission blocked if unchecked |
+| Backend | Supabase edge function: `generate-ai-commentary` |
+| Output | Full AI-enriched report emailed to user + shared with diShine |
+| Downloads | PDF, Markdown, plain text remain available without contact info |
+
+### Consent and privacy model
+
+The sharing flow is entirely opt-in:
+
+1. **No action required to download** — all three export formats (PDF, Markdown, plain text) work without providing any personal information.
+2. **Explicit consent required to share** — the consent checkbox ("I agree to be contacted by diShine about my results") must be checked before the form can be submitted.
+3. **No transmission without consent** — if the checkbox is unchecked, the submit button is blocked and no data leaves the browser.
+4. **diShine follow-up** — once submitted with consent, the diShine team receives the report and contact details and may reach out to discuss results.
+
+For the full technical pipeline, see [`ALGORITHM.md` — Report sharing pipeline](ALGORITHM.md#report-sharing-pipeline-hosted-version).

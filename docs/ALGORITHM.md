@@ -1,6 +1,8 @@
 # Algorithm & Mathematical Reference
 
-This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v3.0.2**.
+> **Live tool:** [digital-map.dishine.it](https://digital-map.dishine.it) — the canonical hosted version with full feature set, including AI-powered report commentary and email delivery.
+
+This document provides a comprehensive, technical explanation of every mathematical operation, scoring formula, statistical method, and analytical algorithm used in the **Digital Maturity Scorecard v3.2.0**.
 
 For a higher-level overview of how these algorithms integrate into the scoring model, insight tiers, and report generation, see [`SCORING_MODEL.md`](SCORING_MODEL.md). For usage instructions and feature overview, see the main [`README.md`](../README.md).
 
@@ -589,6 +591,42 @@ Both warnings are hidden at 0% (fresh start — no misleading alerts on an empty
 
 ---
 
+## Report sharing pipeline (hosted version)
+
+This section documents the optional report-sharing flow available on [digital-map.dishine.it](https://digital-map.dishine.it). This feature is not part of the open-source single-file version.
+
+### Trigger condition
+
+The report-sharing pipeline is initiated when the user completes the "Send report & email me a copy" form on the report page. The form requires:
+
+1. Full name (string, required)
+2. Work email (email, required)
+3. Phone number (tel, required)
+4. Message (string, optional)
+5. Consent checkbox (boolean, must be `true` — form submission is blocked if `false`)
+
+### Pipeline steps
+
+```
+1. User submits form with valid fields and consent = true
+2. Frontend calls Supabase edge function: generate-ai-commentary
+3. Edge function receives: assessment state + contact details
+4. Server-side AI model generates enhanced commentary layer over the report data
+5. Full report (scores + all analytical sections + AI commentary) is packaged
+6. Email sent to: user's work email address (copy of full report)
+7. Email sent to: diShine (full report + contact details for follow-up)
+8. Success confirmation shown to user: "Report sent. A copy is on its way to your inbox."
+```
+
+### Privacy guarantees
+
+- All three download buttons (PDF, Markdown, plain text) operate **entirely client-side** and transmit no data.
+- The `generate-ai-commentary` edge function is only called when the user explicitly submits the form with consent checked.
+- Without consent (`checkbox = false`), the submit button is blocked and no network request is made.
+- Contact details (name, email, phone) are transmitted only as part of the edge function payload on explicit submission.
+
+---
+
 ## Technical specifications
 
 | Property | Value |
@@ -614,4 +652,4 @@ Both warnings are hidden at 0% (fresh start — no misleading alerts on an empty
 
 ---
 
-*This document is part of the Digital Maturity Scorecard v3.0.2 by [diShine](https://dishine.it).*
+*This document is part of the Digital Maturity Scorecard v3.2.0 by [diShine](https://dishine.it). Live tool: [digital-map.dishine.it](https://digital-map.dishine.it).*
