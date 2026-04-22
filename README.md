@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
 
 > **🌐 The canonical, always-up-to-date version of this tool is live at [digital-map.dishine.it](https://digital-map.dishine.it/).**  
-> This repository is the open-source reference codebase. Active development and the latest features — including AI-powered report generation and email delivery — are available exclusively on the hosted platform. The repo is kept for transparency, forking, and self-hosting.
+> This repository is the open-source reference codebase. Active development and the latest features (including AI-powered report generation and email delivery) are available exclusively on the hosted platform. The repo is kept for transparency, forking, and self-hosting.
 
 <p align="center">
   <img src="docs/images/digital_maturity_03_maturity_profile_scene.webp" alt="Digital Maturity" width="80%">
